@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cmu_mobile_app/models/user_model.dart';
+import 'package:cmu_mobile_app/pages/home_page.dart';
 import 'package:cmu_mobile_app/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/widgets/avatar/custom_avatar.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
@@ -19,8 +20,15 @@ class ApprovePage extends StatelessWidget {
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)), //this right here
-            child: SizedBox(
+            child: Container(
               height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(
+                  width: 1,
+                  color: const Color(0xffFF6600),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
@@ -47,7 +55,12 @@ class ApprovePage extends StatelessWidget {
         },
       );
       Timer(const Duration(seconds: 3), () {
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
       });
     }
 

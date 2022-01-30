@@ -20,10 +20,19 @@ class _EditPersonnelPageState extends State<EditPersonnelPage> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          clipBehavior: Clip.hardEdge,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0)), //this right here
-          child: SizedBox(
+            borderRadius: BorderRadius.circular(20.0),
+          ), //this right here
+          child: Container(
             height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                width: 1,
+                color: const Color(0xffFF6600),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(

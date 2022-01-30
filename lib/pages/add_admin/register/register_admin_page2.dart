@@ -20,8 +20,15 @@ class _RegisterAdminPage2State extends State<RegisterAdminPage2> {
         return Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0)), //this right here
-          child: SizedBox(
+          child: Container(
             height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                width: 1,
+                color: const Color(0xffFF6600),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
