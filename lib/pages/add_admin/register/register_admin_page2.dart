@@ -95,7 +95,7 @@ class _RegisterAdminPage2State extends State<RegisterAdminPage2> {
                     ),
                     _textfield(
                       context: context,
-                      title: 'รหัส',
+                      title: 'รหัสผ่าน',
                       prefix: Icons.lock,
                       suffix: Icons.remove_red_eye,
                     ),
