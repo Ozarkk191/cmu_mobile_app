@@ -9,9 +9,12 @@ import 'package:flutter_radio_group/flutter_radio_group.dart';
 class QusetionPage extends StatefulWidget {
   final String groupName;
   final String quizType;
-  const QusetionPage(
-      {Key? key, required this.groupName, required this.quizType})
-      : super(key: key);
+
+  const QusetionPage({
+    Key? key,
+    required this.groupName,
+    required this.quizType,
+  }) : super(key: key);
 
   @override
   _QusetionPageState createState() => _QusetionPageState();
@@ -22,11 +25,11 @@ class _QusetionPageState extends State<QusetionPage> {
 
   void _checkQuiz() {
     switch (widget.quizType) {
-      case "ความรู้เกี่ยวกับกฏหมายควบคุมเครื่องดื่มแอลกอฮอล์":
-        _list = lowQuizList;
-        break;
       case "ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์":
         _list = alcoholQuizList;
+        break;
+      case "ความรู้เกี่ยวกับกฏหมายควบคุมเครื่องดื่มแอลกอฮอล์":
+        _list = lowQuizList;
         break;
       case "ความรู้เกี่ยวกับพัฒนาการของวัยรุ่น":
         _list = teenQuizList;
@@ -114,18 +117,18 @@ class _QusetionPageState extends State<QusetionPage> {
                 ),
                 MainButton(
                   ontab: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const VideoPlayPage(),
-                      ),
-                    );
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>  VideoPlayPage(),
+                    //   ),
+                    // );
                   },
                   borderRadius: 50,
-                  title: 'ถัดไป',
+                  title: 'ส่งคำตอบ',
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 80,
                 ),
               ],
             ),

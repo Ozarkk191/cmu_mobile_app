@@ -1,4 +1,5 @@
-import 'package:cmu_mobile_app/pages/quiz_and_assessment/cover_page.dart';
+import 'package:cmu_mobile_app/pages/quiz_and_assessment/time_line_activity.dart';
+import 'package:cmu_mobile_app/pages/register_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/widgets/textfields/main_textfield.dart';
@@ -12,67 +13,101 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  void _check() {
+    if (_username.text != "" && _password.text != "") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TimelineActivity(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _username.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: MainLayout(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          width: _size.width,
-          height: _size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 80, 0, 40),
-                width: _size.width * 0.3,
-                height: _size.width * 0.3,
-                child: Image.asset(
-                  "assets/images/app_icon.png",
-                  fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            width: _size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 80, 0, 40),
+                  width: _size.width * 0.3,
+                  height: _size.width * 0.3,
+                  child: Image.asset(
+                    "assets/images/app_icon.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              _textfield(
-                context: context,
-                title: 'ชื่อ / อีเมล',
-                prefix: Icons.person,
-              ),
-              _textfield(
-                context: context,
-                title: 'รหัสผ่าน',
-                prefix: Icons.lock,
-                suffix: Icons.remove_red_eye,
-              ),
-              SizedBox(width: _size.width, child: const Text('ลืมรหัสผ่าน')),
-              const SizedBox(
-                height: 50,
-              ),
-              MainButton(
-                ontab: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CoverPage(),
-                    ),
-                  );
-                },
-                width: _size.width * 0.6,
-                title: 'เข้าสู่ระบบ',
-                borderRadius: 50,
-              ),
-            ],
+                _textfield(
+                  context: context,
+                  title: 'ชื่อ / อีเมล',
+                  prefix: Icons.person,
+                  controller: _username,
+                ),
+                _textfield(
+                  context: context,
+                  title: 'รหัสผ่าน',
+                  prefix: Icons.lock,
+                  suffix: Icons.remove_red_eye,
+                  controller: _password,
+                  obscureText: true,
+                ),
+                SizedBox(width: _size.width, child: const Text('ลืมรหัสผ่าน')),
+                const SizedBox(
+                  height: 50,
+                ),
+                MainButton(
+                  ontab: _check,
+                  width: _size.width * 0.6,
+                  title: 'เข้าสู่ระบบ',
+                  borderRadius: 50,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterPage(),
+                        ),
+                      );
+                    },
+                    child: const Text('สมัครสมาชิก')),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Column _textfield(
-      {required BuildContext context,
-      required String title,
-      IconData? prefix,
-      IconData? suffix}) {
+  Column _textfield({
+    required BuildContext context,
+    required String title,
+    TextEditingController? controller,
+    IconData? prefix,
+    IconData? suffix,
+    bool obscureText = false,
+  }) {
     return Column(
       children: [
         SizedBox(
@@ -83,6 +118,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         MainTextField(
+          obscureText: obscureText,
+          controller: controller,
           prefixIcon: Icon(prefix),
           suffixIcon: Icon(suffix),
         ),

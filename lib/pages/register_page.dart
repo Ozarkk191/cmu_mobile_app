@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cmu_mobile_app/pages/quiz_and_assessment/cover_page.dart';
 import 'package:cmu_mobile_app/pages/quiz_and_assessment/quiz/question_page.dart';
+import 'package:cmu_mobile_app/pages/quiz_and_assessment/time_line_activity.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,12 @@ class _RegisterPageState extends State<RegisterPage> {
     "พระสงฆ์"
   ];
   var _indexHorizontal = 0;
+
+  void _check() {
+    if (_username.text != "" && _password.text != "") {
+      _showDialog(_indexHorizontal);
+    }
+  }
 
   void _showDialog(int index) {
     showDialog(
@@ -82,12 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => QusetionPage(
-            groupName: _listHorizontal[index],
-            quizType: 'ความรู้เกี่ยวกับพัฒนาการของวัยรุ่น',
-          ),
-        ),
+        MaterialPageRoute(builder: (context) => const TimelineActivity()),
       );
     });
   }
@@ -121,7 +124,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 _field(title: 'ชื่อเข้าใช้งาน', controller: _username),
-                _field(title: 'รหัสผ่าน', controller: _password),
+                _field(
+                  title: 'รหัสผ่าน',
+                  controller: _password,
+                  obscureText: true,
+                ),
                 _field(title: 'บทบาท', titleOnly: true),
                 FlutterRadioGroup(
                   titles: _listHorizontal,
@@ -143,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 MainButton(
                   ontab: () {
-                    _showDialog(_indexHorizontal);
+                    _check();
                   },
                   borderRadius: 50,
                   title: 'สมัคร',
@@ -156,10 +163,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  SizedBox _field(
-      {required String title,
-      TextEditingController? controller,
-      bool titleOnly = false}) {
+  SizedBox _field({
+    required String title,
+    TextEditingController? controller,
+    bool titleOnly = false,
+    bool obscureText = false,
+  }) {
     return SizedBox(
       height: 40,
       child: Row(
@@ -174,6 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Visibility(
               visible: !titleOnly,
               child: TextField(
+                obscureText: obscureText,
                 controller: controller,
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),

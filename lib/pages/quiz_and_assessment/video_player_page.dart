@@ -1,9 +1,11 @@
+import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayPage extends StatefulWidget {
-  const VideoPlayPage({Key? key}) : super(key: key);
+  const VideoPlayPage({Key? key, required this.link}) : super(key: key);
+  final String link;
 
   @override
   _VideoPlayPageState createState() => _VideoPlayPageState();
@@ -14,10 +16,10 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.asset('assets/activity_1_1.mp4')
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    _controller = VideoPlayerController.asset(widget.link)
+      ..addListener(() => setState(() {}))
+      ..setLooping(true)
+      ..initialize().then((_) => _controller.play());
     _controller.setLooping(true);
 
     super.initState();
@@ -38,28 +40,39 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
           width: _size.width,
           height: _size.height,
           margin: const EdgeInsets.all(20),
-          child: Center(
-            child: _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(),
+          child: Column(
+            children: [
+              Center(
+                child: _controller.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      )
+                    : Container(),
+              ),
+              Expanded(child: Container()),
+              MainButton(
+                width: _size.width * 0.6,
+                borderRadius: 50,
+                ontab: () {},
+                title: 'ถัดไป',
+              )
+            ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     setState(() {
+      //       _controller.value.isPlaying
+      //           ? _controller.pause()
+      //           : _controller.play();
+      //     });
+      //   },
+      //   child: Icon(
+      //     _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+      //   ),
+      // ),
     );
   }
 }

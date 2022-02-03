@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 class MainTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  const MainTextField({Key? key, this.prefixIcon, this.suffixIcon})
+  final TextEditingController? controller;
+  final bool obscureText;
+  const MainTextField(
+      {Key? key,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.controller,
+      this.obscureText = false})
       : super(key: key);
 
   @override
@@ -18,6 +25,8 @@ class MainTextField extends StatelessWidget {
         ),
       ),
       child: TextField(
+        controller: controller,
+        obscureText: obscureText,
         decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
