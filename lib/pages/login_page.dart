@@ -1,9 +1,10 @@
-import 'package:cmu_mobile_app/pages/quiz_and_assessment/time_line_activity.dart';
 import 'package:cmu_mobile_app/pages/register_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/widgets/textfields/main_textfield.dart';
 import 'package:flutter/material.dart';
+
+import 'activity/time_line/time_line_activity.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,14 +18,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _password = TextEditingController();
 
   void _check() {
-    if (_username.text != "" && _password.text != "") {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const TimelineActivity(),
-        ),
-      );
-    }
+    // if (_username.text != "" && _password.text != "") {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TimelineActivity(),
+      ),
+    );
+    // }
   }
 
   @override

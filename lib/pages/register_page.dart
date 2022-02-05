@@ -1,12 +1,10 @@
 import 'dart:async';
-
-import 'package:cmu_mobile_app/pages/quiz_and_assessment/cover_page.dart';
-import 'package:cmu_mobile_app/pages/quiz_and_assessment/quiz/question_page.dart';
-import 'package:cmu_mobile_app/pages/quiz_and_assessment/time_line_activity.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
+
+import 'activity/time_line/time_line_activity.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
