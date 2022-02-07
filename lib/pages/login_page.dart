@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/pages/register_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
@@ -19,14 +20,16 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _password = TextEditingController();
 
   void _check() {
-    if (_username.text != "" && _password.text != "") {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const TimelineActivity(),
+    // if (_username.text != "" && _password.text != "") {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(
+          initPage: 0,
         ),
-      );
-    }
+      ),
+    );
+    // }
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cmu_mobile_app/pages/dashborad/dashborad_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const TimelineActivity()),
+        MaterialPageRoute(builder: (context) => const DashboradPage()),
       );
     });
   }

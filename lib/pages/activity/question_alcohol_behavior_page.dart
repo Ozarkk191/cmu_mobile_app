@@ -5,7 +5,11 @@ import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class QuestionAlcoholBehaviorPage extends StatefulWidget {
-  const QuestionAlcoholBehaviorPage({Key? key}) : super(key: key);
+  final PageController controller;
+  final int nextPage;
+  const QuestionAlcoholBehaviorPage(
+      {Key? key, required this.controller, required this.nextPage})
+      : super(key: key);
 
   @override
   _QuestionAlcoholBehaviorPageState createState() =>
@@ -73,7 +77,9 @@ class _QuestionAlcoholBehaviorPageState
                       const SizedBox(height: 40),
                       Center(
                         child: MainButton(
-                          ontab: () {},
+                          ontab: () {
+                            widget.controller.jumpToPage(widget.nextPage);
+                          },
                           width: _size.width * 0.5,
                           borderRadius: 50,
                           title: 'ส่งคำตอบ',
@@ -237,6 +243,7 @@ class _QuestionAlcoholBehaviorPageState
 
   Column _quiz2() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           '2. ท่านดื่มเครื่องดื่มแอลกอฮอล์ครั้งล่าสุดเมื่อไหร่',

@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,14 @@ class QuestionPage2 extends StatefulWidget {
   final String groupName;
   final PageController controller;
   final int nextPage;
+  final int? endPage;
   const QuestionPage2({
     Key? key,
     required this.activityName,
     required this.groupName,
     required this.controller,
     required this.nextPage,
+    this.endPage,
   }) : super(key: key);
 
   @override
@@ -102,7 +105,16 @@ class _QuestionPage2State extends State<QuestionPage2> {
                 MainButton(
                   width: _size.width * 0.5,
                   ontab: () {
-                    widget.controller.jumpToPage(widget.nextPage);
+                    if (widget.nextPage == widget.endPage) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(initPage: 0),
+                        ),
+                      );
+                    } else {
+                      widget.controller.jumpToPage(widget.nextPage);
+                    }
                   },
                   borderRadius: 50,
                   title: 'ส่งคำตอบ',

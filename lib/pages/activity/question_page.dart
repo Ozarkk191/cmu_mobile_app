@@ -1,4 +1,5 @@
 import 'package:cmu_mobile_app/models/quiz_model.dart';
+import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:cmu_mobile_app/utils/quiz_list.dart';
 import 'package:cmu_mobile_app/utils/time_line.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
@@ -6,13 +7,14 @@ import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 
-import '../home_page.dart';
+import '../home/home_page.dart';
 
 class QusetionPage extends StatefulWidget {
   final String groupName;
   final String quizType;
   final PageController controller;
   final int nextPage;
+  final int? endPage;
 
   const QusetionPage({
     Key? key,
@@ -20,6 +22,7 @@ class QusetionPage extends StatefulWidget {
     required this.quizType,
     required this.controller,
     required this.nextPage,
+    this.endPage,
   }) : super(key: key);
 
   @override
@@ -40,6 +43,25 @@ class _QusetionPageState extends State<QusetionPage> {
       case "ความรู้เกี่ยวกับพัฒนาการของวัยรุ่น":
         _list = teenQuizList;
         break;
+      case "แบบประเมินปัญหาการดื่มสุรา (AUDIT)":
+        _list = alcoholAssessmentList;
+        break;
+      case "แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์":
+        _list = aboutAlcoholList;
+        break;
+      case "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์":
+        _list = alcoholList;
+        break;
+      case "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์":
+        _list = rejectAlcoholList;
+        break;
+      case "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่":
+        _list = rejectAlcoholList;
+        break;
+      case "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์":
+        _list = noAlcoholList;
+        break;
+
       default:
     }
   }
@@ -92,7 +114,7 @@ class _QusetionPageState extends State<QusetionPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: Text(
-                              "${(index + 1)}. ${_list[index].quiz!}",
+                              _list[index].quiz!,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -123,7 +145,7 @@ class _QusetionPageState extends State<QusetionPage> {
                 ),
                 MainButton(
                   ontab: () {
-                    if (widget.nextPage == timeline.length - 1) {
+                    if (widget.nextPage == widget.endPage) {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

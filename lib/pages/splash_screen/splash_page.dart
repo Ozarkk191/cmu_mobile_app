@@ -46,13 +46,13 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset(
-                "assets/images/bg.png",
-                fit: BoxFit.cover,
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: Image.asset(
+            //     "assets/images/bg.png",
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
           ],
         ),
       ),

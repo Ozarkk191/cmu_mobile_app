@@ -176,15 +176,15 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                         ],
                       ),
                     ),
-                    Visibility(
-                      visible: end,
-                      child: MainButton(
-                        ontab: () {
-                          widget.controller.jumpToPage(widget.nextPage);
-                        },
-                        title: "next",
-                      ),
-                    ),
+                    // Visibility(
+                    //   visible: end,
+                    //   child: MainButton(
+                    //     ontab: () {
+                    //       widget.controller.jumpToPage(widget.nextPage);
+                    //     },
+                    //     title: "next",
+                    //   ),
+                    // ),
                   ],
                 )
               : Container(),

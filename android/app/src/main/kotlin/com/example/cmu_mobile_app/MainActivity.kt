@@ -1,4 +1,4 @@
-package com.example.cmu_mobile_app
+package com.cmu.teennodrink
 
 import io.flutter.embedding.android.FlutterActivity
 

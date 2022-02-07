@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:cmu_mobile_app/pages/home_page.dart';
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/widgets/textfields/main_textfield.dart';
