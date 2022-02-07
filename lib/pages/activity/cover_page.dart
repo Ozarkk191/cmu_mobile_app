@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,13 @@ class CoverPage extends StatefulWidget {
   final String title;
   final PageController controller;
   final int nextPage;
+  final int endPage;
   const CoverPage({
     Key? key,
     required this.title,
     required this.controller,
     required this.nextPage,
+    this.endPage = 100,
   }) : super(key: key);
 
   @override
@@ -44,7 +47,16 @@ class _CoverPageState extends State<CoverPage> {
               ),
               MainButton(
                 ontab: () {
-                  widget.controller.jumpToPage(widget.nextPage);
+                  if (widget.nextPage == widget.endPage) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(initPage: 0),
+                      ),
+                    );
+                  } else {
+                    widget.controller.jumpToPage(widget.nextPage);
+                  }
                 },
                 width: _size.width * 0.6,
                 borderRadius: 50,

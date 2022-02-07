@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +7,17 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayPage extends StatefulWidget {
-  const VideoPlayPage(
-      {Key? key,
-      required this.link,
-      required this.controller,
-      required this.nextPage})
-      : super(key: key);
+  const VideoPlayPage({
+    Key? key,
+    required this.link,
+    required this.controller,
+    required this.nextPage,
+    required this.endPage,
+  }) : super(key: key);
   final String link;
   final PageController controller;
   final int nextPage;
+  final int endPage;
 
   @override
   _VideoPlayPageState createState() => _VideoPlayPageState();
@@ -29,7 +32,16 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
 
   void checkEnd() {
     Timer(Duration(seconds: _controller.value.duration.inSeconds), () {
-      widget.controller.jumpToPage(widget.nextPage);
+      if (widget.nextPage == widget.endPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
     });
   }
 

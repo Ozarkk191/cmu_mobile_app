@@ -52,6 +52,7 @@ class _DashboradPageState extends State<DashboradPage> {
                             MaterialPageRoute(
                               builder: (context) => TimelineActivity(
                                 index: index,
+                                role: 'วัยรุ่น-10',
                               ),
                             ),
                           );
