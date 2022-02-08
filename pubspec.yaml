@@ -96,6 +96,13 @@ flutter:
         - asset: assets/fonts/sarabun_bold.ttf
         - asset: assets/fonts/sarabun_italic.ttf
         - asset: assets/fonts/sarabun_regular.ttf
+        
+    - family: Smile
+      fonts:
+        - asset: assets/fonts/smile_regular.ttf
+       
+
+        
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -2,50 +2,55 @@ import 'package:flutter/material.dart';
 
 class MainRadioButton extends StatelessWidget {
   final String title;
-  final String textSuffix;
-  final bool value;
+  final String suffix;
+  final Function(String?) onChanged;
+  final String groupValue;
   final TextEditingController? controller;
-  final Function(bool) onChange;
-  final bool textfield;
+  final bool textField;
   const MainRadioButton({
     Key? key,
     this.title = "",
-    required this.value,
-    required this.onChange,
-    this.textfield = false,
-    this.textSuffix = "",
+    this.suffix = "",
+    required this.onChanged,
+    required this.groupValue,
     this.controller,
+    this.textField = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onChange(value),
+    return SizedBox(
+      height: 30,
       child: Row(
         children: [
-          Icon(value ? Icons.radio_button_checked : Icons.radio_button_off),
-          const SizedBox(
-            width: 5,
+          Radio(
+            value: title,
+            groupValue: groupValue,
+            onChanged: onChanged,
           ),
-          Text(title),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 10),
+            ),
+          ),
           Visibility(
-            visible: textfield,
+            visible: textField,
             child: SizedBox(
               width: 80,
+              height: 40,
               child: TextField(
-                enabled: value,
                 controller: controller,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 10),
                 decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 17),
                 ),
               ),
             ),
           ),
-          Visibility(
-            visible: textfield,
-            child: Text(textSuffix),
+          Text(
+            suffix,
+            style: const TextStyle(fontSize: 10),
           ),
         ],
       ),

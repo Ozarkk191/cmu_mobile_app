@@ -1,5 +1,4 @@
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
-import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -23,22 +22,30 @@ class _PersonalPageState extends State<PersonalPage> {
   String anwser11 = "";
   String anwser12 = "";
   String anwser13 = "";
+
+  bool drinkAnwser1 = false;
+  bool drinkAnwser2 = false;
+  bool drinkAnwser3 = false;
+  bool drinkAnwser4 = false;
+  bool drinkAnwser5 = false;
+  bool drinkAnwser6 = false;
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body: MainLayout(
+      body: SafeArea(
         child: Container(
+          color: const Color(0xfffbd4b9),
           width: _size.width,
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 const Text(
                   'ส่วนที่ 1   แบบสอบถามข้อมูลส่วนบุคคล',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 RichText(
                   text: TextSpan(
@@ -47,11 +54,17 @@ class _PersonalPageState extends State<PersonalPage> {
                     children: const <TextSpan>[
                       TextSpan(
                         text: 'คำชี้แจง ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
                       ),
                       TextSpan(
                         text:
                             'กรุณากรอกข้อความ หรือทำเครื่องหมาย √ หน้าข้อความที่ตรงกับความเป็นจริงของท่าน',
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -79,7 +92,7 @@ class _PersonalPageState extends State<PersonalPage> {
                     ontab: () {
                       widget.controller.jumpToPage(widget.nextPage);
                     },
-                    title: 'ส่งคำตอบ',
+                    title: 'ถัดไป',
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -97,7 +110,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '13. เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ไม่ดื่ม',
@@ -108,23 +121,16 @@ class _PersonalPageState extends State<PersonalPage> {
           },
           groupValue: anwser13,
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: _radioButton(
-                title: 'ดื่ม ระบุ',
-                textField: true,
-                onChanged: (val) {
-                  setState(() {
-                    anwser13 = val!;
-                  });
-                },
-                groupValue: anwser13,
-              ),
-            ),
-            const Text('คน'),
-          ],
+        _radioButton(
+          title: 'ดื่ม ระบุ',
+          textField: true,
+          suffix: 'คน',
+          onChanged: (val) {
+            setState(() {
+              anwser13 = val!;
+            });
+          },
+          groupValue: anwser13,
         ),
         const SizedBox(height: 30),
       ],
@@ -137,20 +143,27 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '12. สมาชิกในครอบครัวของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ไม่ดื่ม',
           onChanged: (val) {
             setState(() {
               anwser12 = val!;
+              if (anwser12 == "ไม่ดื่ม") {
+                drinkAnwser1 = false;
+                drinkAnwser2 = false;
+                drinkAnwser3 = false;
+                drinkAnwser4 = false;
+                drinkAnwser5 = false;
+                drinkAnwser6 = false;
+              }
             });
           },
           groupValue: anwser12,
         ),
         _radioButton(
           title: 'ดื่ม ระบุ',
-          textField: true,
           onChanged: (val) {
             setState(() {
               anwser12 = val!;
@@ -158,7 +171,98 @@ class _PersonalPageState extends State<PersonalPage> {
           },
           groupValue: anwser12,
         ),
-        const SizedBox(height: 30),
+        Container(
+          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  _checkBox(
+                    title: 'พ่อ',
+                    value: drinkAnwser1,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser1 = !drinkAnwser1;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  _checkBox(
+                    title: 'แม่',
+                    value: drinkAnwser2,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser2 = !drinkAnwser2;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  _checkBox(
+                    title: 'พ่อและแม่',
+                    value: drinkAnwser3,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser3 = !drinkAnwser3;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  _checkBox(
+                    title: 'พี่/น้อง',
+                    value: drinkAnwser4,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser4 = !drinkAnwser4;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 5),
+                  _checkBox(
+                    title: 'ปู่/ย่า/ตา/ยาย',
+                    value: drinkAnwser5,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser5 = !drinkAnwser5;
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 5),
+                  _checkBox(
+                    title: 'ลุง/ป้า/น้า/อา',
+                    value: drinkAnwser6,
+                    onChanged: (val) {
+                      setState(() {
+                        drinkAnwser6 = !drinkAnwser6;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+
+  Row _checkBox(
+      {required String title,
+      required Function(bool?) onChanged,
+      required bool value}) {
+    return Row(
+      children: [
+        Checkbox(
+          value: value,
+          onChanged: anwser12 == "ดื่ม ระบุ" ? onChanged : null,
+        ),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 10),
+        ),
       ],
     );
   }
@@ -169,7 +273,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '11. รายได้ของครอบครัวต่อเดือน',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'น้อยกว่า 5,000 บาท',
@@ -244,33 +348,38 @@ class _PersonalPageState extends State<PersonalPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-            '9.	รายได้ที่ได้รับในแต่ละเดือน (ไม่รวมค่าเล่าเรียน  ค่าอุปกรณ์ในการเรียน  ค่าหอพัก)'),
+          '9.	รายได้ที่ได้รับในแต่ละเดือน (ไม่รวมค่าเล่าเรียน  ค่าอุปกรณ์ในการเรียน  ค่าหอพัก)',
+          style: TextStyle(fontSize: 12),
+        ),
         Row(
           children: [
             SizedBox(
               width: _size.width * 0.2,
               child: const TextField(
-                maxLength: 2,
                 keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12),
                 decoration: InputDecoration(
-                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
             ),
-            const Text('บาท/เดือน หรือ'),
+            const Text(
+              'บาท/เดือน หรือ',
+              style: TextStyle(fontSize: 12),
+            ),
             SizedBox(
               width: _size.width * 0.2,
               child: const TextField(
-                maxLength: 2,
                 keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
             ),
-            const Text('บาท/สัปดาห์'),
+            const Text(
+              'บาท/สัปดาห์',
+              style: TextStyle(fontSize: 12),
+            ),
           ],
         ),
         Row(
@@ -278,15 +387,17 @@ class _PersonalPageState extends State<PersonalPage> {
             SizedBox(
               width: _size.width * 0.2,
               child: const TextField(
-                maxLength: 2,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
             ),
-            const Text('บาท/วัน'),
+            const Text(
+              'บาท/วัน',
+              style: TextStyle(fontSize: 12),
+            ),
           ],
         ),
         const SizedBox(height: 30),
@@ -300,7 +411,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '10. ผู้ปกครองของท่านประกอบอาชีพ',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'เกษตรกร',
@@ -379,21 +490,23 @@ class _PersonalPageState extends State<PersonalPage> {
           children: [
             const Text(
               '8. จำนวนสมาชิกในครอบครัว',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 12),
             ),
             SizedBox(
-              width: _size.width * 0.4,
+              width: _size.width * 0.2,
               child: const TextField(
-                  maxLength: 2,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    counterText: "",
-                  )),
+                maxLength: 2,
+                keyboardType: TextInputType.number,
+                style: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
+                ),
+              ),
             ),
             const Text(
               'คน',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 12),
             ),
           ],
         ),
@@ -408,7 +521,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '7. บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'บิดาและมารดา',
@@ -476,7 +589,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '6. ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ดีขึ้น',
@@ -525,15 +638,16 @@ class _PersonalPageState extends State<PersonalPage> {
       children: const [
         Text(
           '5. ผลการเรียนในเทอมที่ผ่านมา ท่านได้เกรดเฉลี่ย',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         Expanded(
           child: TextField(
-            maxLength: 2,
+            maxLength: 4,
             keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
             decoration: InputDecoration(
               counterText: "",
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
             ),
           ),
         ),
@@ -547,13 +661,39 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '4.	ท่านกำลังศึกษาอยู่ในระดับชั้น',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         Row(
           children: [
             Expanded(
               child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 4',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+            Expanded(
+              child: _radioButton(
                 title: 'มัธยมศึกษาปีที่ 1',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 5',
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
@@ -579,44 +719,18 @@ class _PersonalPageState extends State<PersonalPage> {
           children: [
             Expanded(
               child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 6',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+            Expanded(
+              child: _radioButton(
                 title: 'มัธยมศึกษาปีที่ 3',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 4',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 5',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 6',
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
@@ -648,7 +762,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '3.	ท่านนับถือศาสนา',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'พุทธ',
@@ -700,21 +814,23 @@ class _PersonalPageState extends State<PersonalPage> {
           children: [
             const Text(
               '2.	ปัจจุบันท่านอายุ',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 12),
             ),
             SizedBox(
-              width: _size.width * 0.4,
+              width: _size.width * 0.2,
               child: const TextField(
-                  maxLength: 2,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    counterText: "",
-                  )),
+                maxLength: 2,
+                keyboardType: TextInputType.number,
+                style: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                ),
+              ),
             ),
             const Text(
               'ปี',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 12),
             ),
           ],
         ),
@@ -729,7 +845,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         const Text(
           '1.	เพศ',
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 12),
         ),
         Row(
           children: [
@@ -764,6 +880,7 @@ class _PersonalPageState extends State<PersonalPage> {
 
   Widget _radioButton({
     required String title,
+    String suffix = "",
     required Function(String?) onChanged,
     required String groupValue,
     TextEditingController? controller,
@@ -771,35 +888,36 @@ class _PersonalPageState extends State<PersonalPage> {
   }) {
     return SizedBox(
       height: 30,
-      child: ListTile(
-        title: Row(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 13),
-            ),
-            Visibility(
-              visible: textField,
-              child: Expanded(
-                child: SizedBox(
-                  width: 80,
-                  height: 40,
-                  child: TextField(
-                    controller: controller,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14),
-                    decoration: const InputDecoration(),
-                  ),
+      child: Row(
+        children: [
+          Radio(
+            value: title,
+            groupValue: groupValue,
+            onChanged: onChanged,
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 10),
+          ),
+          Visibility(
+            visible: textField,
+            child: SizedBox(
+              width: 80,
+              height: 40,
+              child: TextField(
+                controller: controller,
+                style: const TextStyle(fontSize: 10),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 17),
                 ),
               ),
             ),
-          ],
-        ),
-        leading: Radio(
-          value: title,
-          groupValue: groupValue,
-          onChanged: onChanged,
-        ),
+          ),
+          Text(
+            suffix,
+            style: const TextStyle(fontSize: 10),
+          ),
+        ],
       ),
     );
   }

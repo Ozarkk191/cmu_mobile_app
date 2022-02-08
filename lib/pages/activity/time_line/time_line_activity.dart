@@ -1,12 +1,15 @@
 import 'package:cmu_mobile_app/pages/activity/cover_questionnaire_page.dart';
-import 'package:cmu_mobile_app/pages/activity/question_alcohol_behavior_page.dart';
+import 'package:cmu_mobile_app/pages/activity/question/quest_4.dart';
+import 'package:cmu_mobile_app/pages/activity/question/quest_5.dart';
+import 'package:cmu_mobile_app/pages/activity/question/quest_audit_page.dart';
+import 'package:cmu_mobile_app/pages/activity/question/question_alcohol_behavior_page.dart';
+import 'package:cmu_mobile_app/pages/activity/question/question_page.dart';
+import 'package:cmu_mobile_app/pages/activity/question/question_page2.dart';
 import 'package:cmu_mobile_app/utils/time_line.dart';
 import 'package:flutter/material.dart';
 
 import '../cover_page.dart';
 import '../personal_page.dart';
-import '../question_page.dart';
-import '../question_page2.dart';
 import '../video_player_page.dart';
 
 class TimelineActivity extends StatefulWidget {
@@ -50,7 +53,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
         case 10:
           return activity10WidgetList;
         case 11:
-          return questionWidgetList;
+          return activity11WidgetList;
 
         default:
           return questionWidgetList;
@@ -116,27 +119,25 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
-    QusetionPage(
-      groupName: 'วัยรุ่น',
-      quizType: "แบบประเมินปัญหาการดื่มสุรา (AUDIT)",
+    QuestAuditPage(
       controller: controller,
       nextPage: 4,
-      endPage: 9,
     ),
-    QusetionPage(
-      groupName: 'วัยรุ่น',
-      quizType: "แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์",
+    Quest4(
       controller: controller,
       nextPage: 5,
-      endPage: 9,
     ),
-    QusetionPage(
-      groupName: 'วัยรุ่น',
-      quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
+    Quest5(
       controller: controller,
       nextPage: 6,
-      endPage: 9,
     ),
+    // QusetionPage(
+    //   groupName: 'วัยรุ่น',
+    //   quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
+    //   controller: controller,
+    //   nextPage: 6,
+    //   endPage: 9,
+    // ),
     QusetionPage(
       groupName: 'วัยรุ่น',
       quizType:
@@ -280,21 +281,21 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity5[1],
+    QuestionPage2(
+      activityName: activity5[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
-      endPage: 4,
+      endPage: 5,
     ),
     VideoPlayPage(
       link: activity5[2],
       controller: controller,
       nextPage: 3,
-      endPage: 4,
+      endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity5[3],
-      groupName: 'วัยรุ่น',
+    VideoPlayPage(
+      link: activity5[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -313,21 +314,21 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity6[1],
+    QuestionPage2(
+      activityName: activity6[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
-      endPage: 4,
+      endPage: 5,
     ),
     VideoPlayPage(
       link: activity6[2],
       controller: controller,
       nextPage: 3,
-      endPage: 4,
+      endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity6[3],
-      groupName: 'วัยรุ่น',
+    VideoPlayPage(
+      link: activity6[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -346,21 +347,21 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity7[1],
+    QuestionPage2(
+      activityName: activity7[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
-      endPage: 4,
+      endPage: 5,
     ),
     VideoPlayPage(
       link: activity7[2],
       controller: controller,
       nextPage: 3,
-      endPage: 4,
+      endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity7[3],
-      groupName: 'วัยรุ่น',
+    VideoPlayPage(
+      link: activity7[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -379,8 +380,9 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity8[1],
+    QuestionPage2(
+      activityName: activity8[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -391,9 +393,8 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity8[3],
-      groupName: 'วัยรุ่น',
+    VideoPlayPage(
+      link: activity8[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -412,8 +413,9 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity9[1],
+    QuestionPage2(
+      activityName: activity9[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -424,9 +426,8 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity9[3],
-      groupName: 'วัยรุ่น',
+    VideoPlayPage(
+      link: activity9[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -445,8 +446,9 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: activity10[1],
+    QuestionPage2(
+      activityName: activity10[1],
+      groupName: 'วัยรุ่น',
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -457,9 +459,9 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      activityName: activity10[3],
+    QusetionPage(
       groupName: 'วัยรุ่น',
+      quizType: activity10[3],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -470,6 +472,61 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 5,
       endPage: 5,
+    ),
+  ];
+  List<Widget> activity11WidgetList = [
+    CoverQuestionnairePage(
+      controller: controller,
+      nextPage: 1,
+      before: false,
+    ),
+    QuestionAlcoholBehaviorPage(
+      controller: controller,
+      nextPage: 2,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType: "แบบประเมินปัญหาการดื่มสุรา (AUDIT)",
+      controller: controller,
+      nextPage: 3,
+      endPage: 8,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType: "แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์",
+      controller: controller,
+      nextPage: 4,
+      endPage: 8,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
+      controller: controller,
+      nextPage: 5,
+      endPage: 8,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType:
+          "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
+      controller: controller,
+      nextPage: 6,
+      endPage: 8,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType:
+          "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
+      controller: controller,
+      nextPage: 7,
+      endPage: 8,
+    ),
+    QusetionPage(
+      groupName: 'วัยรุ่น',
+      quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
+      controller: controller,
+      nextPage: 8,
+      endPage: 8,
     ),
   ];
 

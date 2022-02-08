@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'CMU APP',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        fontFamily: 'Sarabun',
+        fontFamily: 'Smile',
       ),
       home: const SplashPage(),
     );

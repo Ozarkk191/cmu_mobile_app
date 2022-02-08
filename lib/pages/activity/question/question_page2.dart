@@ -31,11 +31,13 @@ class _QuestionPage2State extends State<QuestionPage2> {
     if (widget.activityName.contains("&&")) {
       var str0 = widget.activityName.split("&&");
       title = str0[0];
-      if (str0[1].contains(":")) {}
-      var str = str0[1].split(":");
-      subActivity = str[1];
-      var str2 = str0[1].split(" ");
-      fullActivity = str2[2] + " " + subActivity;
+      fullActivity = str0[1];
+      if (str0[1].contains(":")) {
+        var str = str0[1].split(":");
+        subActivity = str[1];
+        // var str2 = str0[1].split(" ");
+        // fullActivity = str2[2] + " " + subActivity;
+      }
     }
 
     super.initState();
@@ -57,7 +59,7 @@ class _QuestionPage2State extends State<QuestionPage2> {
                   height: 20,
                 ),
                 Text(
-                  "แบบสะท้อนการเรียนรู้ของ${widget.groupName}",
+                  title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -67,7 +69,7 @@ class _QuestionPage2State extends State<QuestionPage2> {
                   height: 10,
                 ),
                 Text(
-                  widget.activityName,
+                  fullActivity,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -82,8 +84,11 @@ class _QuestionPage2State extends State<QuestionPage2> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "1. ท่านได้เรียนรู้อะไรจากการเรียนบทเรียนเรื่อง $subActivity",
+                SizedBox(
+                  width: _size.width,
+                  child: Text(
+                    "1. ท่านได้เรียนรู้อะไรจากการเรียนบทเรียนเรื่อง $subActivity",
+                  ),
                 ),
                 const SizedBox(
                   height: 5,
@@ -117,7 +122,8 @@ class _QuestionPage2State extends State<QuestionPage2> {
                     }
                   },
                   borderRadius: 50,
-                  title: 'ส่งคำตอบ',
+                  title:
+                      widget.nextPage == widget.endPage ? 'ส่งคำตอบ' : "ถัดไป",
                 )
               ],
             ),

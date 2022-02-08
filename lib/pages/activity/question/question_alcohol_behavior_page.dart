@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
-import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class QuestionAlcoholBehaviorPage extends StatefulWidget {
@@ -46,18 +43,14 @@ class _QuestionAlcoholBehaviorPageState
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body: MainLayout(
+      body: SafeArea(
         child: Container(
           width: _size.width,
+          color: const Color(0xfffbd4b9),
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 40),
-                const Text(
-                  'แบบสอบถาม',
-                  style: TextStyle(fontSize: 18),
-                ),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: _size.width,
@@ -66,7 +59,15 @@ class _QuestionAlcoholBehaviorPageState
                     children: [
                       const Text(
                         'ส่วนที่ 2 พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: SizedBox(
+                          width: _size.width * 0.6,
+                          child: Image.asset('assets/icons/exam.png'),
+                        ),
                       ),
                       const SizedBox(height: 20),
                       _quiz1(),
@@ -82,7 +83,7 @@ class _QuestionAlcoholBehaviorPageState
                           },
                           width: _size.width * 0.5,
                           borderRadius: 50,
-                          title: 'ส่งคำตอบ',
+                          title: 'ถัดไป',
                         ),
                       ),
                       const SizedBox(height: 40),
@@ -99,10 +100,11 @@ class _QuestionAlcoholBehaviorPageState
 
   Column _quiz5() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           '5. ชนิดของเครื่องดื่มเครื่องดื่มแอลกอฮอล์ที่ท่านดื่ม',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'เหล้า',
@@ -153,7 +155,7 @@ class _QuestionAlcoholBehaviorPageState
       children: [
         const Text(
           '4. บุคคลที่ท่านดื่มเครื่องดื่มแอลกอฮอล์ด้วย',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'เพื่อน',
@@ -192,10 +194,11 @@ class _QuestionAlcoholBehaviorPageState
 
   Column _quiz3() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           '3. ในการดื่มแต่ละครั้ง ท่านดื่มปริมาณกี่หน่วยดื่มมาตราฐาน',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'น้อยกว่า 1 ดื่มมาตราฐาน',
@@ -247,7 +250,7 @@ class _QuestionAlcoholBehaviorPageState
       children: [
         const Text(
           '2. ท่านดื่มเครื่องดื่มแอลกอฮอล์ครั้งล่าสุดเมื่อไหร่',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: '1 ปีที่ผ่านมา',
@@ -283,65 +286,31 @@ class _QuestionAlcoholBehaviorPageState
 
   Column _quiz1() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           '1. ตลอดชีวิตที่ผ่านมา ท่านเคยดื่มเครื่องดื่มแอลกอฮอล์หรือไหม (ไม่นับรวมจิบ/ชิมเพียงเล็กน้อย)',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 12),
         ),
-        ListTile(
-          title: const Text(
-            'ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไป)',
-            style: TextStyle(fontSize: 14),
-          ),
-          leading: Radio(
-            value: "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไป)",
-            groupValue: anwser1,
-            onChanged: (String? value) {
-              setState(() {
-                anwser1 = value!;
-              });
-            },
-          ),
+        _radioButton(
+          title: 'ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไป)',
+          groupValue: anwser1,
+          onChanged: (String? value) {
+            setState(() {
+              anwser1 = value!;
+            });
+          },
         ),
-        ListTile(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'เคยดื่ม ดื่มครั้งแรกตอนอายุ',
-                style: TextStyle(fontSize: 14),
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 80,
-                    height: 40,
-                    child: TextField(
-                      controller: controller1,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 14),
-                      decoration: const InputDecoration(),
-                    ),
-                  ),
-                  const Text(
-                    "ปี",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          leading: Radio(
-            value: "เคยดื่ม ดื่มครั้งแรกตอนอายุ",
-            groupValue: anwser1,
-            onChanged: (String? value) {
-              setState(() {
-                anwser1 = value!;
-                // anwser1 = "$value ${controller1.text} ปี";
-                log(anwser1);
-              });
-            },
-          ),
+        _radioButton(
+          title: 'เคยดื่ม ดื่มครั้งแรกตอนอายุ',
+          groupValue: anwser1,
+          textField: true,
+          suffix: 'ปี',
+          onChanged: (String? value) {
+            setState(() {
+              anwser1 = value!;
+            });
+          },
         ),
         const SizedBox(height: 20),
       ],
@@ -350,40 +319,44 @@ class _QuestionAlcoholBehaviorPageState
 
   Widget _radioButton({
     required String title,
+    String suffix = "",
     required Function(String?) onChanged,
     required String groupValue,
     TextEditingController? controller,
     bool textField = false,
   }) {
     return SizedBox(
-      height: 40,
-      child: ListTile(
-        title: Row(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 14),
-            ),
-            Visibility(
-              visible: textField,
-              child: SizedBox(
-                width: 80,
-                height: 40,
-                child: TextField(
-                  controller: controller,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(),
+      height: 30,
+      child: Row(
+        children: [
+          Radio(
+            value: title,
+            groupValue: groupValue,
+            onChanged: onChanged,
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 10),
+          ),
+          Visibility(
+            visible: textField,
+            child: SizedBox(
+              width: 80,
+              height: 40,
+              child: TextField(
+                controller: controller,
+                style: const TextStyle(fontSize: 10),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 17),
                 ),
               ),
             ),
-          ],
-        ),
-        leading: Radio(
-          value: title,
-          groupValue: groupValue,
-          onChanged: onChanged,
-        ),
+          ),
+          Text(
+            suffix,
+            style: const TextStyle(fontSize: 10),
+          ),
+        ],
       ),
     );
   }

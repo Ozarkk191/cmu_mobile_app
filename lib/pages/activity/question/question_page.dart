@@ -7,7 +7,7 @@ import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 
-import '../home/home_page.dart';
+import '../../home/home_page.dart';
 
 class QusetionPage extends StatefulWidget {
   final String groupName;
@@ -56,10 +56,13 @@ class _QusetionPageState extends State<QusetionPage> {
         _list = rejectAlcoholList;
         break;
       case "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่":
-        _list = rejectAlcoholList;
+        _list = parentAlcoholList;
         break;
       case "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์":
         _list = noAlcoholList;
+        break;
+      case "แบบวัดความมีคุณค่าในตนเอง":
+        _list = selfWorthList;
         break;
 
       default:
@@ -76,9 +79,10 @@ class _QusetionPageState extends State<QusetionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainLayout(
+      body: SafeArea(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          color: const Color(0xfffbd4b9),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
             child: Column(
@@ -157,7 +161,8 @@ class _QusetionPageState extends State<QusetionPage> {
                     }
                   },
                   borderRadius: 50,
-                  title: 'ส่งคำตอบ',
+                  title:
+                      widget.nextPage == widget.endPage ? "ส่งคำตอบ" : 'ถัดไป',
                 ),
                 const SizedBox(
                   height: 80,

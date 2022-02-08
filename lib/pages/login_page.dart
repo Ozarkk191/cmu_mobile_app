@@ -5,9 +5,6 @@ import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/widgets/textfields/main_textfield.dart';
 import 'package:flutter/material.dart';
 
-import 'activity/question_alcohol_behavior_page.dart';
-import 'activity/time_line/time_line_activity.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -62,13 +59,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 _textfield(
                   context: context,
-                  title: 'ชื่อ / อีเมล',
+                  title: 'ชื่อผู้ใช้ (Username)',
                   prefix: Icons.person,
                   controller: _username,
                 ),
                 _textfield(
                   context: context,
-                  title: 'รหัสผ่าน',
+                  title: 'รหัสผ่าน (Password)',
                   prefix: Icons.lock,
                   suffix: Icons.remove_red_eye,
                   controller: _password,

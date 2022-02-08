@@ -25,7 +25,7 @@ class NavigationTab extends StatelessWidget {
             Icon(icon, color: Colors.white),
             Text(
               '$title',
-              style: const TextStyle(color: Colors.white, fontSize: 12),
+              style: const TextStyle(color: Colors.white, fontSize: 10),
             ),
           ],
         ),
