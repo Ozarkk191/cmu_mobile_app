@@ -193,7 +193,16 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                     ),
                     MainButton(
                       ontab: () {
-                        widget.controller.jumpToPage(widget.nextPage);
+                        if (widget.nextPage == widget.endPage) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(initPage: 0),
+                            ),
+                          );
+                        } else {
+                          widget.controller.jumpToPage(widget.nextPage);
+                        }
                       },
                       title: "next",
                     ),

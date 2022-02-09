@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   final int initPage;
+
   const HomePage({Key? key, required this.initPage}) : super(key: key);
 
   @override

@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/models/dashborad_model.dart';
 import 'package:cmu_mobile_app/pages/activity/time_line/time_line_activity.dart';
 import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
@@ -11,6 +12,23 @@ class DashboradPage extends StatefulWidget {
 }
 
 class _DashboradPageState extends State<DashboradPage> {
+  String role = "ครู";
+  List<DashboradModel> list = [];
+
+  @override
+  void initState() {
+    if (role == "วัยรุ่น") {
+      list = itemList;
+    } else if (role == "ผู้ปกครอง") {
+      list = itemList;
+    } else if (role == "พระสงฆ์") {
+      list = itemList2;
+    } else if (role == "ครู") {
+      list = itemList3;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -38,20 +56,20 @@ class _DashboradPageState extends State<DashboradPage> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 0,
                     ),
-                    itemCount: itemList.length,
+                    itemCount: list.length,
                     itemBuilder: (BuildContext context, int index) {
                       return _itemBox(
                         _size,
-                        title: itemList[index].title,
-                        color: itemList[index].color,
-                        path: itemList[index].path,
+                        title: list[index].title,
+                        color: list[index].color,
+                        path: list[index].path,
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => TimelineActivity(
                                 index: index,
-                                role: 'วัยรุ่น',
+                                role: role,
                               ),
                             ),
                           );

@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_radio_button.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,12 @@ import 'package:flutter/material.dart';
 class QuestAuditPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
+  final int endPage;
   const QuestAuditPage({
     Key? key,
     required this.controller,
     required this.nextPage,
+    this.endPage = 1000,
   }) : super(key: key);
 
   @override
@@ -71,11 +74,23 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
                       Center(
                         child: MainButton(
                           ontab: () {
-                            widget.controller.jumpToPage(widget.nextPage);
+                            if (widget.nextPage == widget.endPage) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const HomePage(initPage: 0),
+                                ),
+                              );
+                            } else {
+                              widget.controller.jumpToPage(widget.nextPage);
+                            }
                           },
                           width: _size.width * 0.5,
                           borderRadius: 50,
-                          title: 'ถัดไป',
+                          title: widget.nextPage == widget.endPage
+                              ? "ส่งคำตอบ"
+                              : 'ถัดไป',
                         ),
                       ),
                       const SizedBox(height: 40),
