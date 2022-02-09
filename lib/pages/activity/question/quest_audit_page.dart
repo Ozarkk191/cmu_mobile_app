@@ -45,9 +45,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'ส่วนที่ 3  แบบประเมินปัญหาการดื่มสุรา (AUDIT)',
-                        style: TextStyle(
+                      Text(
+                        'ส่วนที่ ${widget.nextPage - 1}  แบบประเมินปัญหาการดื่มสุรา (AUDIT)',
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       _text(context),

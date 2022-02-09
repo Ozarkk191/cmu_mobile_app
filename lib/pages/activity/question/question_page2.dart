@@ -1,21 +1,20 @@
+import 'package:cmu_mobile_app/models/learning_model.dart';
 import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class QuestionPage2 extends StatefulWidget {
-  final String activityName;
-  final String groupName;
+  final LearningModel learningModel;
   final PageController controller;
   final int nextPage;
   final int? endPage;
   const QuestionPage2({
     Key? key,
-    required this.activityName,
-    required this.groupName,
     required this.controller,
     required this.nextPage,
     this.endPage,
+    required this.learningModel,
   }) : super(key: key);
 
   @override
@@ -23,23 +22,8 @@ class QuestionPage2 extends StatefulWidget {
 }
 
 class _QuestionPage2State extends State<QuestionPage2> {
-  String title = "แบบสะท้อนการเรียนรู้ของ";
-  String subActivity = "";
-  String fullActivity = "";
   @override
   void initState() {
-    if (widget.activityName.contains("&&")) {
-      var str0 = widget.activityName.split("&&");
-      title = str0[0];
-      fullActivity = str0[1];
-      if (str0[1].contains(":")) {
-        var str = str0[1].split(":");
-        subActivity = str[1];
-        // var str2 = str0[1].split(" ");
-        // fullActivity = str2[2] + " " + subActivity;
-      }
-    }
-
     super.initState();
   }
 
@@ -59,53 +43,60 @@ class _QuestionPage2State extends State<QuestionPage2> {
                   height: 20,
                 ),
                 Text(
-                  title,
+                  widget.learningModel.title!,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  fullActivity,
+                  widget.learningModel.subTitle!,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "คำชี้แจง ให้${widget.groupName}เขียนสิ่งที่ได้เรียนรู้จากการศึกษา$fullActivity",
+                  "คำชี้แจง ${widget.learningModel.statment}",
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: _size.width,
-                  child: Text(
-                    "1. ท่านได้เรียนรู้อะไรจากการเรียนบทเรียนเรื่อง $subActivity",
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                _textField(),
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "2. ท่านคิดว่าจะนำความรู้ที่ได้ในเรื่อง $subActivity ไปใช้ในชีวิตประจำวันได้อย่างไรบ้าง",
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                _textField(),
-                const SizedBox(
-                  height: 40,
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: widget.learningModel.quiz!.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        SizedBox(
+                          width: _size.width,
+                          child: Text(
+                            widget.learningModel.quiz![index],
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        _textField(),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 MainButton(
                   width: _size.width * 0.5,

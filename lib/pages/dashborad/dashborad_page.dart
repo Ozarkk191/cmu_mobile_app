@@ -1,4 +1,3 @@
-import 'package:cmu_mobile_app/models/dashborad_model.dart';
 import 'package:cmu_mobile_app/pages/activity/time_line/time_line_activity.dart';
 import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';

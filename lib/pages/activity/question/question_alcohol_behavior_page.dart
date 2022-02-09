@@ -57,9 +57,9 @@ class _QuestionAlcoholBehaviorPageState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'ส่วนที่ 2 พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
-                        style: TextStyle(
+                      Text(
+                        'ส่วนที่ ${widget.nextPage - 1} พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 20),

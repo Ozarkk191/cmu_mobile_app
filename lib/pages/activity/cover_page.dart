@@ -8,12 +8,14 @@ class CoverPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final String? path;
   const CoverPage({
     Key? key,
     required this.title,
     required this.controller,
     required this.nextPage,
     this.endPage = 100,
+    this.path,
   }) : super(key: key);
 
   @override
@@ -31,9 +33,16 @@ class _CoverPageState extends State<CoverPage> {
           height: _size.height,
           margin: const EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              widget.path != null
+                  ? SizedBox(
+                      width: _size.width * 0.8,
+                      height: _size.width * 0.4,
+                      child: Image.asset(widget.path!),
+                    )
+                  : Container(),
               SizedBox(
                 width: _size.width * 0.8,
                 child: Text(

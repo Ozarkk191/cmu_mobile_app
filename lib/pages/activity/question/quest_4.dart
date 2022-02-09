@@ -47,9 +47,9 @@ class _Quest4State extends State<Quest4> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'ส่วนที่ 4  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
-                        style: TextStyle(
+                      Text(
+                        'ส่วนที่ ${widget.nextPage - 1}  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       _text(context),

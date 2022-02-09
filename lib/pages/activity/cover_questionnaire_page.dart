@@ -1,5 +1,4 @@
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
-import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class CoverQuestionnairePage extends StatefulWidget {
@@ -40,11 +39,13 @@ class _CoverQuestionnairePageState extends State<CoverQuestionnairePage> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-      body: MainLayout(
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             width: _size.width,
-            margin: const EdgeInsets.all(20),
+            height: _size.height,
+            color: const Color(0xfffbd4b9),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

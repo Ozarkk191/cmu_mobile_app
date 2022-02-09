@@ -1,5 +1,4 @@
 import 'package:cmu_mobile_app/pages/add_admin/admin_list_page.dart';
-import 'package:cmu_mobile_app/pages/approve/deputy_approve_page.dart';
 import 'package:cmu_mobile_app/pages/dashborad/dashborad_page.dart';
 import 'package:cmu_mobile_app/pages/list_group/list_group_page.dart';
 import 'package:cmu_mobile_app/pages/personel/personel_page.dart';

@@ -35,7 +35,7 @@ class MainButton extends StatelessWidget {
             '$title',
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 18,
+              fontSize: 14,
             ),
           ),
         ),

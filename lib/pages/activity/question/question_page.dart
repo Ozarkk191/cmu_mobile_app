@@ -1,16 +1,14 @@
 import 'package:cmu_mobile_app/models/quiz_model.dart';
 import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:cmu_mobile_app/utils/quiz_list.dart';
-import 'package:cmu_mobile_app/utils/time_line.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
-import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio_group/flutter_radio_group.dart';
 
 import '../../home/home_page.dart';
 
 class QusetionPage extends StatefulWidget {
-  final String groupName;
+  final String prePost;
   final String quizType;
   final PageController controller;
   final int nextPage;
@@ -18,7 +16,7 @@ class QusetionPage extends StatefulWidget {
 
   const QusetionPage({
     Key? key,
-    required this.groupName,
+    required this.prePost,
     required this.quizType,
     required this.controller,
     required this.nextPage,
@@ -89,17 +87,17 @@ class _QusetionPageState extends State<QusetionPage> {
               children: [
                 const SizedBox(height: 30),
                 Text(
-                  widget.quizType,
-                  textAlign: TextAlign.center,
+                  widget.prePost,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "กลุ่ม ${widget.groupName}",
+                  widget.quizType,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -128,14 +126,12 @@ class _QusetionPageState extends State<QusetionPage> {
                             titles: _list[index].choice!,
                             labelStyle: const TextStyle(color: Colors.white38),
                             labelVisible: false,
-                            label: "",
                             activeColor: const Color(0xffFF6600),
-                            titleStyle: const TextStyle(fontSize: 14),
-                            defaultSelected: _list[0].selecteChoice,
+                            titleStyle: const TextStyle(fontSize: 12),
                             orientation: RGOrientation.VERTICAL,
                             onChanged: (_index) {
                               setState(() {
-                                _list[0].selecteChoice = _index!;
+                                _list[index].selecteChoice = _index!;
                               });
                             },
                           ),
