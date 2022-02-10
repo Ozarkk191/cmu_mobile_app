@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/layouts/main_layout.dart';
@@ -30,32 +31,31 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   bool check = false;
   bool end = false;
 
-  void checkEnd() {
-    Timer(Duration(seconds: _controller.value.duration.inSeconds), () {
-      if (widget.nextPage == widget.endPage) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(initPage: 0),
-          ),
-        );
-      } else {
-        widget.controller.jumpToPage(widget.nextPage);
-      }
-    });
-  }
-
   @override
   void initState() {
     _controller = VideoPlayerController.asset(widget.link)
-      ..setLooping(true)
+      ..setLooping(false)
       ..initialize().then((_) {
         _controller.play();
-        checkEnd();
-        _controller.addListener(() {} //setState(() {}),
-            );
+
+        _controller.addListener(() {
+          if (!mounted) return;
+          setState(() {
+            if (_controller.value.position == _controller.value.duration) {
+              if (widget.nextPage == widget.endPage) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(initPage: 0),
+                  ),
+                );
+              } else {
+                widget.controller.jumpToPage(widget.nextPage);
+              }
+            }
+          });
+        });
       });
-    _controller.setLooping(true);
 
     super.initState();
   }
@@ -164,6 +164,20 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                     ),
                     const SizedBox(
                       height: 50,
+                    ),
+                    Slider(
+                      value: _controller.value.position.inSeconds.toDouble(),
+                      max: _controller.value.duration.inSeconds.toDouble(),
+                      divisions: 100,
+                      label: _controller.value.position.inSeconds
+                          .toDouble()
+                          .round()
+                          .toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          _controller.seekTo(Duration(seconds: value.toInt()));
+                        });
+                      },
                     ),
                     MainButton(
                       ontab: () {
