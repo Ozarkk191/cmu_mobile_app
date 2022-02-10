@@ -22,7 +22,7 @@ class _DashboradPageState extends State<DashboradPage> {
     } else if (role == "ผู้ปกครอง") {
       list = itemList;
     } else if (role == "พระสงฆ์") {
-      list = itemList2;
+      list = itemListMonk;
     } else if (role == "ครู") {
       list = itemList3;
     }

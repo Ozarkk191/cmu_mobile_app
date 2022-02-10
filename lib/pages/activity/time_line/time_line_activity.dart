@@ -97,28 +97,30 @@ class _TimelineActivityState extends State<TimelineActivity> {
   List<Widget> monk(int index) {
     switch (index) {
       case 0:
-        return monkWidget1;
+        return monkQuest;
       case 1:
-        return monkWidget2;
+        return monkWidget1;
       case 2:
-        return monkWidget3;
+        return monkWidget2;
       case 3:
-        return monkWidget4;
+        return monkWidget3;
       case 4:
-        return monkWidget5;
+        return monkWidget4;
       case 5:
-        return monkWidget6;
+        return monkWidget5;
       case 6:
-        return monkWidget7;
+        return monkWidget6;
       case 7:
-        return monkWidget8;
+        return monkWidget7;
       case 8:
-        return monkWidget9;
+        return monkWidget8;
       case 9:
-        return monkWidget10;
+        return monkWidget9;
       case 10:
-        return monkWidget11;
+        return monkWidget10;
       case 11:
+        return monkWidget11;
+      case 12:
         return monkWidget12;
 
       default:
@@ -860,7 +862,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     ),
   ];
 
-  List<Widget> monkWidget1 = [
+  List<Widget> monkQuest = [
     CoverQuestionnairePage(
       controller: controller,
       nextPage: 1,
@@ -870,25 +872,28 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 2,
       role: "พระสงฆ์",
+      endPage: 2,
     ),
+  ];
+  List<Widget> monkWidget1 = [
     CoverPage(
       title:
           "กิจกรรมครั้งที่ 1 ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์ ผลกระทบจากการดื่ม",
       controller: controller,
       path: "assets/icons/icon_1.png",
-      nextPage: 3,
+      nextPage: 1,
     ),
     VideoPlayPage(
       link: "assets/video/monk/activity_1_1.mp4",
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 2,
+      endPage: 3,
     ),
     VideoPlayPage(
       link: "assets/video/monk/activity_1_2.mp4",
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 3,
+      endPage: 3,
     ),
   ];
   List<Widget> monkWidget2 = [

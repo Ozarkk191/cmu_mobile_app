@@ -52,9 +52,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
       ..initialize().then((_) {
         _controller.play();
         checkEnd();
-        _controller.addListener(
-          () => setState(() {}),
-        );
+        _controller.addListener(() {} //setState(() {}),
+            );
       });
     _controller.setLooping(true);
 
@@ -89,6 +88,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   @override
   void dispose() {
     _controller.dispose();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);

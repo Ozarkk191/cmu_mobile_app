@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 
@@ -5,11 +6,13 @@ class PersonalPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final String role;
+  final int endPage;
   const PersonalPage({
     Key? key,
     required this.controller,
     required this.nextPage,
     required this.role,
+    this.endPage = 1000,
   }) : super(key: key);
 
   @override
@@ -88,7 +91,16 @@ class _PersonalPageState extends State<PersonalPage> {
                     width: _size.width * 0.5,
                     borderRadius: 50,
                     ontab: () {
-                      widget.controller.jumpToPage(widget.nextPage);
+                      if (widget.endPage == widget.nextPage) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(initPage: 0),
+                          ),
+                        );
+                      } else {
+                        widget.controller.jumpToPage(widget.nextPage);
+                      }
                     },
                     title: 'ถัดไป',
                   ),
