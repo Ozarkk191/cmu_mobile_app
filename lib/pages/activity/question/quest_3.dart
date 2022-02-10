@@ -72,7 +72,7 @@ class _Quest3State extends State<Quest3> {
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: lowQuizList.length,
+                      itemCount: teenQuizList.length,
                       itemBuilder: (context, index) {
                         if (index == 5) {
                           return Column(
@@ -154,8 +154,9 @@ class _Quest3State extends State<Quest3> {
                     }
                   },
                   borderRadius: 50,
-                  title:
-                      widget.nextPage == widget.endPage ? "ส่งคำตอบ" : 'ถัดไป',
+                  title: widget.nextPage == widget.endPage
+                      ? "ส่งคำตอบ"
+                      : 'ส่งคำตอบ',
                 ),
                 const SizedBox(height: 40),
               ],

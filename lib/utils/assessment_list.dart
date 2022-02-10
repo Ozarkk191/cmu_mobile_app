@@ -1194,7 +1194,7 @@ List<DashboradModel> itemList = [
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
-    title: "กิจกรรมที่11",
+    title: "แบบสอบถาม",
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),
@@ -1265,57 +1265,57 @@ List<DashboradModel> itemList2 = [
 
 List<DashboradModel> itemList3 = [
   DashboradModel(
-    title: "กิจกรรมที่1",
+    title: "แบบสอบถาม",
     path: "assets/icons/icon_1.png",
     color: const Color(0xff96D0DD),
   ),
   DashboradModel(
-    title: "กิจกรรมที่2",
+    title: "กิจกรรมที่1",
     path: "assets/icons/icon_2.png",
     color: const Color(0xffB3BBF9),
   ),
   DashboradModel(
-    title: "กิจกรรมที่3",
+    title: "กิจกรรมที่2",
     path: "assets/icons/icon_3.png",
     color: const Color(0xffF4CE6B),
   ),
   DashboradModel(
-    title: "กิจกรรมที่4",
+    title: "กิจกรรมที่3",
     path: "assets/icons/icon_4.png",
     color: const Color(0xffAB9A7E),
   ),
   DashboradModel(
-    title: "กิจกรรมที่5",
+    title: "กิจกรรมที่4",
     path: "assets/icons/icon_5.png",
     color: const Color(0xffEE676E),
   ),
   DashboradModel(
-    title: "กิจกรรมที่6",
+    title: "กิจกรรมที่5",
     path: "assets/icons/icon_6.png",
     color: const Color(0xff86E0BC),
   ),
   DashboradModel(
-    title: "กิจกรรมที่7",
+    title: "กิจกรรมที่6",
     path: "assets/icons/icon_7.png",
     color: const Color(0xffFF772B),
   ),
   DashboradModel(
-    title: "กิจกรรมที่8",
+    title: "กิจกรรมที่7",
     path: "assets/icons/icon_8.png",
     color: const Color(0xff94A375),
   ),
   DashboradModel(
-    title: "กิจกรรมที่9",
+    title: "กิจกรรมที่8",
     path: "assets/icons/icon_9.png",
     color: const Color(0xffF188C7),
   ),
   DashboradModel(
-    title: "กิจกรรมที่10",
+    title: "กิจกรรมที่9",
     path: "assets/icons/icon_10.png",
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
-    title: "กิจกรรมที่11",
+    title: "แบบสอบถาม",
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),

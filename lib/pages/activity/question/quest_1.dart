@@ -218,8 +218,9 @@ class _Quest1State extends State<Quest1> {
                     }
                   },
                   borderRadius: 50,
-                  title:
-                      widget.nextPage == widget.endPage ? "ส่งคำตอบ" : 'ถัดไป',
+                  title: widget.nextPage == widget.endPage
+                      ? "ส่งคำตอบ"
+                      : 'ส่งคำตอบ',
                 ),
                 const SizedBox(height: 40),
               ],

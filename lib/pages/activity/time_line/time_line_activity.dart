@@ -343,7 +343,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[1],
+      learningModel: teenFollow[0],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -361,7 +361,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: teenFollow[0],
+      learningModel: teenLearning[1],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -375,7 +375,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[2],
+      learningModel: teenFollow[1],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -393,7 +393,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: teenFollow[1],
+      learningModel: teenLearning[2],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -407,7 +407,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[3],
+      learningModel: teenFollow[2],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -425,7 +425,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: teenFollow[2],
+      learningModel: teenLearning[3],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -439,7 +439,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[4],
+      learningModel: teenFollow[3],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -457,7 +457,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: teenFollow[3],
+      learningModel: teenLearning[4],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -471,7 +471,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[5],
+      learningModel: teenFollow[4],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -489,7 +489,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: teenFollow[4],
+      learningModel: teenLearning[5],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -503,7 +503,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teenLearning[6],
+      learningModel: teenFollow[5],
       controller: controller,
       nextPage: 2,
       endPage: 5,
@@ -520,7 +520,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       quizType: "แบบวัดความมีคุณค่าในตนเอง",
     ),
     QuestionPage2(
-      learningModel: teenFollow[5],
+      learningModel: teenLearning[6],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -675,13 +675,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentLearning[1],
+      learningModel: parentFollow[0],
       controller: controller,
       nextPage: 4,
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentFollow[0],
+      learningModel: parentLearning[1],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -707,13 +707,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentLearning[2],
+      learningModel: parentFollow[1],
       controller: controller,
       nextPage: 4,
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentFollow[1],
+      learningModel: parentLearning[2],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -739,13 +739,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentLearning[3],
+      learningModel: parentFollow[2],
       controller: controller,
       nextPage: 4,
       endPage: 5,
     ),
     QuestionPage2(
-      learningModel: parentFollow[2],
+      learningModel: parentLearning[3],
       controller: controller,
       nextPage: 5,
       endPage: 5,
@@ -765,13 +765,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentLearning[4],
+      learningModel: parentFollow[3],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentFollow[3],
+      learningModel: parentLearning[4],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -791,13 +791,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentLearning[5],
+      learningModel: parentFollow[4],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentFollow[4],
+      learningModel: parentLearning[5],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -817,13 +817,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentLearning[6],
+      learningModel: parentFollow[5],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: parentFollow[5],
+      learningModel: parentLearning[6],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1015,13 +1015,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkLearning[1],
+      learningModel: monkFollow[0],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkFollow[0],
+      learningModel: monkLearning[1],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1042,13 +1042,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkLearning[2],
+      learningModel: monkFollow[1],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkFollow[1],
+      learningModel: monkLearning[2],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1069,13 +1069,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkLearning[3],
+      learningModel: monkFollow[2],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: monkFollow[2],
+      learningModel: monkLearning[3],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1188,13 +1188,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherLearning[1],
+      learningModel: teacherFollow[0],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherFollow[0],
+      learningModel: teacherLearning[1],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1215,13 +1215,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherLearning[2],
+      learningModel: teacherFollow[1],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherFollow[1],
+      learningModel: teacherLearning[2],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1242,13 +1242,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherLearning[3],
+      learningModel: teacherFollow[2],
       controller: controller,
       nextPage: 3,
       endPage: 4,
     ),
     QuestionPage2(
-      learningModel: teacherFollow[2],
+      learningModel: teacherLearning[3],
       controller: controller,
       nextPage: 4,
       endPage: 4,
@@ -1263,13 +1263,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     QuestionPage2(
-      learningModel: teacherLearning[4],
+      learningModel: teacherFollow[3],
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     QuestionPage2(
-      learningModel: teacherFollow[3],
+      learningModel: teacherLearning[4],
       controller: controller,
       nextPage: 3,
       endPage: 3,

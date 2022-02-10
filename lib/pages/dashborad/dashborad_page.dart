@@ -12,7 +12,7 @@ class DashboradPage extends StatefulWidget {
 }
 
 class _DashboradPageState extends State<DashboradPage> {
-  String role = "วัยรุ่น";
+  String role = "ครู";
   List<DashboradModel> list = [];
 
   @override
