@@ -892,7 +892,7 @@ class _Quest4State extends State<Quest4> {
             ),
           ),
           TextSpan(
-            text: ' กรุณาทำเครื่องหมาย (✔) บนตัวอักษรหน้าข้อที่ท่านเห็นว่า ',
+            text: ' กรุณาเลือกข้อที่ท่านเห็นว่า ',
             style: TextStyle(
               fontSize: 12,
             ),

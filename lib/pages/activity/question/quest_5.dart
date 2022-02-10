@@ -90,24 +90,25 @@ class _Quest5State extends State<Quest5> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      widget.quizType ==
-                              "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์"
-                          ? Text(
-                              'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          : Center(
-                              child: Text(
-                                widget.quizType,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                      // widget.quizType ==
+                      //         "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์"
+                      //     ?
+                      Text(
+                        'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // : Center(
+                      //     child: Text(
+                      //       widget.quizType,
+                      //       style: const TextStyle(
+                      //         fontSize: 16,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
                       widget.quizType ==
                               "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์"
                           ? _text(context)
@@ -122,12 +123,15 @@ class _Quest5State extends State<Quest5> {
                                       ? _text8(context)
                                       : Container(),
                       const SizedBox(height: 20),
-                      Text(
-                        subTitle,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
+                      widget.quizType ==
+                              "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์"
+                          ? _textSub(context)
+                          : Text(
+                              subTitle,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -225,7 +229,7 @@ class _Quest5State extends State<Quest5> {
           ),
           TextSpan(
             text:
-                ' แบบวัดนี้เป็นแบบสอบถามเกี่ยวกับความรู้สึกนึกคิดของท่านที่มีต่อการดื่มเครื่องดื่มแอลกอฮอล์ กรุณาตัดสินใจว่าท่านเห็นด้วยหรือไม่เห็นด้วยมากน้อยแค่ไหนกับข้อความข้างล่างนี้ โดยการทำเครื่องหมาย  ✔ลงในช่องที่ตรงกับความรู้สึกของท่านตามความเป็นจริงให้มากที่สุด',
+                ' แบบวัดนี้เป็นแบบสอบถามเกี่ยวกับความรู้สึกนึกคิดของท่านที่มีต่อการดื่มเครื่องดื่มแอลกอฮอล์ กรุณาตัดสินใจว่าท่านเห็นด้วยหรือไม่เห็นด้วยมากน้อยแค่ไหนกับข้อความข้างล่างนี้ โดยเลือกคำตอบที่ตรงกับความรู้สึกของท่านตามความเป็นจริงให้มากที่สุด',
             style: TextStyle(
               fontSize: 12,
             ),
@@ -250,7 +254,7 @@ class _Quest5State extends State<Quest5> {
           ),
           TextSpan(
             text:
-                ' กรุณาทำเครื่องหมาย ✔ ลงในช่องที่ตรงกับความรู้สึกของท่านมากที่สุดเพียงคำตอบเดียว',
+                ' กรุณาทำเลือกข้อที่ตรงกับความรู้สึกของท่านมากที่สุดเพียงคำตอบเดียว',
             style: TextStyle(
               fontSize: 12,
             ),
@@ -275,7 +279,7 @@ class _Quest5State extends State<Quest5> {
           ),
           TextSpan(
             text:
-                ' กรุณาทำเครื่องหมาย ✔ ในช่องว่างในแต่ละข้อที่ท่านคิดว่าตรงกับความเป็นจริงของตัวท่านมากที่สุด',
+                ' กรุณาทำเลือกข้อที่ท่านคิดว่าตรงกับความเป็นจริงของตัวท่านมากที่สุด',
             style: TextStyle(
               fontSize: 12,
             ),
@@ -300,7 +304,38 @@ class _Quest5State extends State<Quest5> {
           ),
           TextSpan(
             text:
-                ' แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์ เป็นแบบวัดความพร้อมของท่านที่จะหลีกเลี่ยง   การดื่มเครื่องดื่มแอลกอฮอล์ในสถานการณ์ที่ชักนำไปสู่การดื่มเครื่องดื่มแอลกอฮอล์ กรุณาทำเครื่องหมาย ✔ ลงในช่องวางที่ตรงกับระดับความตั้งใจของท่านมากที่สุด',
+                ' แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์ เป็นแบบวัดความพร้อมของท่านที่จะหลีกเลี่ยง   การดื่มเครื่องดื่มแอลกอฮอล์ในสถานการณ์ที่ชักนำไปสู่การดื่มเครื่องดื่มแอลกอฮอล์ กรุณาทำเลือกข้อที่ตรงกับระดับความตั้งใจของท่านมากที่สุด',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  RichText _textSub(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: '',
+        style: DefaultTextStyle.of(context).style,
+        children: const <TextSpan>[
+          TextSpan(
+            text: 'ท่านมั่นใจว่าจะ ',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+          TextSpan(
+            text: 'ไม่ดื่ม',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+              fontSize: 12,
+            ),
+          ),
+          TextSpan(
+            text: ' สุราในสาถานการณ์ดังต่อไปนี้',
             style: TextStyle(
               fontSize: 12,
             ),

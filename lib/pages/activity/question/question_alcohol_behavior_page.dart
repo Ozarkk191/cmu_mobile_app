@@ -1,4 +1,5 @@
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
+import 'package:cmu_mobile_app/widgets/buttons/main_radio_button.dart';
 import 'package:flutter/material.dart';
 
 class QuestionAlcoholBehaviorPage extends StatefulWidget {
@@ -79,7 +80,12 @@ class _QuestionAlcoholBehaviorPageState
                       Center(
                         child: MainButton(
                           ontab: () {
-                            widget.controller.jumpToPage(widget.nextPage);
+                            widget.controller.jumpToPage(
+                              anwser1 ==
+                                      "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)"
+                                  ? (widget.nextPage + 1)
+                                  : widget.nextPage,
+                            );
                           },
                           width: _size.width * 0.5,
                           borderRadius: 50,
@@ -293,15 +299,19 @@ class _QuestionAlcoholBehaviorPageState
           style: TextStyle(fontSize: 12),
         ),
         _radioButton(
-          title: 'ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไป)',
+          title: 'ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)',
           groupValue: anwser1,
           onChanged: (String? value) {
             setState(() {
               anwser1 = value!;
+              anwser2 = "";
+              anwser3 = "";
+              anwser4 = "";
+              anwser5 = "";
             });
           },
         ),
-        _radioButton(
+        MainRadioButton(
           title: 'เคยดื่ม ดื่มครั้งแรกตอนอายุ',
           groupValue: anwser1,
           textField: true,
@@ -332,7 +342,9 @@ class _QuestionAlcoholBehaviorPageState
           Radio(
             value: title,
             groupValue: groupValue,
-            onChanged: onChanged,
+            onChanged: anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)"
+                ? null
+                : onChanged,
           ),
           Text(
             title,

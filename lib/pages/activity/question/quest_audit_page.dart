@@ -56,10 +56,35 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
                       _text(context),
                       const SizedBox(height: 20),
                       quiz1(),
-                      const Text(
-                        '2.เลือกตอบเพียง ข้อเดียว (ข้อ 2.1 หรือ 2.2 หรือ 2.3)',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                      RichText(
+                        text: TextSpan(
+                          text: '',
+                          style: DefaultTextStyle.of(context).style,
+                          children: const <TextSpan>[
+                            TextSpan(
+                              text: '2.เลือกตอบเพียง ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'ข้อเดียว',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' (ข้อ 2.1 หรือ 2.2 หรือ 2.3)',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       quiz2(),
                       quiz3(),
@@ -777,21 +802,14 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
             ),
           ),
           TextSpan(
-            text: ' โปรดตอบคำถามต่อไปนี้ตามความเป็นจริง โดยทำเครื่องหมาย',
+            text: ' โปรดตอบคำถามต่อไปนี้ตามความเป็นจริง โดยทำเลือก',
             style: TextStyle(
               fontSize: 12,
-            ),
-          ),
-          TextSpan(
-            text: ' X ',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
             ),
           ),
           TextSpan(
             text:
-                'ทับตัวเลขหน้าคำตอบที่ตรงกับความเป็นจริงของท่านมากที่สุด โดย สุรา หมายถึง เครื่องดื่มแอลกอฮอล์ทุกชนิด ได้แก่ เบียร์ เหล้า สาโท กระแช่ วิสกี้ สปายไวน์ เป็นต้น ',
+                'คำตอบที่ตรงกับความเป็นจริงของท่านมากที่สุด โดย สุรา หมายถึง เครื่องดื่มแอลกอฮอล์ทุกชนิด ได้แก่ เบียร์ เหล้า สาโท กระแช่ วิสกี้ สปายไวน์ เป็นต้น ',
             style: TextStyle(
               fontSize: 12,
             ),

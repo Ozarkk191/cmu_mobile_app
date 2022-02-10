@@ -28,12 +28,17 @@ class MainRadioButton extends StatelessWidget {
             groupValue: groupValue,
             onChanged: onChanged,
           ),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 10),
-            ),
-          ),
+          !textField
+              ? Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(fontSize: 10),
+                ),
           Visibility(
             visible: textField,
             child: SizedBox(

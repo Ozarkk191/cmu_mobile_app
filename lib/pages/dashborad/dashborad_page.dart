@@ -12,7 +12,7 @@ class DashboradPage extends StatefulWidget {
 }
 
 class _DashboradPageState extends State<DashboradPage> {
-  String role = "ครู";
+  String role = "วัยรุ่น";
   List<DashboradModel> list = [];
 
   @override
@@ -43,8 +43,10 @@ class _DashboradPageState extends State<DashboradPage> {
                 const SizedBox(height: 20),
                 SizedBox(
                   width: _size.width * 0.35,
+                  height: _size.width * 0.35,
                   child: Image.asset('assets/images/app_icon.png'),
                 ),
+                const SizedBox(height: 20),
                 Container(
                   margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: GridView.builder(

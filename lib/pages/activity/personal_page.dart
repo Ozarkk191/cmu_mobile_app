@@ -61,7 +61,7 @@ class _PersonalPageState extends State<PersonalPage> {
                       ),
                       TextSpan(
                         text:
-                            'กรุณากรอกข้อความ หรือทำเครื่องหมาย √ หน้าข้อความที่ตรงกับความเป็นจริงของท่าน',
+                            'กรุณากรอกข้อความ หรือเลือกข้อความที่ตรงกับความเป็นจริงของท่าน',
                         style: TextStyle(
                           fontSize: 12,
                         ),
@@ -177,67 +177,81 @@ class _PersonalPageState extends State<PersonalPage> {
             children: [
               Row(
                 children: [
-                  _checkBox(
-                    title: 'พ่อ',
-                    value: drinkAnwser1,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser1 = !drinkAnwser1;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'พ่อ',
+                      value: drinkAnwser1,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser1 = !drinkAnwser1;
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(width: 20),
-                  _checkBox(
-                    title: 'แม่',
-                    value: drinkAnwser2,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser2 = !drinkAnwser2;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'แม่',
+                      value: drinkAnwser2,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser2 = !drinkAnwser2;
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(width: 20),
-                  _checkBox(
-                    title: 'พ่อและแม่',
-                    value: drinkAnwser3,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser3 = !drinkAnwser3;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'พ่อและแม่',
+                      value: drinkAnwser3,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser3 = !drinkAnwser3;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
               Row(
                 children: [
-                  _checkBox(
-                    title: 'พี่/น้อง',
-                    value: drinkAnwser4,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser4 = !drinkAnwser4;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'พี่/น้อง',
+                      value: drinkAnwser4,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser4 = !drinkAnwser4;
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(width: 5),
-                  _checkBox(
-                    title: 'ปู่/ย่า/ตา/ยาย',
-                    value: drinkAnwser5,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser5 = !drinkAnwser5;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'ปู่/ย่า/ตา/ยาย',
+                      value: drinkAnwser5,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser5 = !drinkAnwser5;
+                        });
+                      },
+                    ),
                   ),
-                  const SizedBox(width: 5),
-                  _checkBox(
-                    title: 'ลุง/ป้า/น้า/อา',
-                    value: drinkAnwser6,
-                    onChanged: (val) {
-                      setState(() {
-                        drinkAnwser6 = !drinkAnwser6;
-                      });
-                    },
+                  Expanded(
+                    flex: 1,
+                    child: _checkBox(
+                      title: 'ลุง/ป้า/น้า/อา',
+                      value: drinkAnwser6,
+                      onChanged: (val) {
+                        setState(() {
+                          drinkAnwser6 = !drinkAnwser6;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -259,9 +273,11 @@ class _PersonalPageState extends State<PersonalPage> {
           value: value,
           onChanged: anwser12 == "ดื่ม ระบุ" ? onChanged : null,
         ),
-        Text(
-          title,
-          style: const TextStyle(fontSize: 10),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 10),
+          ),
         ),
       ],
     );

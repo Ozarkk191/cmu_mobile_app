@@ -6,7 +6,6 @@ import 'package:cmu_mobile_app/pages/activity/question/quest_4.dart';
 import 'package:cmu_mobile_app/pages/activity/question/quest_5.dart';
 import 'package:cmu_mobile_app/pages/activity/question/quest_audit_page.dart';
 import 'package:cmu_mobile_app/pages/activity/question/question_alcohol_behavior_page.dart';
-import 'package:cmu_mobile_app/pages/activity/question/question_page.dart';
 import 'package:cmu_mobile_app/pages/activity/question/question_page2.dart';
 import 'package:cmu_mobile_app/utils/quiz_list.dart';
 import 'package:cmu_mobile_app/utils/time_line.dart';
@@ -1108,7 +1107,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 1 ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์ ผลกระทบจากการดื่ม",
       controller: controller,
-      path: "assets/icons/icon_1.png",
+      path: "assets/icons/icon_2.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1128,7 +1127,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: "กิจกรรมครั้งที่ 2 กฏหมายที่เกี่ยวข้องกับเครื่องดื่มแอลกอออล์",
       controller: controller,
-      path: "assets/icons/icon_2.png",
+      path: "assets/icons/icon_3.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1143,7 +1142,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 3 การเปลี่ยนแปลงและพัฒนาการของวัยรุ่น สาเหตุการดื่ม แอลกอฮอล์ของวัยรุ่น",
       controller: controller,
-      path: "assets/icons/icon_3.png",
+      path: "assets/icons/icon_4.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1158,7 +1157,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 4 บทบาทของครูในการป้องกันการดื่มแอลกอฮอล์ในนักเรียน",
       controller: controller,
-      path: "assets/icons/icon_4.png",
+      path: "assets/icons/icon_5.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1179,7 +1178,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 5 การคัดกรองผู้ที่ติดสารเสพติด/ดื่มเครื่องดื่มแอลกอฮอล์",
       controller: controller,
-      path: "assets/icons/icon_5.png",
+      path: "assets/icons/icon_6.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1206,7 +1205,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 6 การให้คําปรึกษานักเรียนที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์",
       controller: controller,
-      path: "assets/icons/icon_6.png",
+      path: "assets/icons/icon_7.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1233,7 +1232,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 7 การเฝ้าระวังและกํากับติดตามนักเรียนที่มีความเสี่ยงหรือดื่ม แอลกอฮอล์",
       controller: controller,
-      path: "assets/icons/icon_7.png",
+      path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1260,7 +1259,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 8 การเห็นคุณค่าในตนเอง และการเสริมแรงเพื่อปรับพฤติกรรม",
       controller: controller,
-      path: "assets/icons/icon_7.png",
+      path: "assets/icons/icon_9.png",
       nextPage: 1,
     ),
     QuestionPage2(
