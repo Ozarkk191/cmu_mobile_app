@@ -53,33 +53,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
         _controller.play();
         checkEnd();
         _controller.addListener(
-          () => setState(() {
-            // log(_controller.value.duration.inSeconds.toString());
-            // log(_controller.value.position.inSeconds.toString());
-            // // if (!check) {
-            // //   if (_controller.value.position.inSeconds > 0) {
-            // //     check = true;
-            // //     log(check.toString());
-            // //   }
-            // // }
-            // if (_controller.value.position.inSeconds ==
-            //     _controller.value.duration.inSeconds) {
-            //   end == true;
-            //   _controller.pause();
-
-            //   if (landscape) {
-            //     _rotatePortrait();
-            //   }
-            // }
-            // if (end) {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const SubSplashPage(),
-            //     ),
-            //   );
-            // }
-          }),
+          () => setState(() {}),
         );
       });
     _controller.setLooping(true);

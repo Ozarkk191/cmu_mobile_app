@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/widgets/buttons/main_radio_button.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,13 @@ import 'package:flutter/material.dart';
 class QuestionAlcoholBehaviorPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
-  const QuestionAlcoholBehaviorPage(
-      {Key? key, required this.controller, required this.nextPage})
-      : super(key: key);
+  final int endPage;
+  const QuestionAlcoholBehaviorPage({
+    Key? key,
+    required this.controller,
+    required this.nextPage,
+    this.endPage = 1000,
+  }) : super(key: key);
 
   @override
   _QuestionAlcoholBehaviorPageState createState() =>
@@ -80,12 +85,23 @@ class _QuestionAlcoholBehaviorPageState
                       Center(
                         child: MainButton(
                           ontab: () {
-                            widget.controller.jumpToPage(
-                              anwser1 ==
-                                      "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)"
-                                  ? (widget.nextPage + 1)
-                                  : widget.nextPage,
-                            );
+                            if (anwser1 ==
+                                "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
+                              if ((widget.nextPage + 1) == widget.endPage) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HomePage(initPage: 0),
+                                  ),
+                                );
+                              } else {
+                                widget.controller
+                                    .jumpToPage((widget.nextPage + 1));
+                              }
+                            } else {
+                              widget.controller.jumpToPage(widget.nextPage);
+                            }
                           },
                           width: _size.width * 0.5,
                           borderRadius: 50,

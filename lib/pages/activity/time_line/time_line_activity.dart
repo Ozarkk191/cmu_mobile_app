@@ -191,6 +191,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     PersonalPage(
       controller: controller,
       nextPage: 2,
+      role: "วัยรุ่น",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
@@ -575,10 +576,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
       before: false,
     ),
-    QuestAuditPage(
+    PersonalPage(
       controller: controller,
       nextPage: 2,
-      endPage: 2,
+      role: "ผู้ปกครอง",
+    ),
+    QuestionAlcoholBehaviorPage(
+      controller: controller,
+      nextPage: 3,
+      endPage: 4,
+    ),
+    QuestAuditPage(
+      controller: controller,
+      nextPage: 4,
+      endPage: 4,
     ),
   ];
   List<Widget> parentWidget1 = [
@@ -850,24 +861,34 @@ class _TimelineActivityState extends State<TimelineActivity> {
   ];
 
   List<Widget> monkWidget1 = [
+    CoverQuestionnairePage(
+      controller: controller,
+      nextPage: 1,
+      before: false,
+    ),
+    PersonalPage(
+      controller: controller,
+      nextPage: 2,
+      role: "พระสงฆ์",
+    ),
     CoverPage(
       title:
           "กิจกรรมครั้งที่ 1 ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์ ผลกระทบจากการดื่ม",
       controller: controller,
       path: "assets/icons/icon_1.png",
-      nextPage: 1,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: "assets/video/monk/activity_1_1.mp4",
       controller: controller,
-      nextPage: 2,
-      endPage: 3,
+      nextPage: 4,
+      endPage: 5,
     ),
     VideoPlayPage(
       link: "assets/video/monk/activity_1_2.mp4",
       controller: controller,
-      nextPage: 3,
-      endPage: 3,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget2 = [
@@ -1096,10 +1117,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
       before: false,
     ),
-    QuestAuditPage(
+    PersonalPage(
       controller: controller,
       nextPage: 2,
-      endPage: 2,
+      role: "ครู",
+    ),
+    QuestionAlcoholBehaviorPage(
+      controller: controller,
+      nextPage: 3,
+      endPage: 4,
+    ),
+    QuestAuditPage(
+      controller: controller,
+      nextPage: 4,
+      endPage: 4,
     ),
   ];
   List<Widget> teacher2 = [

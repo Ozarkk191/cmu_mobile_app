@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 class PersonalPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
-  const PersonalPage(
-      {Key? key, required this.controller, required this.nextPage})
-      : super(key: key);
+  final String role;
+  const PersonalPage({
+    Key? key,
+    required this.controller,
+    required this.nextPage,
+    required this.role,
+  }) : super(key: key);
 
   @override
   _PersonalPageState createState() => _PersonalPageState();
@@ -37,6 +41,7 @@ class _PersonalPageState extends State<PersonalPage> {
         child: Container(
           color: const Color(0xfffbd4b9),
           width: _size.width,
+          height: _size.height,
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: SingleChildScrollView(
             child: Column(
@@ -70,20 +75,13 @@ class _PersonalPageState extends State<PersonalPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                quiz1(),
-                quiz2(_size),
-                quiz3(),
-                quiz4(),
-                quiz5(),
-                const SizedBox(height: 20),
-                quiz6(),
-                quiz7(),
-                quiz8(_size),
-                quiz9(_size),
-                quiz10(),
-                quiz11(),
-                quiz12(),
-                quiz13(_size),
+                widget.role == "วัยรุ่น"
+                    ? teenRole(_size)
+                    : widget.role == "ผู้ปกครอง"
+                        ? parentRole(_size)
+                        : widget.role == "ครู"
+                            ? parentRole(_size)
+                            : monkRole(_size),
                 const SizedBox(height: 40),
                 Center(
                   child: MainButton(
@@ -104,13 +102,193 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz13(Size _size) {
+  Widget teenRole(Size _size) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '13. เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
-          style: TextStyle(fontSize: 12),
+        quiz1(number: 1),
+        quiz2(_size, number: 2),
+        quiz3(number: 3),
+        quiz4(number: 4),
+        quiz5(number: 5),
+        quiz6(number: 6),
+        quiz7(number: 7),
+        quiz8(_size, number: 8),
+        quiz9(_size, number: 9),
+        quiz10(number: 10),
+        quiz11(number: 11),
+        quiz12(number: 12),
+        quiz13(_size, number: 13),
+      ],
+    );
+  }
+
+  Widget parentRole(Size _size) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        quiz1(number: 1),
+        quiz2(_size, number: 2),
+        quiz3(number: 3),
+        quiz14(number: 4),
+        quiz9(_size, number: 5),
+      ],
+    );
+  }
+
+  Widget monkRole(Size _size) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        quiz1(number: 1),
+        quiz2(_size, number: 2),
+        quiz14(number: 3),
+        quiz15(_size, number: 4),
+      ],
+    );
+  }
+
+  Widget quiz15(Size _size, {required int number}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              '$number.	ท่านบวชมาแล้ว',
+              style: const TextStyle(fontSize: 12),
+            ),
+            SizedBox(
+              width: _size.width * 0.2,
+              child: const TextField(
+                maxLength: 2,
+                keyboardType: TextInputType.number,
+                style: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 5),
+                ),
+              ),
+            ),
+            const Text(
+              'พรรษา',
+              style: TextStyle(fontSize: 12),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Column quiz14({required int number}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$number.	ระดับการศึกษาของท่านคือ',
+          style: const TextStyle(fontSize: 12),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 4',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+            Expanded(
+              child: _radioButton(
+                title: 'มัธยมศึกษาปีที่ 1',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 5',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+            Expanded(
+              child: _radioButton(
+                title: 'มัธยมศึกษาปีที่ 2',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: _radioButton(
+                title: 'ประถมศึกษาปีที่ 6',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+            Expanded(
+              child: _radioButton(
+                title: 'มัธยมศึกษาปีที่ 3',
+                onChanged: (val) {
+                  setState(() {
+                    anwser4 = val!;
+                  });
+                },
+                groupValue: anwser4,
+              ),
+            ),
+          ],
+        ),
+        _radioButton(
+          title: 'อื่นๆ ระบุ',
+          textField: true,
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+
+  Column quiz13(Size _size, {required int number}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$number. เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ไม่ดื่ม',
@@ -137,13 +315,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz12() {
+  Column quiz12({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '12. สมาชิกในครอบครัวของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number. สมาชิกในครอบครัวของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ไม่ดื่ม',
@@ -283,13 +461,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz11() {
+  Column quiz11({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '11. รายได้ของครอบครัวต่อเดือน',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number. รายได้ของครอบครัวต่อเดือน',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'น้อยกว่า 5,000 บาท',
@@ -359,13 +537,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz9(Size _size) {
+  Column quiz9(Size _size, {required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '9.	รายได้ที่ได้รับในแต่ละเดือน (ไม่รวมค่าเล่าเรียน  ค่าอุปกรณ์ในการเรียน  ค่าหอพัก)',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number.	รายได้ที่ได้รับในแต่ละเดือน (ไม่รวมค่าเล่าเรียน  ค่าอุปกรณ์ในการเรียน  ค่าหอพัก)',
+          style: const TextStyle(fontSize: 12),
         ),
         Row(
           children: [
@@ -421,13 +599,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz10() {
+  Column quiz10({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '10. ผู้ปกครองของท่านประกอบอาชีพ',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number. ผู้ปกครองของท่านประกอบอาชีพ',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'เกษตรกร',
@@ -498,15 +676,15 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz8(Size _size) {
+  Column quiz8(Size _size, {required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            const Text(
-              '8. จำนวนสมาชิกในครอบครัว',
-              style: TextStyle(fontSize: 12),
+            Text(
+              '$number. จำนวนสมาชิกในครอบครัว',
+              style: const TextStyle(fontSize: 12),
             ),
             SizedBox(
               width: _size.width * 0.2,
@@ -531,13 +709,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz7() {
+  Column quiz7({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '7. บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number. บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'บิดาและมารดา',
@@ -599,13 +777,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz6() {
+  Column quiz6({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '6. ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number. ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'ดีขึ้น',
@@ -649,35 +827,40 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Row quiz5() {
-    return Row(
-      children: const [
-        Text(
-          '5. ผลการเรียนในเทอมที่ผ่านมา ท่านได้เกรดเฉลี่ย',
-          style: TextStyle(fontSize: 12),
-        ),
-        Expanded(
-          child: TextField(
-            maxLength: 4,
-            keyboardType: TextInputType.number,
-            style: TextStyle(fontSize: 12),
-            decoration: InputDecoration(
-              counterText: "",
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
+  Widget quiz5({required int number}) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              '$number. ผลการเรียน\nในเทอมที่ผ่านมา ท่านได้เกรดเฉลี่ย',
+              style: const TextStyle(fontSize: 12),
             ),
-          ),
+            const Expanded(
+              child: TextField(
+                maxLength: 4,
+                keyboardType: TextInputType.number,
+                style: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
+                ),
+              ),
+            ),
+          ],
         ),
+        const SizedBox(height: 20),
       ],
     );
   }
 
-  Column quiz4() {
+  Column quiz4({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '4.	ท่านกำลังศึกษาอยู่ในระดับชั้น',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number.	ท่านกำลังศึกษาอยู่ในระดับชั้น',
+          style: const TextStyle(fontSize: 12),
         ),
         Row(
           children: [
@@ -772,13 +955,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz3() {
+  Column quiz3({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '3.	ท่านนับถือศาสนา',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number.	ท่านนับถือศาสนา',
+          style: const TextStyle(fontSize: 12),
         ),
         _radioButton(
           title: 'พุทธ',
@@ -822,15 +1005,15 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz2(Size _size) {
+  Column quiz2(Size _size, {required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            const Text(
-              '2.	ปัจจุบันท่านอายุ',
-              style: TextStyle(fontSize: 12),
+            Text(
+              '$number.	ปัจจุบันท่านอายุ',
+              style: const TextStyle(fontSize: 12),
             ),
             SizedBox(
               width: _size.width * 0.2,
@@ -855,13 +1038,13 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz1() {
+  Column quiz1({required int number}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '1.	เพศ',
-          style: TextStyle(fontSize: 12),
+        Text(
+          '$number.	เพศ',
+          style: const TextStyle(fontSize: 12),
         ),
         Row(
           children: [
