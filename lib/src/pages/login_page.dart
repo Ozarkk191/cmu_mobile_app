@@ -1,3 +1,10 @@
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/auth_api.dart';
+import 'package:cmu_mobile_app/models/body_parameters.dart';
+import 'package:cmu_mobile_app/models/sign_up_model.dart';
+import 'package:cmu_mobile_app/models/user_auth_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/register_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
@@ -17,8 +24,26 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
-  void _check() {
-    // if (_username.text != "" && _password.text != "") {
+  void _check({required String email, required String password}) {
+    if (_username.text == "" && _password.text != "") {
+      log("username or password is Empty");
+    } else if (_password.text.length < 6) {
+      log("password length < 6");
+    } else {
+      login(email: email, password: password);
+    }
+  }
+
+  void login({required String email, required String password}) async {
+    LoginParameter body = LoginParameter(
+      email: email,
+      password: password,
+    );
+    UserAuthModel user = await AuthApi.signIn(param: body);
+    await SharedPref.setStringPref(
+      key: "user",
+      value: user.toJson().toString(),
+    );
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -27,7 +52,11 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-    // }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -77,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 MainButton(
-                  ontab: _check,
+                  ontab: () =>
+                      _check(email: _username.text, password: _password.text),
                   width: _size.width * 0.6,
                   title: 'เข้าสู่ระบบ',
                   borderRadius: 50,
