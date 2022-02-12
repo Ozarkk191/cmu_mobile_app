@@ -1,4 +1,4 @@
-import 'package:cmu_mobile_app/pages/splash_screen/splash_page.dart';
+import 'package:cmu_mobile_app/src/pages/splash_screen/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
