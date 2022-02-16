@@ -3,10 +3,11 @@ class UserAuthModel {
   String? name;
   String? email;
   bool? emailVerifiedAt;
-  String? studentId;
+  int? studentId;
   String? role;
   String? createdAt;
   String? updatedAt;
+  int? branchId;
 
   UserAuthModel({
     this.id,
@@ -17,6 +18,7 @@ class UserAuthModel {
     this.role,
     this.createdAt,
     this.updatedAt,
+    this.branchId,
   });
 
   UserAuthModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class UserAuthModel {
     role = json['role'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    branchId = json['branch_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +43,7 @@ class UserAuthModel {
     data['role'] = role;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['branch_id'] = branchId;
     return data;
   }
 }

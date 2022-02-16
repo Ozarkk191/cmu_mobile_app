@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -15,7 +14,7 @@ class HttpRequest {
     return token;
   }
 
-  static Future<void> _signOut() async {
+  static Future<void> signOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }
@@ -32,6 +31,7 @@ class HttpRequest {
     } on SocketException {
       throw ('No Internet connection.');
     }
+
     return response.data;
   }
 

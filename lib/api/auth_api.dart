@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/models/sign_up_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
 import 'package:cmu_mobile_app/services/http/http_request.dart';
@@ -23,15 +22,27 @@ class AuthApi {
     await SharedPref.setStringPref(
         key: "token", value: response["token"].toString());
     UserAuthModel user = UserAuthModel.fromJson(response["user"]);
-    log(user.toJson().toString());
     return user;
   }
 
   static Future<List<UserAuthModel>> getStudents() async {
     String url = '$baseUrl/students';
-    List<dynamic> response = await HttpRequest.get(url, withAccessToken: true);
-    List<UserAuthModel> studentList =
-        response.map((e) => UserAuthModel.fromJson(e)).toList();
+    List<UserAuthModel> studentList = [];
+    final response = await HttpRequest.get(url);
+    if (response.isNotEmpty) {
+      response.map((i) => studentList.add(UserAuthModel.fromJson(i))).toList();
+    }
     return studentList;
+  }
+
+  static Future<Map<String, dynamic>> setProflieData(
+      {required ProfileModel param}) async {
+    String url = '$baseUrl/profile';
+    final response = await HttpRequest.post(
+      url,
+      data: param,
+      withAccessToken: true,
+    );
+    return response;
   }
 }

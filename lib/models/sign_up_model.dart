@@ -7,14 +7,17 @@ class SignUpModel extends RequestBodyParameters {
   String? passwordConfirmation;
   String? role;
   String? studentId;
+  int? branchId;
 
-  SignUpModel(
-      {this.name,
-      this.email,
-      this.password,
-      this.passwordConfirmation,
-      this.role,
-      this.studentId});
+  SignUpModel({
+    this.name,
+    this.email,
+    this.password,
+    this.passwordConfirmation,
+    this.role,
+    this.studentId,
+    this.branchId,
+  });
 
   @override
   Map<String, dynamic> toJson() {
@@ -25,6 +28,7 @@ class SignUpModel extends RequestBodyParameters {
     data['password_confirmation'] = passwordConfirmation;
     data['role'] = role;
     data['student_id'] = studentId;
+    data['branch_id'] = branchId;
     return data;
   }
 }

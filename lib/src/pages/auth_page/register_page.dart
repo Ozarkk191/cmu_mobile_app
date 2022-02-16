@@ -1,18 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/models/sign_up_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
+import 'package:cmu_mobile_app/src/pages/auth_page/choose_teen_page.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_radio_group/flutter_radio_group.dart';
-
-import 'dashborad/dashborad_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -31,7 +30,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String role = "รพสต";
   String studentId = "";
-  String dropdownvalue = 'กรุณาเลือก';
 
   void _check() {
     if (_username.text == "" &&
@@ -44,16 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else if (_password.text.length < 6) {
       log("password length < 6");
     } else {
-      if (role == "วัยรุ่น" || role == "รพสต") {
-        signUp();
-      } else {
-        studentId = getStudentID();
-        if (studentId == "") {
-          log("studentId is null $role");
-        } else {
-          signUp();
-        }
-      }
+      signUp();
     }
   }
 
@@ -75,27 +64,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  String getStudentID() {
-    List<String> list = studentItemList;
-    list.removeAt(0);
-    String _studentId = "0";
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] == dropdownvalue) {
-        _studentId = studentList[i].id.toString();
-      }
-    }
-
-    return _studentId;
-  }
-
-  void getStudent() async {
-    studentList = await AuthApi.getStudents();
-    for (var e in studentList) {
-      studentItemList.add(e.name.toString());
-    }
-    studentItemList.insert(0, "กรุณาเลือก");
-  }
-
   void signUp() async {
     SignUpModel param = SignUpModel(
       email: _email.text,
@@ -103,14 +71,26 @@ class _RegisterPageState extends State<RegisterPage> {
       password: _password.text,
       passwordConfirmation: _repassword.text,
       role: changeRole(role),
-      studentId: getStudentID(),
+      studentId: studentId,
+      branchId: 1,
     );
-    final user = await AuthApi.signUp(param: param);
-    await SharedPref.setStringPref(
-      key: "user",
-      value: user.toJson().toString(),
-    );
-    _showDialog();
+    if (role == "วัยรุ่น" || role == "รพสต") {
+      final user = await AuthApi.signUp(param: param);
+      await SharedPref.setStringPref(
+        key: "user",
+        value: jsonEncode(user.toJson()),
+      );
+      _showDialog();
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChooseTeenPage(
+            signUp: param,
+          ),
+        ),
+      );
+    }
   }
 
   void _showDialog() {
@@ -150,16 +130,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontSize: 24,
                     ),
                   ),
-                  // Visibility(
-                  //   visible: _listHorizontal[index] == "วัยรุ่น" ? true : false,
-                  //   child: const Text(
-                  //     'รหัสสมาชิก = 1',
-                  //     style: TextStyle(
-                  //       color: Color(0xffFF6600),
-                  //       fontSize: 18,
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -181,7 +151,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
-    getStudent();
     super.initState();
   }
 
@@ -281,26 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   groupValue: role,
                 ),
                 const SizedBox(
-                  height: 20,
-                ),
-                Visibility(
-                  visible: role != "วัยรุ่น" || role != "รพสต",
-                  child: DropdownButton(
-                    value: dropdownvalue,
-                    items: studentItemList.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (String? value) {
-                      dropdownvalue = value!;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
+                  height: 50,
                 ),
                 MainButton(
                   ontab: () {

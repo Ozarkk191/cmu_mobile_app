@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/models/questions/question3_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
@@ -19,6 +25,7 @@ class QuestAuditPage extends StatefulWidget {
 }
 
 class _QuestAuditPageState extends State<QuestAuditPage> {
+  late Question3Model question3 = Question3Model();
   String anwser1 = "";
   String anwser2 = "";
   String anwser3 = "";
@@ -29,6 +36,45 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
   String anwser8 = "";
   String anwser9 = "";
   String anwser10 = "";
+
+  void onSave() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+    question3.userId = user["id"];
+    int total = question3.q1! +
+        question3.q21! +
+        question3.q22! +
+        question3.q23! +
+        question3.q3! +
+        question3.q4! +
+        question3.q5! +
+        question3.q6! +
+        question3.q7! +
+        question3.q8! +
+        question3.q9! +
+        question3.q10!;
+
+    question3.total = total;
+
+    log(total.toString());
+    log(question3.toJson().toString());
+
+    await QuestionApi.setQuestion3(param: question3).then((value) {
+      if (value['message'] == "success") {
+        if ((widget.nextPage + 1) == widget.endPage) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(initPage: 0),
+            ),
+          );
+        } else {
+          widget.controller.jumpToPage(widget.nextPage);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -98,19 +144,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
                       const SizedBox(height: 40),
                       Center(
                         child: MainButton(
-                          ontab: () {
-                            if (widget.nextPage == widget.endPage) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HomePage(initPage: 0),
-                                ),
-                              );
-                            } else {
-                              widget.controller.jumpToPage(widget.nextPage);
-                            }
-                          },
+                          ontab: onSave,
                           width: _size.width * 0.5,
                           borderRadius: 50,
                           title: widget.nextPage == widget.endPage
@@ -135,7 +169,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          '9.เคยมีแพทย์ หรือบุคลากรทางการแพทย์หรือเพื่อนฝูงหรือญาติพี่น้องแสดงความเป็นห่วงเป็นใยต่อการดื่มสุราของคุณหรือไม่',
+          '10.เคยมีแพทย์ หรือบุคลากรทางการแพทย์หรือเพื่อนฝูงหรือญาติพี่น้องแสดงความเป็นห่วงเป็นใยต่อการดื่มสุราของคุณหรือไม่',
           style: TextStyle(
             fontSize: 12,
           ),
@@ -146,6 +180,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
+              question3.q10 = 0;
             });
           },
         ),
@@ -155,6 +190,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
+              question3.q10 = 2;
             });
           },
         ),
@@ -164,6 +200,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
+              question3.q10 = 4;
             });
           },
         ),
@@ -188,6 +225,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
+              question3.q9 = 0;
             });
           },
         ),
@@ -197,6 +235,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
+              question3.q9 = 2;
             });
           },
         ),
@@ -206,6 +245,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
+              question3.q9 = 4;
             });
           },
         ),
@@ -230,6 +270,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
+              question3.q8 = 0;
             });
           },
         ),
@@ -239,6 +280,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
+              question3.q8 = 1;
             });
           },
         ),
@@ -248,6 +290,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
+              question3.q8 = 2;
             });
           },
         ),
@@ -257,6 +300,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
+              question3.q8 = 3;
             });
           },
         ),
@@ -266,6 +310,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
+              question3.q8 = 4;
             });
           },
         ),
@@ -290,6 +335,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
+              question3.q7 = 0;
             });
           },
         ),
@@ -299,6 +345,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
+              question3.q7 = 1;
             });
           },
         ),
@@ -308,6 +355,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
+              question3.q7 = 2;
             });
           },
         ),
@@ -317,6 +365,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
+              question3.q7 = 3;
             });
           },
         ),
@@ -326,6 +375,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
+              question3.q7 = 4;
             });
           },
         ),
@@ -350,6 +400,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
+              question3.q6 = 0;
             });
           },
         ),
@@ -359,6 +410,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
+              question3.q6 = 1;
             });
           },
         ),
@@ -368,6 +420,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
+              question3.q6 = 2;
             });
           },
         ),
@@ -377,6 +430,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
+              question3.q6 = 3;
             });
           },
         ),
@@ -386,6 +440,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
+              question3.q6 = 4;
             });
           },
         ),
@@ -410,6 +465,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
+              question3.q5 = 0;
             });
           },
         ),
@@ -419,6 +475,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
+              question3.q5 = 1;
             });
           },
         ),
@@ -428,6 +485,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
+              question3.q5 = 2;
             });
           },
         ),
@@ -437,6 +495,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
+              question3.q5 = 3;
             });
           },
         ),
@@ -446,6 +505,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
+              question3.q5 = 4;
             });
           },
         ),
@@ -470,6 +530,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
+              question3.q4 = 0;
             });
           },
         ),
@@ -479,6 +540,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
+              question3.q4 = 1;
             });
           },
         ),
@@ -488,6 +550,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
+              question3.q4 = 2;
             });
           },
         ),
@@ -497,6 +560,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
+              question3.q4 = 3;
             });
           },
         ),
@@ -506,6 +570,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
+              question3.q4 = 4;
             });
           },
         ),
@@ -530,6 +595,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
+              question3.q3 = 0;
             });
           },
         ),
@@ -539,6 +605,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
+              question3.q3 = 1;
             });
           },
         ),
@@ -548,6 +615,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
+              question3.q3 = 2;
             });
           },
         ),
@@ -557,6 +625,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
+              question3.q3 = 3;
             });
           },
         ),
@@ -566,6 +635,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
+              question3.q3 = 4;
             });
           },
         ),
@@ -583,47 +653,62 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           style: TextStyle(fontSize: 12),
         ),
         MainRadioButton(
-          title: '(1)    1-2 ดื่มมาตรฐาน',
+          title: '(0)    1-2 ดื่มมาตรฐาน',
           groupValue: anwser2,
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
         MainRadioButton(
-          title: '(2)    3-4 ดื่มมาตรฐาน',
+          title: '(1)    3-4 ดื่มมาตรฐาน',
           groupValue: anwser2,
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 1;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
         MainRadioButton(
-          title: '(3)    5-6 ดื่มมาตรฐาน',
+          title: '(2)    5-6 ดื่มมาตรฐาน',
           groupValue: anwser2,
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 2;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
         MainRadioButton(
-          title: '(4)    7-9 ดื่มมาตรฐาน',
+          title: '(3)    7-9 ดื่มมาตรฐาน',
           groupValue: anwser2,
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 3;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
         MainRadioButton(
-          title: '(5)    ตั้งแต่ 10 ดื่มมาตราฐานขึ้นไป',
+          title: '(4)    ตั้งแต่ 10 ดื่มมาตราฐานขึ้นไป',
           groupValue: anwser2,
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 4;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
@@ -637,6 +722,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
@@ -646,6 +734,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 1;
+              question3.q23 = 0;
             });
           },
         ),
@@ -655,6 +746,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 2;
+              question3.q23 = 0;
             });
           },
         ),
@@ -664,6 +758,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 3;
+              question3.q23 = 0;
             });
           },
         ),
@@ -673,6 +770,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 4;
+              question3.q23 = 0;
             });
           },
         ),
@@ -686,6 +786,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 0;
             });
           },
         ),
@@ -695,6 +798,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 1;
             });
           },
         ),
@@ -704,6 +810,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 2;
             });
           },
         ),
@@ -713,6 +822,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 3;
             });
           },
         ),
@@ -722,6 +834,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q21 = 0;
+              question3.q22 = 0;
+              question3.q23 = 4;
             });
           },
         ),
@@ -744,6 +859,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
+              question3.q1 = 0;
             });
           },
         ),
@@ -753,6 +869,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
+              question3.q1 = 1;
             });
           },
         ),
@@ -762,6 +879,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
+              question3.q1 = 2;
             });
           },
         ),
@@ -771,6 +889,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
+              question3.q1 = 3;
             });
           },
         ),
@@ -780,6 +899,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
+              question3.q1 = 4;
             });
           },
         ),

@@ -1,17 +1,17 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/models/body_parameters.dart';
-import 'package:cmu_mobile_app/models/sign_up_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
-import 'package:cmu_mobile_app/src/pages/register_page.dart';
+import 'package:cmu_mobile_app/src/pages/auth_page/register_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/src/widgets/textfields/main_textfield.dart';
 import 'package:flutter/material.dart';
 
-import 'home/home_page.dart';
+import '../home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     UserAuthModel user = await AuthApi.signIn(param: body);
     await SharedPref.setStringPref(
       key: "user",
-      value: user.toJson().toString(),
+      value: jsonEncode(user.toJson()),
     );
     Navigator.pushReplacement(
       context,
@@ -56,6 +56,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    _username.text = "aum@aum.com";
+    _password.text = "123456";
     super.initState();
   }
 

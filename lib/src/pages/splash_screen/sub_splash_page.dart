@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:cmu_mobile_app/models/dashborad_model.dart';
+import 'package:cmu_mobile_app/models/user_auth_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
+import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-import '../login_page.dart';
+import '../auth_page/login_page.dart';
 
 class SubSplashPage extends StatefulWidget {
   const SubSplashPage({Key? key}) : super(key: key);
@@ -14,15 +19,31 @@ class SubSplashPage extends StatefulWidget {
 class _SubSplashPageState extends State<SubSplashPage> {
   @override
   void initState() {
-    Timer(const Duration(seconds: 3), () {
+    getUser();
+    super.initState();
+  }
+
+  void getUser() async {
+    final _role = await SharedPref.getStringPref(key: "user");
+    if (_role != "") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => const HomePage(
+            initPage: 0,
+          ),
         ),
       );
-    });
-    super.initState();
+    } else {
+      Timer(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginPage(),
+          ),
+        );
+      });
+    }
   }
 
   @override

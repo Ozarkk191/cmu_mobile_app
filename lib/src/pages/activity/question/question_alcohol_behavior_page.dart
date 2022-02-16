@@ -1,3 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/models/profile_model.dart';
+import 'package:cmu_mobile_app/models/questions/question2_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
@@ -21,6 +28,7 @@ class QuestionAlcoholBehaviorPage extends StatefulWidget {
 
 class _QuestionAlcoholBehaviorPageState
     extends State<QuestionAlcoholBehaviorPage> {
+  late Question2Model question2 = Question2Model();
   late TextEditingController controller1 = TextEditingController();
   late TextEditingController controller3 = TextEditingController();
   late TextEditingController controller4 = TextEditingController();
@@ -30,11 +38,42 @@ class _QuestionAlcoholBehaviorPageState
   String anwser3 = "";
   String anwser4 = "";
   String anwser5 = "";
-  // bool value1 = false;
-  // bool value2 = false;
-  // bool value3 = false;
-  // bool value4 = false;
-  // bool value5 = false;
+
+  void onSave() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+    question2.userId = user["id"];
+    question2.q1Comment = controller1.text;
+    question2.q3Comment = controller3.text;
+    question2.q4Comment = controller4.text;
+    question2.q5Comment = controller5.text;
+
+    log(question2.toJson().toString());
+
+    await QuestionApi.setQuestion2(param: question2).then((value) {
+      if (value['message'] == "success") {
+        if (anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
+          if ((widget.nextPage + 1) == widget.endPage) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(initPage: 0),
+              ),
+            );
+          } else {
+            widget.controller.jumpToPage((widget.nextPage + 1));
+          }
+        } else {
+          widget.controller.jumpToPage(widget.nextPage);
+        }
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -84,25 +123,7 @@ class _QuestionAlcoholBehaviorPageState
                       const SizedBox(height: 40),
                       Center(
                         child: MainButton(
-                          ontab: () {
-                            if (anwser1 ==
-                                "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
-                              if ((widget.nextPage + 1) == widget.endPage) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HomePage(initPage: 0),
-                                  ),
-                                );
-                              } else {
-                                widget.controller
-                                    .jumpToPage((widget.nextPage + 1));
-                              }
-                            } else {
-                              widget.controller.jumpToPage(widget.nextPage);
-                            }
-                          },
+                          ontab: onSave,
                           width: _size.width * 0.5,
                           borderRadius: 50,
                           title: 'ถัดไป',
@@ -134,6 +155,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser5 = value!;
+              question2.q5 = 1;
             });
           },
         ),
@@ -143,6 +165,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser5 = value!;
+              question2.q5 = 2;
             });
           },
         ),
@@ -152,6 +175,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser5 = value!;
+              question2.q5 = 3;
             });
           },
         ),
@@ -163,6 +187,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser5 = value!;
+              question2.q5 = 4;
             });
           },
         ),
@@ -185,6 +210,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser4 = value!;
+              question2.q4 = 1;
             });
           },
         ),
@@ -194,6 +220,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser4 = value!;
+              question2.q4 = 2;
             });
           },
         ),
@@ -205,6 +232,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser4 = value!;
+              question2.q4 = 3;
               // anwser4 = "$value ${controller4.text}";
             });
           },
@@ -228,6 +256,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser3 = value!;
+              question2.q3 = 1;
             });
           },
         ),
@@ -237,6 +266,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser3 = value!;
+              question2.q3 = 2;
             });
           },
         ),
@@ -246,6 +276,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser3 = value!;
+              question2.q3 = 3;
             });
           },
         ),
@@ -257,6 +288,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser3 = value!;
+              question2.q3 = 4;
               // anwser4 = "$value ${controller4.text}";
             });
           },
@@ -280,6 +312,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser2 = value!;
+              question2.q2 = 1;
             });
           },
         ),
@@ -289,6 +322,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser2 = value!;
+              question2.q2 = 2;
             });
           },
         ),
@@ -298,6 +332,7 @@ class _QuestionAlcoholBehaviorPageState
           onChanged: (String? value) {
             setState(() {
               anwser2 = value!;
+              question2.q2 = 3;
             });
           },
         ),
@@ -324,6 +359,16 @@ class _QuestionAlcoholBehaviorPageState
               anwser3 = "";
               anwser4 = "";
               anwser5 = "";
+              question2.q1 = 1;
+              question2.q2 = 0;
+              question2.q3 = 0;
+              question2.q4 = 0;
+              question2.q5 = 0;
+              question2.q1Comment = "";
+              question2.q2Comment = "";
+              question2.q3Comment = "";
+              question2.q4Comment = "";
+              question2.q5Comment = "";
             });
           },
         ),
@@ -331,10 +376,12 @@ class _QuestionAlcoholBehaviorPageState
           title: 'เคยดื่ม ดื่มครั้งแรกตอนอายุ',
           groupValue: anwser1,
           textField: true,
+          controller: controller1,
           suffix: 'ปี',
           onChanged: (String? value) {
             setState(() {
               anwser1 = value!;
+              question2.q1 = 2;
             });
           },
         ),

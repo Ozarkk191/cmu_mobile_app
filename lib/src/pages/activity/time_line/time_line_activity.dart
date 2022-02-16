@@ -159,11 +159,11 @@ class _TimelineActivityState extends State<TimelineActivity> {
   }
 
   List<Widget> getData() {
-    if (widget.role == "วัยรุ่น") {
+    if (widget.role == "student") {
       return teen(widget.index);
-    } else if (widget.role == "ผู้ปกครอง") {
+    } else if (widget.role == "parent") {
       return parent(widget.index);
-    } else if (widget.role == "พระสงฆ์") {
+    } else if (widget.role == "monk") {
       return monk(widget.index);
     } else {
       return teacher(widget.index);
@@ -193,7 +193,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     PersonalPage(
       controller: controller,
       nextPage: 2,
-      role: "วัยรุ่น",
+      role: "student",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
@@ -581,7 +581,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     PersonalPage(
       controller: controller,
       nextPage: 2,
-      role: "ผู้ปกครอง",
+      role: "parent",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
@@ -871,7 +871,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     PersonalPage(
       controller: controller,
       nextPage: 2,
-      role: "พระสงฆ์",
+      role: "monk",
       endPage: 2,
     ),
   ];
@@ -1009,7 +1009,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
   ];
   List<Widget> monkWidget8 = [
     CoverPage(
-      title: "กิจกรรมครั้งที่ 8 วัดปลอดสุรา (กฏหมายและกิจกรรมที่ทําได5ในวัด)",
+      title: "กิจกรรมครั้งที่ 8 วัดปลอดสุรา (กฏหมาย และ กิจกรรมที่ทําได้ในวัด)",
       controller: controller,
       path: "assets/icons/icon_8.png",
       nextPage: 1,
@@ -1125,7 +1125,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     PersonalPage(
       controller: controller,
       nextPage: 2,
-      role: "ครู",
+      role: "teacher",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,

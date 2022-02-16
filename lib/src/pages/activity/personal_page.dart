@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/auth_api.dart';
+import 'package:cmu_mobile_app/models/profile_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +26,21 @@ class PersonalPage extends StatefulWidget {
 }
 
 class _PersonalPageState extends State<PersonalPage> {
+  late ProfileModel profile = ProfileModel();
+  TextEditingController age = TextEditingController();
+  TextEditingController religion = TextEditingController();
+  TextEditingController education = TextEditingController();
+  TextEditingController grade = TextEditingController();
+  TextEditingController gradeCompare = TextEditingController();
+  TextEditingController peopleWith = TextEditingController();
+  TextEditingController familyNumbers = TextEditingController();
+  TextEditingController moneyPerMonth = TextEditingController();
+  TextEditingController moneyPerWeek = TextEditingController();
+  TextEditingController moneyPerDay = TextEditingController();
+  TextEditingController parentOccupation = TextEditingController();
+  TextEditingController friendAlcoholic = TextEditingController();
+  TextEditingController yearNumber = TextEditingController();
+
   String anwser1 = "";
   String anwser3 = "";
   String anwser4 = "";
@@ -36,6 +57,80 @@ class _PersonalPageState extends State<PersonalPage> {
   bool drinkAnwser4 = false;
   bool drinkAnwser5 = false;
   bool drinkAnwser6 = false;
+
+  void onSave() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+
+    if (age.text.isNotEmpty) {
+      profile.age = int.parse(age.text);
+    }
+    if (grade.text.isNotEmpty) {
+      profile.grade = double.parse(grade.text);
+    }
+    if (familyNumbers.text.isNotEmpty) {
+      profile.familyNumbers = int.parse(familyNumbers.text);
+    }
+    if (moneyPerMonth.text.isNotEmpty) {
+      profile.moneyPerMonth = double.parse(moneyPerMonth.text);
+    }
+    if (moneyPerWeek.text.isNotEmpty) {
+      profile.moneyPerWeek = double.parse(moneyPerWeek.text);
+    }
+    if (moneyPerDay.text.isNotEmpty) {
+      profile.moneyPerDay = double.parse(moneyPerDay.text);
+    }
+    if (yearNumber.text.isNotEmpty) {
+      profile.yearNumber = double.parse(yearNumber.text);
+    }
+    profile.userId = user["id"];
+    profile.religionComment = religion.text;
+    profile.educationComment = education.text;
+    profile.gradeCompareComment = gradeCompare.text;
+    profile.peopleWithComment = peopleWith.text;
+    profile.parentOccupationComment = parentOccupation.text;
+    profile.friendAlcoholicComment = friendAlcoholic.text;
+
+    await AuthApi.setProflieData(param: profile).then((value) {
+      if (value['message'] == "success") {
+        if (widget.endPage == widget.nextPage) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(initPage: 0),
+            ),
+          );
+        } else {
+          widget.controller.jumpToPage(widget.nextPage);
+        }
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    log("personal ==> ${widget.role}");
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    age.dispose();
+    religion.dispose();
+    education.dispose();
+    grade.dispose();
+    gradeCompare.dispose();
+    peopleWith.dispose();
+    familyNumbers.dispose();
+    moneyPerMonth.dispose();
+    moneyPerWeek.dispose();
+    moneyPerDay.dispose();
+    parentOccupation.dispose();
+    friendAlcoholic.dispose();
+    yearNumber.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -78,29 +173,20 @@ class _PersonalPageState extends State<PersonalPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                widget.role == "วัยรุ่น"
+                widget.role == "student"
                     ? teenRole(_size)
-                    : widget.role == "ผู้ปกครอง"
+                    : widget.role == "parent"
                         ? parentRole(_size)
-                        : widget.role == "ครู"
-                            ? parentRole(_size)
-                            : monkRole(_size),
+                        : widget.role == "monk"
+                            ? monkRole(_size)
+                            : parentRole(_size),
                 const SizedBox(height: 40),
                 Center(
                   child: MainButton(
                     width: _size.width * 0.5,
                     borderRadius: 50,
                     ontab: () {
-                      if (widget.endPage == widget.nextPage) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(initPage: 0),
-                          ),
-                        );
-                      } else {
-                        widget.controller.jumpToPage(widget.nextPage);
-                      }
+                      onSave();
                     },
                     title: 'ถัดไป',
                   ),
@@ -172,11 +258,12 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
                 maxLength: 2,
+                controller: yearNumber,
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 12),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
                   counterText: "",
                   contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 5),
                 ),
@@ -307,6 +394,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser13 = val!;
+              profile.friendAlcoholic = 1;
             });
           },
           groupValue: anwser13,
@@ -315,9 +403,11 @@ class _PersonalPageState extends State<PersonalPage> {
           title: 'ดื่ม ระบุ',
           textField: true,
           suffix: 'คน',
+          controller: friendAlcoholic,
           onChanged: (val) {
             setState(() {
               anwser13 = val!;
+              profile.friendAlcoholic = 2;
             });
           },
           groupValue: anwser13,
@@ -347,6 +437,13 @@ class _PersonalPageState extends State<PersonalPage> {
                 drinkAnwser4 = false;
                 drinkAnwser5 = false;
                 drinkAnwser6 = false;
+                profile.familyAlcoholic = 1;
+                profile.familyAlcoholicMember1 = 0;
+                profile.familyAlcoholicMember2 = 0;
+                profile.familyAlcoholicMember3 = 0;
+                profile.familyAlcoholicMember4 = 0;
+                profile.familyAlcoholicMember5 = 0;
+                profile.familyAlcoholicMember6 = 0;
               }
             });
           },
@@ -357,6 +454,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser12 = val!;
+              profile.familyAlcoholic = 2;
             });
           },
           groupValue: anwser12,
@@ -375,6 +473,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser1 = !drinkAnwser1;
+                          if (val!) {
+                            profile.familyAlcoholicMember1 = 1;
+                          } else {
+                            profile.familyAlcoholicMember1 = 0;
+                          }
                         });
                       },
                     ),
@@ -387,6 +490,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser2 = !drinkAnwser2;
+                          if (val!) {
+                            profile.familyAlcoholicMember2 = 1;
+                          } else {
+                            profile.familyAlcoholicMember2 = 0;
+                          }
                         });
                       },
                     ),
@@ -399,6 +507,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser3 = !drinkAnwser3;
+                          if (val!) {
+                            profile.familyAlcoholicMember3 = 1;
+                          } else {
+                            profile.familyAlcoholicMember3 = 0;
+                          }
                         });
                       },
                     ),
@@ -415,6 +528,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser4 = !drinkAnwser4;
+                          if (val!) {
+                            profile.familyAlcoholicMember4 = 1;
+                          } else {
+                            profile.familyAlcoholicMember4 = 0;
+                          }
                         });
                       },
                     ),
@@ -427,6 +545,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser5 = !drinkAnwser5;
+                          if (val!) {
+                            profile.familyAlcoholicMember5 = 1;
+                          } else {
+                            profile.familyAlcoholicMember5 = 0;
+                          }
                         });
                       },
                     ),
@@ -439,6 +562,11 @@ class _PersonalPageState extends State<PersonalPage> {
                       onChanged: (val) {
                         setState(() {
                           drinkAnwser6 = !drinkAnwser6;
+                          if (val!) {
+                            profile.familyAlcoholicMember6 = 1;
+                          } else {
+                            profile.familyAlcoholicMember6 = 0;
+                          }
                         });
                       },
                     ),
@@ -486,6 +614,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 1;
             });
           },
           groupValue: anwser11,
@@ -495,6 +624,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 2;
             });
           },
           groupValue: anwser11,
@@ -504,6 +634,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 3;
             });
           },
           groupValue: anwser11,
@@ -513,6 +644,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 4;
             });
           },
           groupValue: anwser11,
@@ -522,6 +654,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 5;
             });
           },
           groupValue: anwser11,
@@ -531,6 +664,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 6;
             });
           },
           groupValue: anwser11,
@@ -540,6 +674,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser11 = val!;
+              profile.familyIncome = 7;
             });
           },
           groupValue: anwser11,
@@ -561,10 +696,11 @@ class _PersonalPageState extends State<PersonalPage> {
           children: [
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
+                controller: moneyPerMonth,
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 12),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
@@ -575,9 +711,10 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
+                controller: moneyPerWeek,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
@@ -592,10 +729,11 @@ class _PersonalPageState extends State<PersonalPage> {
           children: [
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
+                controller: moneyPerDay,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
               ),
@@ -624,6 +762,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 1;
             });
           },
           groupValue: anwser10,
@@ -633,6 +772,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 2;
             });
           },
           groupValue: anwser10,
@@ -642,6 +782,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 3;
             });
           },
           groupValue: anwser10,
@@ -651,6 +792,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 4;
             });
           },
           groupValue: anwser10,
@@ -660,6 +802,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 5;
             });
           },
           groupValue: anwser10,
@@ -669,6 +812,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 6;
             });
           },
           groupValue: anwser10,
@@ -676,9 +820,11 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: parentOccupation,
           onChanged: (val) {
             setState(() {
               anwser10 = val!;
+              profile.parentOccupation = 7;
             });
           },
           groupValue: anwser10,
@@ -700,11 +846,12 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
                 maxLength: 2,
+                controller: familyNumbers,
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 12),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
                   counterText: "",
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
@@ -734,6 +881,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 1;
             });
           },
           groupValue: anwser7,
@@ -743,6 +891,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 2;
             });
           },
           groupValue: anwser7,
@@ -752,6 +901,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 3;
             });
           },
           groupValue: anwser7,
@@ -761,6 +911,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 4;
             });
           },
           groupValue: anwser7,
@@ -770,6 +921,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 5;
             });
           },
           groupValue: anwser7,
@@ -777,9 +929,11 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: peopleWith,
           onChanged: (val) {
             setState(() {
               anwser7 = val!;
+              profile.peopleWith = 6;
             });
           },
           groupValue: anwser7,
@@ -802,6 +956,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser6 = val!;
+              profile.gradeCompare = 1;
             });
           },
           groupValue: anwser6,
@@ -811,6 +966,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser6 = val!;
+              profile.gradeCompare = 2;
             });
           },
           groupValue: anwser6,
@@ -820,6 +976,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser6 = val!;
+              profile.gradeCompare = 3;
             });
           },
           groupValue: anwser6,
@@ -827,9 +984,11 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: gradeCompare,
           onChanged: (val) {
             setState(() {
               anwser6 = val!;
+              profile.gradeCompare = 4;
             });
           },
           groupValue: anwser6,
@@ -848,12 +1007,13 @@ class _PersonalPageState extends State<PersonalPage> {
               '$number. ผลการเรียน\nในเทอมที่ผ่านมา ท่านได้เกรดเฉลี่ย',
               style: const TextStyle(fontSize: 12),
             ),
-            const Expanded(
+            Expanded(
               child: TextField(
                 maxLength: 4,
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 12),
-                decoration: InputDecoration(
+                controller: grade,
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
                   counterText: "",
                   contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
                 ),
@@ -882,6 +1042,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 1;
                   });
                 },
                 groupValue: anwser4,
@@ -893,6 +1054,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 4;
                   });
                 },
                 groupValue: anwser4,
@@ -908,6 +1070,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 2;
                   });
                 },
                 groupValue: anwser4,
@@ -919,6 +1082,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 5;
                   });
                 },
                 groupValue: anwser4,
@@ -934,6 +1098,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 3;
                   });
                 },
                 groupValue: anwser4,
@@ -945,6 +1110,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 6;
                   });
                 },
                 groupValue: anwser4,
@@ -955,9 +1121,11 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: education,
           onChanged: (val) {
             setState(() {
               anwser4 = val!;
+              profile.education = 7;
             });
           },
           groupValue: anwser4,
@@ -980,6 +1148,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser3 = val!;
+              profile.religion = 1;
             });
           },
           groupValue: anwser3,
@@ -989,6 +1158,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser3 = val!;
+              profile.religion = 2;
             });
           },
           groupValue: anwser3,
@@ -998,6 +1168,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser3 = val!;
+              profile.religion = 3;
             });
           },
           groupValue: anwser3,
@@ -1005,9 +1176,11 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: religion,
           onChanged: (val) {
             setState(() {
               anwser3 = val!;
+              profile.religion = 4;
             });
           },
           groupValue: anwser3,
@@ -1017,7 +1190,10 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Column quiz2(Size _size, {required int number}) {
+  Column quiz2(
+    Size _size, {
+    required int number,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1029,11 +1205,12 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
             SizedBox(
               width: _size.width * 0.2,
-              child: const TextField(
+              child: TextField(
                 maxLength: 2,
+                controller: age,
                 keyboardType: TextInputType.number,
-                style: TextStyle(fontSize: 12),
-                decoration: InputDecoration(
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
                   counterText: "",
                   contentPadding: EdgeInsets.fromLTRB(20, 0, 20, 5),
                 ),
@@ -1066,6 +1243,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser1 = val!;
+                    profile.sex = 1;
                   });
                 },
                 groupValue: anwser1,
@@ -1077,6 +1255,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser1 = val!;
+                    profile.sex = 2;
                   });
                 },
                 groupValue: anwser1,

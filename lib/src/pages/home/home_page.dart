@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   final int initPage;
 
-  const HomePage({Key? key, required this.initPage}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.initPage,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late PageController controller = PageController();
+
   void _onItemTapped(int index) {
     setState(() {
       controller.jumpToPage(index);

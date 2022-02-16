@@ -1,3 +1,5 @@
+import 'package:cmu_mobile_app/services/http/http_request.dart';
+import 'package:cmu_mobile_app/src/pages/splash_screen/splash_page.dart';
 import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +65,16 @@ class PersonalPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 60),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      HttpRequest.signOut().then((value) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SplashPage(),
+                          ),
+                        );
+                      });
+                    },
                     child: const Text(
                       'ออกจากระบบ',
                       style: TextStyle(color: Color(0xffFF6600), fontSize: 20),
