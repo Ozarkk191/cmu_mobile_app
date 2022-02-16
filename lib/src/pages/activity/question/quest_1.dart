@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/models/questions/post_test_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
@@ -24,11 +30,57 @@ class Quest1 extends StatefulWidget {
 class _Quest1State extends State<Quest1> {
   List<String> anwserList = [];
 
+  late PostTestModel test = PostTestModel();
+
   void addList() {
     for (var i = 0; i < alcoholQuizList.length; i++) {
       anwserList.add("");
     }
     setState(() {});
+  }
+
+  void onSave() async {
+    if (widget.prePost == "Post Test") {
+      final data = await SharedPref.getStringPref(key: "user");
+      Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+      test.userId = user["id"];
+      test.total = test.q1 + test.q2 + test.q3 + test.q4 + test.q5 + test.q6;
+      log(test.toJson().toString());
+
+      await QuestionApi.setQuestion(
+        path: "student1",
+        param: test,
+      ).then((value) {
+        log("question =>${value['message']}");
+        if (value['message'] == "success") {
+          if (test.total! >= 4) {
+            if (widget.nextPage == widget.endPage) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(initPage: 0),
+                ),
+              );
+            } else {
+              widget.controller.jumpToPage(widget.nextPage);
+            }
+          } else {
+            log("ไม่ผ่าน");
+          }
+        }
+      });
+    } else {
+      if (widget.nextPage == widget.endPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    }
   }
 
   @override
@@ -82,6 +134,14 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[0] = val!;
+
+                          if (val ==
+                              alcoholQuizList[0]
+                                  .choice![alcoholQuizList[0].aswer!]) {
+                            test.q1 = 1;
+                          } else {
+                            test.q1 = 0;
+                          }
                         });
                       },
                     ),
@@ -114,6 +174,13 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[1] = val!;
+                          if (val ==
+                              alcoholQuizList[1]
+                                  .choice![alcoholQuizList[1].aswer!]) {
+                            test.q2 = 1;
+                          } else {
+                            test.q2 = 0;
+                          }
                         });
                       },
                     ),
@@ -129,6 +196,13 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[2] = val!;
+                          if (val ==
+                              alcoholQuizList[2]
+                                  .choice![alcoholQuizList[2].aswer!]) {
+                            test.q3 = 1;
+                          } else {
+                            test.q3 = 0;
+                          }
                         });
                       },
                     ),
@@ -167,6 +241,13 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[3] = val!;
+                          if (val ==
+                              alcoholQuizList[3]
+                                  .choice![alcoholQuizList[3].aswer!]) {
+                            test.q4 = 1;
+                          } else {
+                            test.q4 = 0;
+                          }
                         });
                       },
                     ),
@@ -182,6 +263,13 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[4] = val!;
+                          if (val ==
+                              alcoholQuizList[4]
+                                  .choice![alcoholQuizList[4].aswer!]) {
+                            test.q5 = 1;
+                          } else {
+                            test.q5 = 0;
+                          }
                         });
                       },
                     ),
@@ -197,6 +285,13 @@ class _Quest1State extends State<Quest1> {
                       onChanged: (val) {
                         setState(() {
                           anwserList[5] = val!;
+                          if (val ==
+                              alcoholQuizList[5]
+                                  .choice![alcoholQuizList[5].aswer!]) {
+                            test.q6 = 1;
+                          } else {
+                            test.q6 = 0;
+                          }
                         });
                       },
                     ),
@@ -205,18 +300,7 @@ class _Quest1State extends State<Quest1> {
                 const SizedBox(height: 20),
                 MainButton(
                   width: _size.width * 0.5,
-                  ontab: () {
-                    if (widget.nextPage == widget.endPage) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(initPage: 0),
-                        ),
-                      );
-                    } else {
-                      widget.controller.jumpToPage(widget.nextPage);
-                    }
-                  },
+                  ontab: onSave,
                   borderRadius: 50,
                   title: widget.nextPage == widget.endPage
                       ? "ส่งคำตอบ"

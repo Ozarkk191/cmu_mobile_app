@@ -50,6 +50,7 @@ class Question3Model extends RequestBodyParameters {
     total = json['total'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;

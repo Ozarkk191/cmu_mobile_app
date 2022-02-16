@@ -1,3 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/models/questions/post_test_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
@@ -23,12 +29,67 @@ class Quest2 extends StatefulWidget {
 
 class _Quest2State extends State<Quest2> {
   List<String> anwserList = [];
+  List<int> score = [0, 0, 0, 0, 0, 0];
+  late PostTestModel test = PostTestModel();
 
   void addList() {
     for (var i = 0; i < lowQuizList.length; i++) {
       anwserList.add("");
     }
     setState(() {});
+  }
+
+  void onSave() async {
+    if (widget.prePost == "Post Test") {
+      final data = await SharedPref.getStringPref(key: "user");
+      Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+      test.userId = user["id"];
+
+      test.q1 = score[0];
+      test.q2 = score[1];
+      test.q3 = score[2];
+      test.q4 = score[3];
+      test.q5 = score[4];
+      test.q6 = score[5];
+
+      test.total = test.q1 + test.q2 + test.q3 + test.q4 + test.q5 + test.q6;
+      log(test.toJson().toString());
+      log(score.toString());
+
+      await QuestionApi.setQuestion(
+        path: "student2",
+        param: test,
+      ).then((value) {
+        log("question =>${value['message']}");
+        if (value['message'] == "success") {
+          if (test.total! >= 4) {
+            if (widget.nextPage == widget.endPage) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(initPage: 0),
+                ),
+              );
+            } else {
+              widget.controller.jumpToPage(widget.nextPage);
+            }
+          } else {
+            log("ไม่ผ่าน");
+          }
+        }
+      });
+    } else {
+      if (widget.nextPage == widget.endPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    }
   }
 
   @override
@@ -113,6 +174,14 @@ class _Quest2State extends State<Quest2> {
                                 onChanged: (val) {
                                   setState(() {
                                     anwserList[index] = val!;
+                                    score.removeAt(index);
+                                    if (val ==
+                                        lowQuizList[index].choice![
+                                            lowQuizList[index].aswer!]) {
+                                      score.insert(index, 1);
+                                    } else {
+                                      score.insert(index, 0);
+                                    }
                                   });
                                 },
                               ),
@@ -134,6 +203,14 @@ class _Quest2State extends State<Quest2> {
                                 onChanged: (val) {
                                   setState(() {
                                     anwserList[index] = val!;
+                                    score.removeAt(index);
+                                    if (val ==
+                                        lowQuizList[index].choice![
+                                            lowQuizList[index].aswer!]) {
+                                      score.insert(index, 1);
+                                    } else {
+                                      score.insert(index, 0);
+                                    }
                                   });
                                 },
                               ),
@@ -147,18 +224,7 @@ class _Quest2State extends State<Quest2> {
                 const SizedBox(height: 20),
                 MainButton(
                   width: _size.width * 0.5,
-                  ontab: () {
-                    if (widget.nextPage == widget.endPage) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(initPage: 0),
-                        ),
-                      );
-                    } else {
-                      widget.controller.jumpToPage(widget.nextPage);
-                    }
-                  },
+                  ontab: onSave,
                   borderRadius: 50,
                   title: widget.nextPage == widget.endPage
                       ? "ส่งคำตอบ"
