@@ -46,12 +46,14 @@ class HttpRequest {
       withAccessToken: withAccessToken,
       withContentType: true,
     );
-
+    log("path ==> " + path);
     try {
       response = await dio.post(
         path,
         queryParameters: data!.toJson(),
-        options: Options(headers: headers),
+        options: Options(
+          headers: headers,
+        ),
       );
       log("status ==> " + response.statusCode.toString());
     } on SocketException catch (_) {

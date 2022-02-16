@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/models/questions/question_model.dart';
 import 'package:cmu_mobile_app/models/quiz_model.dart';
+import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
@@ -25,7 +31,10 @@ class Quest5 extends StatefulWidget {
 
 class _Quest5State extends State<Quest5> {
   List<String> anwserList = [];
+  List<int> anwserIntList = [];
   String subTitle = "";
+  String path = "";
+  late QuestionModel quest = QuestionModel();
 
   late List<QuizModel> _list;
 
@@ -34,20 +43,24 @@ class _Quest5State extends State<Quest5> {
       case "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์":
         _list = alcoholList;
         addList(alcoholList);
+        path = "question5";
         subTitle = "ท่านมีความคิดเห็นต่อการดื่มเครื่องดื่มแอลกอฮอล์อย่างไร";
         break;
       case "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์":
         _list = rejectAlcoholList;
         addList(rejectAlcoholList);
         subTitle = "ท่านมั่นใจว่าจะไม่ดื่มสุราในสถานการณ์ดังต่อไปนี้";
+        path = "question6";
         break;
       case "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่":
         _list = parentAlcoholList;
         addList(parentAlcoholList);
+        path = "question7";
         break;
       case "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์":
         _list = noAlcoholList;
         addList(noAlcoholList);
+        path = "question8";
         break;
       case "แบบวัดความมีคุณค่าในตนเอง":
         _list = selfWorthList;
@@ -61,8 +74,142 @@ class _Quest5State extends State<Quest5> {
   void addList(List<QuizModel> list) {
     for (var i = 0; i < list.length; i++) {
       anwserList.add("");
+      anwserIntList.add(0);
     }
     setState(() {});
+  }
+
+  Future<int> onChoiceQuest5(String ans) async {
+    switch (ans) {
+      case "ไม่เห็นด้วยอย่างยิ่ง":
+        return 1;
+      case "ไม่เห็นด้วย":
+        return 2;
+      case "เห็นด้วย":
+        return 3;
+      case "เห็นด้วยอย่างยิ่ง":
+        return 4;
+      default:
+        return 0;
+    }
+  }
+
+  Future<int> onChoiceQuest6(String ans) async {
+    switch (ans) {
+      case "มั่นใจอย่างยิ่ง":
+        return 1;
+      case "ค่อนข้างมั่นใจ":
+        return 2;
+      case "ค่อนข้างไม่มั่นใจ":
+        return 3;
+      case "ไม่มั่นใจเลย":
+        return 4;
+      default:
+        return 0;
+    }
+  }
+
+  Future<int> onChoiceQuest7(String ans) async {
+    switch (ans) {
+      case "บ่อยที่สุด":
+        return 1;
+      case "บ่อย":
+        return 2;
+      case "ปานกลาง":
+        return 3;
+      case "น้อย":
+        return 4;
+      case "น้อยที่สุด":
+        return 5;
+      default:
+        return 0;
+    }
+  }
+
+  Future<int> onChoiceQuest8(String ans) async {
+    switch (ans) {
+      case "ไม่ดื่มแน่นอน":
+        return 1;
+      case "ไม่ดื่ม":
+        return 2;
+      case "ไม่แน่ใจ":
+        return 3;
+      case "ดื่ม":
+        return 4;
+      case "ดื่มแน่นอน":
+        return 5;
+      default:
+        return 0;
+    }
+  }
+
+  Future<int> onChoiceQuest9(String ans) async {
+    switch (ans) {
+      case "เห็นด้วยอย่างยิ่ง":
+        return 1;
+      case "เห็นด้วย":
+        return 2;
+      case "ไม่เห็นด้วย":
+        return 3;
+      case "ไม่เห็นด้วยอย่างยิ่ง":
+        return 4;
+
+      default:
+        return 0;
+    }
+  }
+
+  Future<int> onCheckChoice(String ans) async {
+    switch (widget.quizType) {
+      case "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์":
+        return await onChoiceQuest5(ans);
+      case "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์":
+        return await onChoiceQuest6(ans);
+      case "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่":
+        return await onChoiceQuest7(ans);
+      case "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์":
+        return await onChoiceQuest8(ans);
+      case "แบบวัดความมีคุณค่าในตนเอง":
+        return await onChoiceQuest9(ans);
+      default:
+        return 0;
+    }
+  }
+
+  void onSave() async {
+    anwserIntList.clear();
+    for (var i = 0; i < anwserList.length; i++) {
+      anwserIntList.add(await onCheckChoice(anwserList[i]));
+    }
+    // final data = await SharedPref.getStringPref(key: "user");
+    // Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+    // quest.userId = user["id"];
+    // quest.answer = anwserIntList;
+
+    Map<String, dynamic> val = {
+      "user_id": 3,
+      "answer": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    };
+    QuestionModel _quest = QuestionModel.fromJson(val);
+
+    await QuestionApi.setQuestion(
+      path: "question5",
+      param: _quest,
+    ).then((value) {
+      log("$path ==> ${value['message']}");
+      // if (value['message'] == "success") {
+      //   if (widget.nextPage == widget.endPage) {
+      //     Navigator.pushReplacement(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => const HomePage(initPage: 0),
+      //       ),
+      //     );
+      //   } else {
+      //     widget.controller.jumpToPage(widget.nextPage);
+      //   }
+      // }
+    });
   }
 
   @override
@@ -90,9 +237,6 @@ class _Quest5State extends State<Quest5> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // widget.quizType ==
-                      //         "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์"
-                      //     ?
                       Text(
                         'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
                         style: const TextStyle(
@@ -100,15 +244,6 @@ class _Quest5State extends State<Quest5> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      // : Center(
-                      //     child: Text(
-                      //       widget.quizType,
-                      //       style: const TextStyle(
-                      //         fontSize: 16,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //   ),
                       widget.quizType ==
                               "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์"
                           ? _text(context)
@@ -152,19 +287,7 @@ class _Quest5State extends State<Quest5> {
                       const SizedBox(height: 40),
                       Center(
                         child: MainButton(
-                          ontab: () {
-                            if (widget.nextPage == widget.endPage) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HomePage(initPage: 0),
-                                ),
-                              );
-                            } else {
-                              widget.controller.jumpToPage(widget.nextPage);
-                            }
-                          },
+                          ontab: onSave,
                           width: _size.width * 0.5,
                           borderRadius: 50,
                           title: widget.nextPage == widget.endPage

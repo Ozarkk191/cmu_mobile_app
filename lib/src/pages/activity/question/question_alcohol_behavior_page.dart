@@ -50,7 +50,8 @@ class _QuestionAlcoholBehaviorPageState
 
     log(question2.toJson().toString());
 
-    await QuestionApi.setQuestion2(param: question2).then((value) {
+    await QuestionApi.setQuestion(path: "question2", param: question2)
+        .then((value) {
       if (value['message'] == "success") {
         if (anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
           if ((widget.nextPage + 1) == widget.endPage) {

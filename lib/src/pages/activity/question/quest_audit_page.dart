@@ -56,10 +56,8 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
 
     question3.total = total;
 
-    log(total.toString());
-    log(question3.toJson().toString());
-
-    await QuestionApi.setQuestion3(param: question3).then((value) {
+    await QuestionApi.setQuestion(path: "question3", param: question3)
+        .then((value) {
       if (value['message'] == "success") {
         if ((widget.nextPage + 1) == widget.endPage) {
           Navigator.pushReplacement(

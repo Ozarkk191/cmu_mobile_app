@@ -1,11 +1,9 @@
 import '../body_parameters.dart';
 
-class Question3Model extends RequestBodyParameters {
+class Question5Model extends RequestBodyParameters {
   int? userId;
   int? q1;
-  int? q21;
-  int? q22;
-  int? q23;
+  int? q2;
   int? q3;
   int? q4;
   int? q5;
@@ -14,14 +12,21 @@ class Question3Model extends RequestBodyParameters {
   int? q8;
   int? q9;
   int? q10;
-  int? total;
+  int? q11;
+  int? q12;
+  int? q13;
+  int? q14;
+  int? q15;
+  int? q16;
+  int? q17;
+  int? q18;
+  int? q19;
+  int? q20;
 
-  Question3Model({
-    this.userId,
+  Question5Model({
+    this.userId = 0,
     this.q1 = 0,
-    this.q21 = 0,
-    this.q22 = 0,
-    this.q23 = 0,
+    this.q2 = 0,
     this.q3 = 0,
     this.q4 = 0,
     this.q5 = 0,
@@ -30,15 +35,22 @@ class Question3Model extends RequestBodyParameters {
     this.q8 = 0,
     this.q9 = 0,
     this.q10 = 0,
-    this.total = 0,
+    this.q11 = 0,
+    this.q12 = 0,
+    this.q13 = 0,
+    this.q14 = 0,
+    this.q15 = 0,
+    this.q16 = 0,
+    this.q17 = 0,
+    this.q18 = 0,
+    this.q19 = 0,
+    this.q20 = 0,
   });
 
-  Question3Model.fromJson(Map<String, dynamic> json) {
+  Question5Model.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     q1 = json['q1'];
-    q21 = json['q2_1'];
-    q22 = json['q2_2'];
-    q23 = json['q2_3'];
+    q2 = json['q2'];
     q3 = json['q3'];
     q4 = json['q4'];
     q5 = json['q5'];
@@ -47,16 +59,16 @@ class Question3Model extends RequestBodyParameters {
     q8 = json['q8'];
     q9 = json['q9'];
     q10 = json['q10'];
-    total = json['total'];
+    q11 = json['q11'];
+    q12 = json['q12'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
     data['q1'] = q1;
-    data['q2_1'] = q21;
-    data['q2_2'] = q22;
-    data['q2_3'] = q23;
+    data['q2'] = q2;
     data['q3'] = q3;
     data['q4'] = q4;
     data['q5'] = q5;
@@ -65,7 +77,8 @@ class Question3Model extends RequestBodyParameters {
     data['q8'] = q8;
     data['q9'] = q9;
     data['q10'] = q10;
-    data['total'] = total;
+    data['q11'] = q11;
+    data['q12'] = q12;
     return data;
   }
 }
