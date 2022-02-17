@@ -198,37 +198,44 @@ class _TimelineActivityState extends State<TimelineActivity> {
     QuestionAlcoholBehaviorPage(
       controller: controller,
       nextPage: 3,
+      type: "pre",
     ),
     QuestAuditPage(
       controller: controller,
       nextPage: 4,
+      type: "pre",
     ),
     Quest4(
       controller: controller,
       nextPage: 5,
+      type: "pre",
     ),
     Quest5(
       controller: controller,
       nextPage: 6,
       quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
+      type: "pre",
     ),
     Quest5(
       controller: controller,
       nextPage: 7,
       quizType:
           "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
+      type: "pre",
     ),
     Quest5(
       controller: controller,
       nextPage: 8,
       quizType:
           "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
+      type: "pre",
     ),
     Quest5(
       controller: controller,
       nextPage: 9,
       quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
       endPage: 9,
+      type: "pre",
     ),
   ];
   List<Widget> activity1WidgetList = [

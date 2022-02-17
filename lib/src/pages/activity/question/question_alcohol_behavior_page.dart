@@ -14,11 +14,13 @@ class QuestionAlcoholBehaviorPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final String type;
   const QuestionAlcoholBehaviorPage({
     Key? key,
     required this.controller,
     required this.nextPage,
     this.endPage = 1000,
+    this.type = "post",
   }) : super(key: key);
 
   @override
@@ -47,6 +49,7 @@ class _QuestionAlcoholBehaviorPageState
     question2.q3Comment = controller3.text;
     question2.q4Comment = controller4.text;
     question2.q5Comment = controller5.text;
+    question2.type = widget.type;
 
     log(question2.toJson().toString());
 

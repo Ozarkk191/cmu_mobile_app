@@ -13,11 +13,13 @@ class QuestAuditPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final String type;
   const QuestAuditPage({
     Key? key,
     required this.controller,
     required this.nextPage,
     this.endPage = 1000,
+    this.type = "post",
   }) : super(key: key);
 
   @override
@@ -55,6 +57,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
         question3.q10!;
 
     question3.total = total;
+    question3.type = widget.type;
 
     await QuestionApi.setQuestion(path: "question3", param: question3)
         .then((value) {

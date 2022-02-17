@@ -22,6 +22,7 @@ class QuestionModel20 extends RequestBodyParameters {
   int? q18;
   int? q19;
   int? q20;
+  String? type;
 
   QuestionModel20({
     this.userId,
@@ -45,6 +46,7 @@ class QuestionModel20 extends RequestBodyParameters {
     this.q18 = 0,
     this.q19 = 0,
     this.q20 = 0,
+    this.type = "",
   });
 
   QuestionModel20.fromJson(Map<String, dynamic> json) {
@@ -69,6 +71,7 @@ class QuestionModel20 extends RequestBodyParameters {
     q18 = json['q18'];
     q19 = json['q19'];
     q20 = json['q20'];
+    type = json['type'];
   }
 
   @override
@@ -95,6 +98,7 @@ class QuestionModel20 extends RequestBodyParameters {
     data['q18'] = q18;
     data['q19'] = q19;
     data['q20'] = q20;
+    data['type'] = type;
     return data;
   }
 }

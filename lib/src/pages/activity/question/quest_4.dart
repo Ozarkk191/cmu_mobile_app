@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 class Quest4 extends StatefulWidget {
   final PageController controller;
   final int nextPage;
+  final String type;
   const Quest4({
     Key? key,
     required this.controller,
     required this.nextPage,
+    this.type = "post",
   }) : super(key: key);
 
   @override
@@ -40,13 +42,14 @@ class _Quest4State extends State<Quest4> {
     final data = await SharedPref.getStringPref(key: "user");
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     question.userId = user["id"];
+    question.type = widget.type;
     log(question.toJson().toString());
 
     await QuestionApi.setQuestion(
       path: "question4",
       param: question,
     ).then((value) {
-      log("question4 =>${value['message']}");
+      log("question4 =>${value['message']}\n${question.toJson()}");
       if (value['message'] == "success") {
         widget.controller.jumpToPage(widget.nextPage);
       }

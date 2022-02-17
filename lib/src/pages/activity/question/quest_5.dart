@@ -16,7 +16,7 @@ class Quest5 extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final String quizType;
-  // final String quizType;
+  final String type;
   final int endPage;
   const Quest5({
     Key? key,
@@ -24,6 +24,7 @@ class Quest5 extends StatefulWidget {
     required this.nextPage,
     required this.quizType,
     this.endPage = 1000,
+    this.type = "post",
   }) : super(key: key);
 
   @override
@@ -222,6 +223,8 @@ class _Quest5State extends State<Quest5> {
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     quest14.userId = user["id"];
     quest20.userId = user["id"];
+    quest14.type = widget.type;
+    quest20.type = widget.type;
     switch (path) {
       case "question5":
       case "question7":
