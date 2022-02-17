@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/question_api.dart';
-import 'package:cmu_mobile_app/models/questions/question_model.dart';
+import 'package:cmu_mobile_app/models/body_parameters.dart';
+import 'package:cmu_mobile_app/models/questions/question14_model.dart';
+import 'package:cmu_mobile_app/models/questions/question20_model.dart';
 import 'package:cmu_mobile_app/models/quiz_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
@@ -34,7 +35,8 @@ class _Quest5State extends State<Quest5> {
   List<int> anwserIntList = [];
   String subTitle = "";
   String path = "";
-  late QuestionModel quest = QuestionModel();
+  late QuestionModel20 quest20 = QuestionModel20();
+  late QuestionModel14 quest14 = QuestionModel14();
 
   late List<QuizModel> _list;
 
@@ -64,6 +66,7 @@ class _Quest5State extends State<Quest5> {
         break;
       case "แบบวัดความมีคุณค่าในตนเอง":
         _list = selfWorthList;
+        path = "question10";
         addList(selfWorthList);
         break;
 
@@ -176,40 +179,97 @@ class _Quest5State extends State<Quest5> {
     }
   }
 
+  void onPost({required RequestBodyParameters quest}) async {
+    await QuestionApi.setQuestion(
+      path: path,
+      param: quest,
+    ).then((value) {
+      log("$path ==> ${value['message']}");
+      if (value['message'] == "success") {
+        if (widget.nextPage == widget.endPage) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(initPage: 0),
+            ),
+          );
+        } else {
+          widget.controller.jumpToPage(widget.nextPage);
+        }
+      }
+    });
+  }
+
+  void onNext() {
+    if (widget.nextPage == widget.endPage) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(initPage: 0),
+        ),
+      );
+    } else {
+      widget.controller.jumpToPage(widget.nextPage);
+    }
+  }
+
   void onSave() async {
     anwserIntList.clear();
     for (var i = 0; i < anwserList.length; i++) {
       anwserIntList.add(await onCheckChoice(anwserList[i]));
     }
-    // final data = await SharedPref.getStringPref(key: "user");
-    // Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
-    // quest.userId = user["id"];
-    // quest.answer = anwserIntList;
-
-    Map<String, dynamic> val = {
-      "user_id": 3,
-      "answer": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    };
-    QuestionModel _quest = QuestionModel.fromJson(val);
-
-    await QuestionApi.setQuestion(
-      path: "question5",
-      param: _quest,
-    ).then((value) {
-      log("$path ==> ${value['message']}");
-      // if (value['message'] == "success") {
-      //   if (widget.nextPage == widget.endPage) {
-      //     Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => const HomePage(initPage: 0),
-      //       ),
-      //     );
-      //   } else {
-      //     widget.controller.jumpToPage(widget.nextPage);
-      //   }
-      // }
-    });
+    final data = await SharedPref.getStringPref(key: "user");
+    Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+    quest14.userId = user["id"];
+    quest20.userId = user["id"];
+    switch (path) {
+      case "question5":
+      case "question7":
+        quest20.q1 = anwserIntList[0];
+        quest20.q2 = anwserIntList[1];
+        quest20.q3 = anwserIntList[2];
+        quest20.q4 = anwserIntList[3];
+        quest20.q5 = anwserIntList[4];
+        quest20.q6 = anwserIntList[5];
+        quest20.q7 = anwserIntList[6];
+        quest20.q8 = anwserIntList[7];
+        quest20.q9 = anwserIntList[8];
+        quest20.q10 = anwserIntList[9];
+        quest20.q11 = anwserIntList[10];
+        quest20.q12 = anwserIntList[11];
+        quest20.q13 = anwserIntList[12];
+        quest20.q14 = anwserIntList[13];
+        quest20.q15 = anwserIntList[14];
+        quest20.q16 = anwserIntList[15];
+        quest20.q17 = anwserIntList[16];
+        quest20.q18 = anwserIntList[17];
+        quest20.q19 = anwserIntList[18];
+        quest20.q20 = anwserIntList[19];
+        onPost(quest: quest20);
+        break;
+      case "question6":
+      case "question8":
+        quest14.q1 = anwserIntList[0];
+        quest14.q2 = anwserIntList[1];
+        quest14.q3 = anwserIntList[2];
+        quest14.q4 = anwserIntList[3];
+        quest14.q5 = anwserIntList[4];
+        quest14.q6 = anwserIntList[5];
+        quest14.q7 = anwserIntList[6];
+        quest14.q8 = anwserIntList[7];
+        quest14.q9 = anwserIntList[8];
+        quest14.q10 = anwserIntList[9];
+        quest14.q11 = anwserIntList[10];
+        quest14.q12 = anwserIntList[11];
+        quest14.q13 = anwserIntList[12];
+        quest14.q14 = anwserIntList[13];
+        onPost(quest: quest14);
+        break;
+      case "question10":
+        onNext();
+        break;
+      default:
+    }
   }
 
   @override
