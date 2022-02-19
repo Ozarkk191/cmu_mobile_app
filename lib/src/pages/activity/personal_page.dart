@@ -6,6 +6,7 @@ import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:flutter/material.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -57,8 +58,12 @@ class _PersonalPageState extends State<PersonalPage> {
   bool drinkAnwser4 = false;
   bool drinkAnwser5 = false;
   bool drinkAnwser6 = false;
+  bool loading = false;
 
   void onSave() async {
+    setState(() {
+      loading = true;
+    });
     final data = await SharedPref.getStringPref(key: "user");
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
 
@@ -93,6 +98,9 @@ class _PersonalPageState extends State<PersonalPage> {
 
     await AuthApi.setProflieData(param: profile).then((value) {
       if (value['message'] == "success") {
+        setState(() {
+          loading = false;
+        });
         if (widget.endPage == widget.nextPage) {
           Navigator.pushReplacement(
             context,
@@ -136,63 +144,66 @@ class _PersonalPageState extends State<PersonalPage> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: const Color(0xfffbd4b9),
-          width: _size.width,
-          height: _size.height,
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                const Text(
-                  'ส่วนที่ 1   แบบสอบถามข้อมูลส่วนบุคคล',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: '',
-                    style: DefaultTextStyle.of(context).style,
-                    children: const <TextSpan>[
-                      TextSpan(
-                        text: 'คำชี้แจง ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                            'กรุณากรอกข้อความ หรือเลือกข้อความที่ตรงกับความเป็นจริงของท่าน',
-                        style: TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            color: const Color(0xfffbd4b9),
+            width: _size.width,
+            height: _size.height,
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                    'ส่วนที่ 1   แบบสอบถามข้อมูลส่วนบุคคล',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                ),
-                const SizedBox(height: 20),
-                widget.role == "student"
-                    ? teenRole(_size)
-                    : widget.role == "parent"
-                        ? parentRole(_size)
-                        : widget.role == "monk"
-                            ? monkRole(_size)
-                            : parentRole(_size),
-                const SizedBox(height: 40),
-                Center(
-                  child: MainButton(
-                    width: _size.width * 0.5,
-                    borderRadius: 50,
-                    ontab: () {
-                      onSave();
-                    },
-                    title: 'ถัดไป',
+                  RichText(
+                    text: TextSpan(
+                      text: '',
+                      style: DefaultTextStyle.of(context).style,
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text: 'คำชี้แจง ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              'กรุณากรอกข้อความ หรือเลือกข้อความที่ตรงกับความเป็นจริงของท่าน',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40),
-              ],
+                  const SizedBox(height: 20),
+                  widget.role == "student"
+                      ? teenRole(_size)
+                      : widget.role == "parent"
+                          ? parentRole(_size)
+                          : widget.role == "monk"
+                              ? monkRole(_size)
+                              : parentRole(_size),
+                  const SizedBox(height: 40),
+                  Center(
+                    child: MainButton(
+                      width: _size.width * 0.5,
+                      borderRadius: 50,
+                      ontab: () {
+                        onSave();
+                      },
+                      title: 'ถัดไป',
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),
@@ -296,6 +307,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 1;
                   });
                 },
                 groupValue: anwser4,
@@ -307,6 +319,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 4;
                   });
                 },
                 groupValue: anwser4,
@@ -322,6 +335,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 2;
                   });
                 },
                 groupValue: anwser4,
@@ -333,6 +347,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 5;
                   });
                 },
                 groupValue: anwser4,
@@ -348,6 +363,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 3;
                   });
                 },
                 groupValue: anwser4,
@@ -359,6 +375,7 @@ class _PersonalPageState extends State<PersonalPage> {
                 onChanged: (val) {
                   setState(() {
                     anwser4 = val!;
+                    profile.education = 6;
                   });
                 },
                 groupValue: anwser4,

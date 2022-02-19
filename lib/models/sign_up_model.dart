@@ -6,7 +6,7 @@ class SignUpModel extends RequestBodyParameters {
   String? password;
   String? passwordConfirmation;
   String? role;
-  String? studentId;
+  int? studentId;
   int? branchId;
 
   SignUpModel({
@@ -15,8 +15,8 @@ class SignUpModel extends RequestBodyParameters {
     this.password,
     this.passwordConfirmation,
     this.role,
-    this.studentId,
-    this.branchId,
+    this.studentId = 0,
+    this.branchId = 1,
   });
 
   @override

@@ -30,7 +30,6 @@ class ProfileModel extends RequestBodyParameters {
   int? friendAlcoholic;
   String? friendAlcoholicComment;
   double? yearNumber;
-  int? id;
 
   ProfileModel({
     this.userId = 1,
@@ -62,7 +61,6 @@ class ProfileModel extends RequestBodyParameters {
     this.friendAlcoholic = 0,
     this.friendAlcoholicComment,
     this.yearNumber = 0.00,
-    this.id = 1,
   });
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -95,7 +93,6 @@ class ProfileModel extends RequestBodyParameters {
     friendAlcoholic = json['friend_alcoholic'];
     friendAlcoholicComment = json['friend_alcoholic_comment'];
     yearNumber = json['year_number'];
-    id = json['id'];
   }
 
   @override
@@ -130,7 +127,6 @@ class ProfileModel extends RequestBodyParameters {
     data['friend_alcoholic'] = friendAlcoholic;
     data['friend_alcoholic_comment'] = friendAlcoholicComment;
     data['year_number'] = yearNumber;
-    data['id'] = id;
     return data;
   }
 }

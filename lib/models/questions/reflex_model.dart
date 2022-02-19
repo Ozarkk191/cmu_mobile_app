@@ -5,7 +5,7 @@ class ReflexModel extends RequestBodyParameters {
   String? q1;
   String? q2;
 
-  ReflexModel({this.userId, this.q1, this.q2});
+  ReflexModel({this.userId = 0, this.q1 = "", this.q2 = ""});
 
   ReflexModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];

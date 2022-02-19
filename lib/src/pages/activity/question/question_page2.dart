@@ -9,6 +9,7 @@ import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:flutter/material.dart';
 
 class QuestionPage2 extends StatefulWidget {
@@ -32,62 +33,105 @@ class _QuestionPage2State extends State<QuestionPage2> {
   late ReflexModel reflexModel = ReflexModel();
   List<TextEditingController> controllerList = [];
   String path = "";
+  bool loading = false;
   @override
   void initState() {
     onCheckType();
-    log("init//:" + path);
+
     super.initState();
   }
 
   void onCheckType() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
+    switch (user["role"]) {
+      case "student":
+        path = await onTeenType();
+        break;
+      case "parent":
+        path = await onParentType();
+        break;
+      default:
+    }
+    log("init==>$path");
+  }
+
+  Future<String> onParentType() async {
+    if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของผู้ปกครอง") {
+      switch (widget.learningModel.subTitle!) {
+        case "กิจกรรมที่ 4 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการตัดสินใจ":
+          return "parent4/reflextion";
+        case "กิจกรรมที่ 5 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการควบคุมอารมณ์":
+          return "parent5/reflextion";
+        case "กิจกรรมที่ 6 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการปฏิเสธ":
+          return "parent6/reflextion";
+        case "กิจกรรมที่ 7 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการผ่อนคลายความเครียด":
+          return "parent7/reflextion";
+        case "กิจกรรมที่ 8 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 ความเมตตา กรุณา":
+          return "parent8/reflextion";
+        case "กิจกรรมที่ 9 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 มุทิตา อุเบกขา":
+          return "parent9/reflextion";
+        case "กิจกรรมที่ 10 เรื่อง การเห็นคุณค่าในตัวเอง":
+          return "parent10/reflextion";
+        default:
+          return "";
+      }
+    } else {
+      switch (widget.learningModel.title!) {
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
+          return "parent5/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
+          return "parent6/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
+          return "parent7/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
+          return "parent8/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          return "parent9/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          return "parent10/evaluate";
+        default:
+          return "";
+      }
+    }
+  }
+
+  Future<String> onTeenType() async {
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของวัยรุ่น") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 4 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการตัดสินใจ":
-          path = "student4";
-          break;
+          return "student4";
         case "กิจกรรมที่ 5 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการควบคุมอารมณ์":
-          path = "student5/reflextion";
-          break;
+          return path = "student5/reflextion";
         case "กิจกรรมที่ 6 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการปฏิเสธ":
-          path = "student6/reflextion";
-          break;
+          return path = "student6/reflextion";
         case "กิจกรรมที่ 7 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการผ่อนคลายความเครียด":
-          path = "student7/reflextion";
-          break;
+          return path = "student7/reflextion";
         case "กิจกรรมที่ 8 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 ความเมตตา กรุณา":
-          path = "student8/reflextion";
-          break;
+          return path = "student8/reflextion";
         case "กิจกรรมที่ 9 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 มุทิตา อุเบกขา":
-          path = "student9/reflextion";
-          break;
+          return path = "student9/reflextion";
         case "กิจกรรมที่ 10 เรื่อง การเห็นคุณค่าในตัวเอง":
-          path = "student10/reflextion";
-          break;
+          return path = "student10/reflextion";
         default:
+          return "";
       }
-    } else if (widget.learningModel.title!
-        .contains("การกำกับติดตามและประเมินผลการทำกิจกรรมที่")) {
+    } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
-          path = "student5/evaluate";
-          break;
+          return path = "student5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
-          path = "student6/evaluate";
-          break;
+          return path = "student6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
-          path = "student7/evaluate";
-          break;
+          return path = "student7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
-          path = "student8/evaluate";
-          break;
+          return path = "student8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
-          path = "student9/evaluate";
-          break;
+          return path = "student9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
-          path = "student10/evaluate";
-          break;
-
+          return path = "student10/evaluate";
         default:
+          return "";
       }
     }
   }
@@ -102,11 +146,17 @@ class _QuestionPage2State extends State<QuestionPage2> {
   }
 
   void onSave({required RequestBodyParameters quest}) async {
+    setState(() {
+      loading = true;
+    });
     await QuestionApi.setQuestion(
       path: path,
       param: quest,
     ).then((value) {
       log("$path ==> ${value['message']}");
+      setState(() {
+        loading = false;
+      });
       if (value['message'] == "success") {
         if (widget.nextPage == widget.endPage) {
           Navigator.pushReplacement(
@@ -127,81 +177,85 @@ class _QuestionPage2State extends State<QuestionPage2> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: MainLayout(
-        child: Container(
-          width: _size.width,
-          height: _size.height,
-          margin: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  widget.learningModel.title!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            width: _size.width,
+            height: _size.height,
+            margin: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  widget.learningModel.subTitle!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  Text(
+                    widget.learningModel.title!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "คำชี้แจง ${widget.learningModel.statment}",
-                  style: const TextStyle(
-                    fontSize: 14,
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: widget.learningModel.quiz!.length,
-                  itemBuilder: (context, index) {
-                    controllerList.add(TextEditingController());
-                    return Column(
-                      children: [
-                        SizedBox(
-                          width: _size.width,
-                          child: Text(
-                            widget.learningModel.quiz![index],
-                            style: const TextStyle(
-                              fontSize: 12,
+                  Text(
+                    widget.learningModel.subTitle!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "คำชี้แจง ${widget.learningModel.statment}",
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: widget.learningModel.quiz!.length,
+                    itemBuilder: (context, index) {
+                      controllerList.add(TextEditingController());
+                      return Column(
+                        children: [
+                          SizedBox(
+                            width: _size.width,
+                            child: Text(
+                              widget.learningModel.quiz![index],
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        _textField(controller: controllerList[index]),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                MainButton(
-                  width: _size.width * 0.5,
-                  ontab: onSetData,
-                  borderRadius: 50,
-                  title:
-                      widget.nextPage == widget.endPage ? 'ส่งคำตอบ' : "ถัดไป",
-                )
-              ],
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          _textField(controller: controllerList[index]),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  MainButton(
+                    width: _size.width * 0.5,
+                    ontab: onSetData,
+                    borderRadius: 50,
+                    title: widget.nextPage == widget.endPage
+                        ? 'ส่งคำตอบ'
+                        : "ถัดไป",
+                  )
+                ],
+              ),
             ),
           ),
         ),

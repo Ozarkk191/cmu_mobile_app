@@ -244,6 +244,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       path: "assets/icons/icon_1.png",
       nextPage: 1,
+      endPage: 5,
     ),
     Quest1(
       nextPage: 2,
@@ -325,6 +326,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       path: "assets/icons/icon_4.png",
       nextPage: 1,
+      endPage: 4,
     ),
     VideoPlayPage(
       link: activity4[1],
@@ -594,11 +596,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
       endPage: 4,
+      type: "pre",
     ),
     QuestAuditPage(
       controller: controller,
       nextPage: 4,
       endPage: 4,
+      type: "pre",
     ),
   ];
   List<Widget> parentWidget1 = [
@@ -682,20 +686,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_5.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent5[1],
+    QuestionPage2(
+      learningModel: parentFollow[0],
       controller: controller,
       nextPage: 2,
       endPage: 5,
     ),
     VideoPlayPage(
-      link: parent5[2],
+      link: parent5[1],
       controller: controller,
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[0],
+    VideoPlayPage(
+      link: parent5[2],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -714,20 +718,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_6.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent6[1],
+    QuestionPage2(
+      learningModel: parentFollow[1],
       controller: controller,
       nextPage: 2,
       endPage: 5,
     ),
     VideoPlayPage(
-      link: parent6[2],
+      link: parent6[1],
       controller: controller,
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[1],
+    VideoPlayPage(
+      link: parent6[2],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -746,20 +750,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_7.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent7[1],
+    QuestionPage2(
+      learningModel: parentFollow[2],
       controller: controller,
       nextPage: 2,
       endPage: 5,
     ),
     VideoPlayPage(
-      link: parent7[2],
+      link: parent7[1],
       controller: controller,
       nextPage: 3,
       endPage: 5,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[2],
+    VideoPlayPage(
+      link: parent7[2],
       controller: controller,
       nextPage: 4,
       endPage: 5,
@@ -778,14 +782,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent8[1],
+    QuestionPage2(
+      learningModel: parentFollow[3],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[3],
+    VideoPlayPage(
+      link: parent8[1],
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -804,14 +808,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_9.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent9[1],
+    QuestionPage2(
+      learningModel: parentFollow[4],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[4],
+    VideoPlayPage(
+      link: parent9[1],
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -830,14 +834,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_10.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: parent10[1],
+    QuestionPage2(
+      learningModel: parentFollow[5],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: parentFollow[5],
+    VideoPlayPage(
+      link: parent10[1],
       controller: controller,
       nextPage: 3,
       endPage: 4,

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -7,6 +8,7 @@ import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:cmu_mobile_app/utils/quiz_list.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,7 @@ class _Quest2State extends State<Quest2> {
   List<String> anwserList = [];
   List<int> score = [0, 0, 0, 0, 0, 0];
   late PostTestModel test = PostTestModel();
+  bool loading = false;
 
   void addList() {
     for (var i = 0; i < lowQuizList.length; i++) {
@@ -39,7 +42,96 @@ class _Quest2State extends State<Quest2> {
     setState(() {});
   }
 
+  Future<dynamic> _popUp({required int score}) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ), //this right here
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                width: 1,
+                color: const Color(0xffFF6600),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    score < 4 ? Icons.not_interested : Icons.check,
+                    size: 50,
+                    color: const Color(0xffFF6600),
+                  ),
+                  Text(
+                    'คะแนนของคุณคือ $score คะแนน',
+                    style: const TextStyle(
+                      color: Color(0xffFF6600),
+                      fontSize: 16,
+                    ),
+                  ),
+                  score < 4
+                      ? const Text(
+                          'คุณสอบตก',
+                          style: TextStyle(
+                            color: Color(0xffFF6600),
+                            fontSize: 24,
+                          ),
+                        )
+                      : const Text(
+                          'คุณสอบผ่าน',
+                          style: TextStyle(
+                            color: Color(0xffFF6600),
+                            fontSize: 24,
+                          ),
+                        ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDialog(int score) {
+    setState(() {
+      loading = false;
+    });
+    _popUp(score: score);
+
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pop(context);
+    });
+    Timer(const Duration(milliseconds: 3500), () {
+      if (score >= 4) {
+        if (widget.nextPage == widget.endPage) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(initPage: 0),
+            ),
+          );
+        } else {
+          widget.controller.jumpToPage(widget.nextPage);
+        }
+      }
+    });
+  }
+
   void onSave() async {
+    setState(() {
+      loading = true;
+    });
     if (widget.prePost == "Post Test") {
       final data = await SharedPref.getStringPref(key: "user");
       Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
@@ -62,20 +154,7 @@ class _Quest2State extends State<Quest2> {
       ).then((value) {
         log("question =>${value['message']}");
         if (value['message'] == "success") {
-          if (test.total! >= 4) {
-            if (widget.nextPage == widget.endPage) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(initPage: 0),
-                ),
-              );
-            } else {
-              widget.controller.jumpToPage(widget.nextPage);
-            }
-          } else {
-            log("ไม่ผ่าน");
-          }
+          _showDialog(test.total!);
         }
       });
     } else {
@@ -103,135 +182,138 @@ class _Quest2State extends State<Quest2> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: _size.width,
-          height: _size.height,
-          color: const Color(0xfffbd4b9),
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                Text(
-                  widget.prePost,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text(
-                  "ความรู้เกี่ยวกับกฏหมายควบคุมเครื่องดื่มแอลกอฮอล์",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  children: [
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: lowQuizList.length,
-                      itemBuilder: (context, index) {
-                        if (index == 1) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: '',
-                                  style: DefaultTextStyle.of(context).style,
-                                  children: const <TextSpan>[
-                                    TextSpan(
-                                      text: '2. ตามกฏหมายของประเทศไทย ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'ห้ามมิให้',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text:
-                                          ' ผู้ใดขายเครื่องดื่มแอลกอฮอล์ในวัน/เวลาใด ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              quiz(
-                                choice: lowQuizList[index].choice!,
-                                answer: anwserList[index],
-                                onChanged: (val) {
-                                  setState(() {
-                                    anwserList[index] = val!;
-                                    score.removeAt(index);
-                                    if (val ==
-                                        lowQuizList[index].choice![
-                                            lowQuizList[index].aswer!]) {
-                                      score.insert(index, 1);
-                                    } else {
-                                      score.insert(index, 0);
-                                    }
-                                  });
-                                },
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                lowQuizList[index].quiz!,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                              quiz(
-                                choice: lowQuizList[index].choice!,
-                                answer: anwserList[index],
-                                onChanged: (val) {
-                                  setState(() {
-                                    anwserList[index] = val!;
-                                    score.removeAt(index);
-                                    if (val ==
-                                        lowQuizList[index].choice![
-                                            lowQuizList[index].aswer!]) {
-                                      score.insert(index, 1);
-                                    } else {
-                                      score.insert(index, 0);
-                                    }
-                                  });
-                                },
-                              ),
-                            ],
-                          );
-                        }
-                      },
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            width: _size.width,
+            height: _size.height,
+            color: const Color(0xfffbd4b9),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Text(
+                    widget.prePost,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                MainButton(
-                  width: _size.width * 0.5,
-                  ontab: onSave,
-                  borderRadius: 50,
-                  title: widget.nextPage == widget.endPage
-                      ? "ส่งคำตอบ"
-                      : 'ส่งคำตอบ',
-                ),
-                const SizedBox(height: 40),
-              ],
+                  ),
+                  const Text(
+                    "ความรู้เกี่ยวกับกฏหมายควบคุมเครื่องดื่มแอลกอฮอล์",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    children: [
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: lowQuizList.length,
+                        itemBuilder: (context, index) {
+                          if (index == 1) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: '',
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: const <TextSpan>[
+                                      TextSpan(
+                                        text: '2. ตามกฏหมายของประเทศไทย ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'ห้ามมิให้',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            ' ผู้ใดขายเครื่องดื่มแอลกอฮอล์ในวัน/เวลาใด ',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                quiz(
+                                  choice: lowQuizList[index].choice!,
+                                  answer: anwserList[index],
+                                  onChanged: (val) {
+                                    setState(() {
+                                      anwserList[index] = val!;
+                                      score.removeAt(index);
+                                      if (val ==
+                                          lowQuizList[index].choice![
+                                              lowQuizList[index].aswer!]) {
+                                        score.insert(index, 1);
+                                      } else {
+                                        score.insert(index, 0);
+                                      }
+                                    });
+                                  },
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  lowQuizList[index].quiz!,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                quiz(
+                                  choice: lowQuizList[index].choice!,
+                                  answer: anwserList[index],
+                                  onChanged: (val) {
+                                    setState(() {
+                                      anwserList[index] = val!;
+                                      score.removeAt(index);
+                                      if (val ==
+                                          lowQuizList[index].choice![
+                                              lowQuizList[index].aswer!]) {
+                                        score.insert(index, 1);
+                                      } else {
+                                        score.insert(index, 0);
+                                      }
+                                    });
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  MainButton(
+                    width: _size.width * 0.5,
+                    ontab: onSave,
+                    borderRadius: 50,
+                    title: widget.nextPage == widget.endPage
+                        ? "ส่งคำตอบ"
+                        : 'ส่งคำตอบ',
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),

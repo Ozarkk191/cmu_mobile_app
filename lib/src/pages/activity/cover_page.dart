@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
@@ -56,7 +58,9 @@ class _CoverPageState extends State<CoverPage> {
               ),
               MainButton(
                 ontab: () {
-                  if (widget.nextPage == widget.endPage) {
+                  log("next=> ${widget.nextPage}");
+                  log("endPage=> ${widget.endPage}");
+                  if (1 == widget.endPage) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -64,7 +68,7 @@ class _CoverPageState extends State<CoverPage> {
                       ),
                     );
                   } else {
-                    widget.controller.jumpToPage(widget.nextPage);
+                    widget.controller.jumpToPage(1);
                   }
                 },
                 width: _size.width * 0.6,

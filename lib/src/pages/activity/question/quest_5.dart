@@ -9,6 +9,7 @@ import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,7 @@ class _Quest5State extends State<Quest5> {
   late QuestionModel14 quest14 = QuestionModel14();
 
   late List<QuizModel> _list;
+  bool loading = false;
 
   void _checkQuiz() {
     switch (widget.quizType) {
@@ -187,6 +189,9 @@ class _Quest5State extends State<Quest5> {
     ).then((value) {
       log("$path ==> ${value['message']}");
       if (value['message'] == "success") {
+        setState(() {
+          loading = false;
+        });
         if (widget.nextPage == widget.endPage) {
           Navigator.pushReplacement(
             context,
@@ -215,6 +220,9 @@ class _Quest5State extends State<Quest5> {
   }
 
   void onSave() async {
+    setState(() {
+      loading = true;
+    });
     anwserIntList.clear();
     for (var i = 0; i < anwserList.length; i++) {
       anwserIntList.add(await onCheckChoice(anwserList[i]));
@@ -286,83 +294,86 @@ class _Quest5State extends State<Quest5> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: _size.width,
-          height: _size.height,
-          color: const Color(0xfffbd4b9),
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: _size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            width: _size.width,
+            height: _size.height,
+            color: const Color(0xfffbd4b9),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: _size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      widget.quizType ==
-                              "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์"
-                          ? _text(context)
-                          : widget.quizType ==
-                                  "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์"
-                              ? _text6(context)
-                              : widget.quizType ==
-                                      "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่"
-                                  ? _text7(context)
-                                  : widget.quizType ==
-                                          "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์"
-                                      ? _text8(context)
-                                      : Container(),
-                      const SizedBox(height: 20),
-                      widget.quizType ==
-                              "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์"
-                          ? _textSub(context)
-                          : Text(
-                              subTitle,
-                              style: const TextStyle(
-                                fontSize: 12,
+                        widget.quizType ==
+                                "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์"
+                            ? _text(context)
+                            : widget.quizType ==
+                                    "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์"
+                                ? _text6(context)
+                                : widget.quizType ==
+                                        "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่"
+                                    ? _text7(context)
+                                    : widget.quizType ==
+                                            "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์"
+                                        ? _text8(context)
+                                        : Container(),
+                        const SizedBox(height: 20),
+                        widget.quizType ==
+                                "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์"
+                            ? _textSub(context)
+                            : Text(
+                                subTitle,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _list.length,
-                        itemBuilder: (context, index) {
-                          return quiz(
-                            title: _list[index].quiz!,
-                            choice: _list[index].choice!,
-                            answer: anwserList[index],
-                            onChanged: (val) {
-                              setState(() {
-                                anwserList[index] = val!;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      Center(
-                        child: MainButton(
-                          ontab: onSave,
-                          width: _size.width * 0.5,
-                          borderRadius: 50,
-                          title: widget.nextPage == widget.endPage
-                              ? "ส่งคำตอบ"
-                              : 'ถัดไป',
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _list.length,
+                          itemBuilder: (context, index) {
+                            return quiz(
+                              title: _list[index].quiz!,
+                              choice: _list[index].choice!,
+                              answer: anwserList[index],
+                              onChanged: (val) {
+                                setState(() {
+                                  anwserList[index] = val!;
+                                });
+                              },
+                            );
+                          },
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
+                        const SizedBox(height: 40),
+                        Center(
+                          child: MainButton(
+                            ontab: onSave,
+                            width: _size.width * 0.5,
+                            borderRadius: 50,
+                            title: widget.nextPage == widget.endPage
+                                ? "ส่งคำตอบ"
+                                : 'ถัดไป',
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -6,6 +6,7 @@ import 'package:cmu_mobile_app/models/questions/question4_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:flutter/material.dart';
 
 class Quest4 extends StatefulWidget {
@@ -37,8 +38,12 @@ class _Quest4State extends State<Quest4> {
   String anwser10 = "";
   String anwser11 = "";
   String anwser12 = "";
+  bool loading = false;
 
   void onSave() async {
+    setState(() {
+      loading = true;
+    });
     final data = await SharedPref.getStringPref(key: "user");
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     question.userId = user["id"];
@@ -51,6 +56,9 @@ class _Quest4State extends State<Quest4> {
     ).then((value) {
       log("question4 =>${value['message']}\n${question.toJson()}");
       if (value['message'] == "success") {
+        setState(() {
+          loading = false;
+        });
         widget.controller.jumpToPage(widget.nextPage);
       }
     });
@@ -61,53 +69,56 @@ class _Quest4State extends State<Quest4> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: _size.width,
-          height: _size.height,
-          color: const Color(0xfffbd4b9),
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: _size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ส่วนที่ ${widget.nextPage - 1}  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      _text(context),
-                      const SizedBox(height: 20),
-                      quiz1(),
-                      quiz2(),
-                      quiz3(),
-                      quiz4(),
-                      quiz5(),
-                      quiz6(),
-                      quiz7(),
-                      quiz8(),
-                      quiz9(),
-                      quiz10(),
-                      quiz11(),
-                      quiz12(),
-                      const SizedBox(height: 40),
-                      Center(
-                        child: MainButton(
-                          ontab: onSave,
-                          width: _size.width * 0.5,
-                          borderRadius: 50,
-                          title: 'ถัดไป',
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            width: _size.width,
+            height: _size.height,
+            color: const Color(0xfffbd4b9),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: _size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'ส่วนที่ ${widget.nextPage - 1}  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
+                        _text(context),
+                        const SizedBox(height: 20),
+                        quiz1(),
+                        quiz2(),
+                        quiz3(),
+                        quiz4(),
+                        quiz5(),
+                        quiz6(),
+                        quiz7(),
+                        quiz8(),
+                        quiz9(),
+                        quiz10(),
+                        quiz11(),
+                        quiz12(),
+                        const SizedBox(height: 40),
+                        Center(
+                          child: MainButton(
+                            ontab: onSave,
+                            width: _size.width * 0.5,
+                            borderRadius: 50,
+                            title: 'ถัดไป',
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

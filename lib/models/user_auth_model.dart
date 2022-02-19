@@ -26,7 +26,7 @@ class UserAuthModel {
     name = json['name'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
-    studentId = json['student_id'];
+    studentId = int.parse(json['student_id'].toString());
     role = json['role'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];

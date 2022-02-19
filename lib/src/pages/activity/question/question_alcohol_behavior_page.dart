@@ -8,6 +8,7 @@ import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:flutter/material.dart';
 
 class QuestionAlcoholBehaviorPage extends StatefulWidget {
@@ -40,8 +41,12 @@ class _QuestionAlcoholBehaviorPageState
   String anwser3 = "";
   String anwser4 = "";
   String anwser5 = "";
+  bool loading = false;
 
   void onSave() async {
+    setState(() {
+      loading = true;
+    });
     final data = await SharedPref.getStringPref(key: "user");
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     question2.userId = user["id"];
@@ -51,11 +56,24 @@ class _QuestionAlcoholBehaviorPageState
     question2.q5Comment = controller5.text;
     question2.type = widget.type;
 
+    String path = "";
+    switch (user["role"]) {
+      case "student":
+        path = "question2";
+        break;
+      case "parent":
+        path = "parent/question2";
+        break;
+      default:
+    }
     log(question2.toJson().toString());
+    log("path ==>$path");
 
-    await QuestionApi.setQuestion(path: "question2", param: question2)
-        .then((value) {
+    await QuestionApi.setQuestion(path: path, param: question2).then((value) {
       if (value['message'] == "success") {
+        setState(() {
+          loading = false;
+        });
         if (anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
           if ((widget.nextPage + 1) == widget.endPage) {
             Navigator.pushReplacement(
@@ -93,51 +111,54 @@ class _QuestionAlcoholBehaviorPageState
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: _size.width,
-          color: const Color(0xfffbd4b9),
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: _size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ส่วนที่ ${widget.nextPage - 1} พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 20),
-                      Center(
-                        child: SizedBox(
-                          width: _size.width * 0.6,
-                          child: Image.asset('assets/icons/exam.png'),
+        child: LoadingBox(
+          loading: loading,
+          child: Container(
+            width: _size.width,
+            color: const Color(0xfffbd4b9),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: _size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'ส่วนที่ ${widget.nextPage - 1} พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      _quiz1(),
-                      _quiz2(),
-                      _quiz3(),
-                      _quiz4(),
-                      _quiz5(),
-                      const SizedBox(height: 40),
-                      Center(
-                        child: MainButton(
-                          ontab: onSave,
-                          width: _size.width * 0.5,
-                          borderRadius: 50,
-                          title: 'ถัดไป',
+                        const SizedBox(height: 20),
+                        Center(
+                          child: SizedBox(
+                            width: _size.width * 0.6,
+                            child: Image.asset('assets/icons/exam.png'),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
+                        const SizedBox(height: 20),
+                        _quiz1(),
+                        _quiz2(),
+                        _quiz3(),
+                        _quiz4(),
+                        _quiz5(),
+                        const SizedBox(height: 40),
+                        Center(
+                          child: MainButton(
+                            ontab: onSave,
+                            width: _size.width * 0.5,
+                            borderRadius: 50,
+                            title: 'ถัดไป',
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

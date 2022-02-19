@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/models/sign_up_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
@@ -21,6 +24,8 @@ class AuthApi {
     Map<String, dynamic> response = await HttpRequest.post(url, data: param);
     await SharedPref.setStringPref(
         key: "token", value: response["token"].toString());
+
+    log(jsonEncode(response["user"]));
     UserAuthModel user = UserAuthModel.fromJson(response["user"]);
     return user;
   }

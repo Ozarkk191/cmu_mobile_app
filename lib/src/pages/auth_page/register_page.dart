@@ -10,6 +10,7 @@ import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -26,20 +27,33 @@ class _RegisterPageState extends State<RegisterPage> {
   List<UserAuthModel> studentList = <UserAuthModel>[];
   List<String> studentItemList = [];
   String check = "";
+  bool loading = false;
 
   String role = "รพสต";
-  String studentId = "";
+  int studentId = 0;
   bool checkRole = false;
 
   void _check() {
+    setState(() {
+      loading = true;
+    });
     if (_username.text == "" &&
         _password.text == "" &&
         _repassword.text == "") {
       log("field is empty");
+      setState(() {
+        loading = false;
+      });
     } else if (_password.text != _repassword.text) {
       log("password not same");
+      setState(() {
+        loading = false;
+      });
     } else if (_password.text.length < 6) {
       log("password length < 6");
+      setState(() {
+        loading = false;
+      });
     } else {
       signUp();
     }
@@ -73,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
       studentId: studentId,
       branchId: 1,
     );
+    // log
 
     final user = await AuthApi.signUp(param: param);
     log(user.toJson().toString());
@@ -80,10 +95,14 @@ class _RegisterPageState extends State<RegisterPage> {
       key: "user",
       value: jsonEncode(user.toJson()),
     );
+
     _showDialog();
   }
 
   void _showDialog() {
+    setState(() {
+      loading = false;
+    });
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -159,126 +178,129 @@ class _RegisterPageState extends State<RegisterPage> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: MainLayout(
-        child: SingleChildScrollView(
-          child: FutureBuilder(
-            future: getStudents(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.hasData) {
-                List<UserAuthModel> list = snapshot.data;
-                return Container(
-                  margin: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: _size.width,
-                        margin: const EdgeInsets.fromLTRB(0, 40, 0, 40),
-                        child: const Center(
-                          child: Text(
-                            'สมัครสมาชิก',
-                            style: TextStyle(fontSize: 24),
+        child: LoadingBox(
+          loading: loading,
+          child: SingleChildScrollView(
+            child: FutureBuilder(
+              future: getStudents(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  List<UserAuthModel> list = snapshot.data;
+                  return Container(
+                    margin: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: _size.width,
+                          margin: const EdgeInsets.fromLTRB(0, 40, 0, 40),
+                          child: const Center(
+                            child: Text(
+                              'สมัครสมาชิก',
+                              style: TextStyle(fontSize: 24),
+                            ),
                           ),
                         ),
-                      ),
-                      _field(
-                        title: 'ชื่อ',
-                        controller: _username,
-                      ),
-                      _field(
-                        title: 'รหัสผ่าน',
-                        controller: _password,
-                        obscureText: true,
-                      ),
-                      _field(
-                        title: 'ยืนยันรหัสผ่าน',
-                        controller: _repassword,
-                        obscureText: true,
-                      ),
-                      _field(title: 'บทบาท', titleOnly: true),
-                      MainRadioButton(
-                        title: "รพสต",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = false;
-                            studentId = "";
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      MainRadioButton(
-                        title: "วัยรุ่น",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = false;
-                            studentId = "";
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      MainRadioButton(
-                        title: "ผู้ปกครอง",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = true;
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      MainRadioButton(
-                        title: "อาจารย์",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = true;
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      MainRadioButton(
-                        title: "พระสงฆ์",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = true;
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Visibility(
-                        visible: checkRole,
-                        child: teensWidget(_size, list),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      MainButton(
-                        width: _size.width * 0.5,
-                        ontab: () {
-                          _check();
-                        },
-                        borderRadius: 50,
-                        title: 'สมัคร',
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return SizedBox(
-                  width: _size.width,
-                  height: _size.height,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-            },
+                        _field(
+                          title: 'ชื่อ',
+                          controller: _username,
+                        ),
+                        _field(
+                          title: 'รหัสผ่าน',
+                          controller: _password,
+                          obscureText: true,
+                        ),
+                        _field(
+                          title: 'ยืนยันรหัสผ่าน',
+                          controller: _repassword,
+                          obscureText: true,
+                        ),
+                        _field(title: 'บทบาท', titleOnly: true),
+                        MainRadioButton(
+                          title: "รพสต",
+                          onChanged: (val) {
+                            setState(() {
+                              role = val!;
+                              checkRole = false;
+                              studentId = 0;
+                            });
+                          },
+                          groupValue: role,
+                        ),
+                        MainRadioButton(
+                          title: "วัยรุ่น",
+                          onChanged: (val) {
+                            setState(() {
+                              role = val!;
+                              checkRole = false;
+                              studentId = 0;
+                            });
+                          },
+                          groupValue: role,
+                        ),
+                        MainRadioButton(
+                          title: "ผู้ปกครอง",
+                          onChanged: (val) {
+                            setState(() {
+                              role = val!;
+                              checkRole = true;
+                            });
+                          },
+                          groupValue: role,
+                        ),
+                        MainRadioButton(
+                          title: "อาจารย์",
+                          onChanged: (val) {
+                            setState(() {
+                              role = val!;
+                              checkRole = true;
+                            });
+                          },
+                          groupValue: role,
+                        ),
+                        MainRadioButton(
+                          title: "พระสงฆ์",
+                          onChanged: (val) {
+                            setState(() {
+                              role = val!;
+                              checkRole = true;
+                            });
+                          },
+                          groupValue: role,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Visibility(
+                          visible: checkRole,
+                          child: teensWidget(_size, list),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        MainButton(
+                          width: _size.width * 0.5,
+                          ontab: () {
+                            _check();
+                          },
+                          borderRadius: 50,
+                          title: 'สมัคร',
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    width: _size.width,
+                    height: _size.height,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),
@@ -346,7 +368,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onTap: () {
                         setState(() {
                           check = index.toString();
-                          studentId = list[index].id.toString();
+                          studentId = list[index].id!;
                         });
                       },
                       child: Icon(
