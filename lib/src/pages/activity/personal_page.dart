@@ -189,7 +189,7 @@ class _PersonalPageState extends State<PersonalPage> {
                           ? parentRole(_size)
                           : widget.role == "monk"
                               ? monkRole(_size)
-                              : parentRole(_size),
+                              : teacherRole(_size),
                   const SizedBox(height: 40),
                   Center(
                     child: MainButton(
@@ -246,6 +246,20 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
+  Widget teacherRole(Size _size) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        quiz1(number: 1),
+        quiz2(_size, number: 2),
+        quiz3(number: 3),
+        quizEducationTeacher(number: 4),
+        quiz11(number: 5),
+        quiz9(_size, number: 6),
+      ],
+    );
+  }
+
   Widget monkRole(Size _size) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,6 +268,60 @@ class _PersonalPageState extends State<PersonalPage> {
         quiz2(_size, number: 2),
         quiz4(number: 3),
         quiz15(_size, number: 4),
+      ],
+    );
+  }
+
+  Column quizEducationTeacher({required int number}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$number.	ระดับการศึกษาของท่านคือ',
+          style: const TextStyle(fontSize: 12),
+        ),
+        _radioButton(
+          title: 'ระดับปริญญาตรี',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 1;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'ระดับปริญญาโท',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 4;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'ระดับปริญญาเอก',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 2;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'อื่นๆ ระบุ',
+          textField: true,
+          controller: education,
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        const SizedBox(height: 30),
       ],
     );
   }
@@ -363,6 +431,7 @@ class _PersonalPageState extends State<PersonalPage> {
         _radioButton(
           title: 'อื่นๆ ระบุ',
           textField: true,
+          controller: education,
           onChanged: (val) {
             setState(() {
               anwser4 = val!;
