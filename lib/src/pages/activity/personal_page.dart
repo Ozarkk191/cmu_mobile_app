@@ -707,9 +707,10 @@ class _PersonalPageState extends State<PersonalPage> {
               width: _size.width * 0.2,
               child: TextField(
                 controller: moneyPerWeek,
+                style: const TextStyle(fontSize: 12),
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 0),
                 ),
               ),
             ),
@@ -726,9 +727,9 @@ class _PersonalPageState extends State<PersonalPage> {
               child: TextField(
                 controller: moneyPerDay,
                 keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12),
                 decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 5),
+                  contentPadding: EdgeInsets.fromLTRB(10, 0, 20, 0),
                 ),
               ),
             ),

@@ -347,6 +347,7 @@ class _QuestionPage2State extends State<QuestionPage2> {
       child: TextField(
         controller: controller,
         maxLines: 5,
+        style: const TextStyle(fontSize: 12),
         decoration: const InputDecoration(
           border: InputBorder.none,
         ),
