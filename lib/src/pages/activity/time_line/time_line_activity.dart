@@ -1142,11 +1142,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
       endPage: 4,
+      type: "pre",
     ),
     QuestAuditPage(
       controller: controller,
       nextPage: 4,
       endPage: 4,
+      type: "pre",
     ),
   ];
   List<Widget> teacher2 = [
@@ -1228,14 +1230,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_6.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: "assets/video/teacher/activity_5.mp4",
+    QuestionPage2(
+      learningModel: teacherFollow[0],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: teacherFollow[0],
+    VideoPlayPage(
+      link: "assets/video/teacher/activity_5.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -1255,14 +1257,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_7.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: "assets/video/teacher/activity_6.mp4",
+    QuestionPage2(
+      learningModel: teacherFollow[1],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: teacherFollow[1],
+    VideoPlayPage(
+      link: "assets/video/teacher/activity_6.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -1282,14 +1284,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
-    VideoPlayPage(
-      link: "assets/video/teacher/activity_7.mp4",
+    QuestionPage2(
+      learningModel: teacherFollow[2],
       controller: controller,
       nextPage: 2,
       endPage: 4,
     ),
-    QuestionPage2(
-      learningModel: teacherFollow[2],
+    VideoPlayPage(
+      link: "assets/video/teacher/activity_7.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,

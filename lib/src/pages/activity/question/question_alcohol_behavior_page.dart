@@ -64,6 +64,9 @@ class _QuestionAlcoholBehaviorPageState
       case "parent":
         path = "parent/question2";
         break;
+      case "teacher":
+        path = "teacher/question2";
+        break;
       default:
     }
     log(question2.toJson().toString());

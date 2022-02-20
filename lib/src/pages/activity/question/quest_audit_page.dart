@@ -71,6 +71,9 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
       case "parent":
         path = "parent/question3";
         break;
+      case "teacher":
+        path = "teacher/question3";
+        break;
       default:
     }
     log("${widget.endPage}");

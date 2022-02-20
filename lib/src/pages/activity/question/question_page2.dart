@@ -51,6 +51,9 @@ class _QuestionPage2State extends State<QuestionPage2> {
       case "parent":
         path = await onParentType();
         break;
+      case "teacher":
+        path = await onTeacherType();
+        break;
       default:
     }
     log("init==>$path");
@@ -130,6 +133,40 @@ class _QuestionPage2State extends State<QuestionPage2> {
           return path = "student9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
           return path = "student10/evaluate";
+        default:
+          return "";
+      }
+    }
+  }
+
+  Future<String> onTeacherType() async {
+    if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของครู") {
+      switch (widget.learningModel.subTitle!) {
+        case "กิจกรรมที่ 4  เรื่อง บทบาทของครูในการป้องกันการดื่มแอลกอฮอล์ในนักเรียน":
+          return "teacher4/reflextion";
+        case "กิจกรรมที่ 5  เรื่อง การคัดกรองผู้ที่ติดสารเสพติด/ ดื่มเครื่องดื่มแอลกอฮอล์":
+          return path = "teacher5/reflextion";
+        case "กิจกรรมที่ 6  เรื่อง การให้คำปรึกษานักเรียนที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์":
+          return path = "teacher6/reflextion";
+        case "กิจกรรมที่ 7 เรื่อง การเฝ้าระวังและกำกับติดตามนักเรียนที่มีความเสี่ยงหรือดื่มแอลกอฮอล์":
+          return path = "teacher7/reflextion";
+        case "กิจกรรมที่ 8 เรื่อง การเห็นคุณค่าในตนเอง และการเสริมแรงเพื่อปรับพฤติกรรม":
+          return path = "teacher8/reflextion";
+        default:
+          return "";
+      }
+    } else {
+      switch (widget.learningModel.title!) {
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
+          return path = "teacher5/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
+          return path = "teacher6/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
+          return path = "teacher7/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
+          return path = "teacher8/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          return path = "teacher9/evaluate";
         default:
           return "";
       }

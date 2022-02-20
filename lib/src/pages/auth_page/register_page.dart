@@ -65,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return "student";
       case "ผู้ปกครอง":
         return "parent";
-      case "อาจารย์":
+      case "ครู":
         return "teacher";
       case "พระสงฆ์":
         return "monk";
@@ -250,7 +250,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           groupValue: role,
                         ),
                         MainRadioButton(
-                          title: "อาจารย์",
+                          title: "ครู",
                           onChanged: (val) {
                             setState(() {
                               role = val!;
