@@ -240,7 +240,8 @@ class _PersonalPageState extends State<PersonalPage> {
         quiz2(_size, number: 2),
         quiz3(number: 3),
         quiz14(number: 4),
-        quiz9(_size, number: 5),
+        quiz11(number: 5),
+        quiz9(_size, number: 6),
       ],
     );
   }
@@ -251,7 +252,7 @@ class _PersonalPageState extends State<PersonalPage> {
       children: [
         quiz1(number: 1),
         quiz2(_size, number: 2),
-        quiz14(number: 3),
+        quiz4(number: 3),
         quiz15(_size, number: 4),
       ],
     );
@@ -299,89 +300,65 @@ class _PersonalPageState extends State<PersonalPage> {
           '$number.	ระดับการศึกษาของท่านคือ',
           style: const TextStyle(fontSize: 12),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: _radioButton(
-                title: 'ประถมศึกษาปีที่ 4',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 1;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 1',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 4;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-          ],
+        _radioButton(
+          title: 'ระดับประถมศึกษา',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 1;
+            });
+          },
+          groupValue: anwser4,
         ),
-        Row(
-          children: [
-            Expanded(
-              child: _radioButton(
-                title: 'ประถมศึกษาปีที่ 5',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 2;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 2',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 5;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-          ],
+        _radioButton(
+          title: 'ระดับมัธยมศึกษาตอนต้น',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 4;
+            });
+          },
+          groupValue: anwser4,
         ),
-        Row(
-          children: [
-            Expanded(
-              child: _radioButton(
-                title: 'ประถมศึกษาปีที่ 6',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 3;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-            Expanded(
-              child: _radioButton(
-                title: 'มัธยมศึกษาปีที่ 3',
-                onChanged: (val) {
-                  setState(() {
-                    anwser4 = val!;
-                    profile.education = 6;
-                  });
-                },
-                groupValue: anwser4,
-              ),
-            ),
-          ],
+        _radioButton(
+          title: 'ระดับมัธยมศึกษาตอนปลาย/ปวช.',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 2;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'ระดับอนุปริญญา/ ปวส.',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 5;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'ระดับปริญญาตรี',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 3;
+            });
+          },
+          groupValue: anwser4,
+        ),
+        _radioButton(
+          title: 'ระดับปริญญาโท',
+          onChanged: (val) {
+            setState(() {
+              anwser4 = val!;
+              profile.education = 6;
+            });
+          },
+          groupValue: anwser4,
         ),
         _radioButton(
           title: 'อื่นๆ ระบุ',

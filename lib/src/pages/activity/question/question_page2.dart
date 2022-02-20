@@ -54,6 +54,9 @@ class _QuestionPage2State extends State<QuestionPage2> {
       case "teacher":
         path = await onTeacherType();
         break;
+      case "monk":
+        path = await onMonkType();
+        break;
       default:
     }
     log("init==>$path");
@@ -167,6 +170,37 @@ class _QuestionPage2State extends State<QuestionPage2> {
           return path = "teacher8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
           return path = "teacher9/evaluate";
+        default:
+          return "";
+      }
+    }
+  }
+
+  Future<String> onMonkType() async {
+    if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของพระสงฆ์") {
+      switch (widget.learningModel.subTitle!) {
+        case "กิจกรรมที่ 8 เรื่อง วัดปลอดสุรา (กฏหมายและกิจกรรมที่ทำได้ในวัด)":
+          return "monk8/reflextion";
+        case "กิจกรรมที่ 9 ธรรมเทศนานําใจ ป้องกันภัยจากสุรา":
+          return path = "monk9/reflextion";
+        case "กิจกรรมที่ 10 สื่อสารอย่างไรให้ญาติยมเข้าใจและห่างไกลจากสุรา  (เทคนิคการสื่อสารด้วยเสียงตามสาย)":
+          return path = "monk10/reflextion";
+        case "กิจกรรมที่ 11 การให้คำปรึกษาวัยรุ่นที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์":
+          return path = "monk11/reflextion";
+        default:
+          return "";
+      }
+    } else {
+      switch (widget.learningModel.title!) {
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          return path = "monk8/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          return path = "monk9/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
+          return path = "monk10/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 11":
+          return path = "monk11/evaluate";
+
         default:
           return "";
       }
