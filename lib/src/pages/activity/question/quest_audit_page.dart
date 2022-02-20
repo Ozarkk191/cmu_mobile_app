@@ -14,6 +14,7 @@ class QuestAuditPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final int number;
   final String type;
   const QuestAuditPage({
     Key? key,
@@ -21,6 +22,7 @@ class QuestAuditPage extends StatefulWidget {
     required this.nextPage,
     this.endPage = 1000,
     this.type = "post",
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -120,7 +122,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'ส่วนที่ ${widget.nextPage - 1}  แบบประเมินปัญหาการดื่มสุรา (AUDIT)',
+                          'ส่วนที่ ${widget.number}  แบบประเมินปัญหาการดื่มสุรา (AUDIT)',
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),

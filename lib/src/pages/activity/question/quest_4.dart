@@ -12,12 +12,14 @@ import 'package:flutter/material.dart';
 class Quest4 extends StatefulWidget {
   final PageController controller;
   final int nextPage;
+  final int number;
   final String type;
   const Quest4({
     Key? key,
     required this.controller,
     required this.nextPage,
     this.type = "post",
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -86,7 +88,7 @@ class _Quest4State extends State<Quest4> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'ส่วนที่ ${widget.nextPage - 1}  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
+                          'ส่วนที่ ${widget.number}  แบบวัดความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์',
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),

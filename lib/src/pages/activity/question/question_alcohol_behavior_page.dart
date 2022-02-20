@@ -15,6 +15,7 @@ class QuestionAlcoholBehaviorPage extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final int number;
   final String type;
   const QuestionAlcoholBehaviorPage({
     Key? key,
@@ -22,6 +23,7 @@ class QuestionAlcoholBehaviorPage extends StatefulWidget {
     required this.nextPage,
     this.endPage = 1000,
     this.type = "post",
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -130,7 +132,7 @@ class _QuestionAlcoholBehaviorPageState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'ส่วนที่ ${widget.nextPage - 1} พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
+                          'ส่วนที่ ${widget.number} พฤติกรรมการดื่มเครื่องดื่มแอลกอฮอล์',
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),

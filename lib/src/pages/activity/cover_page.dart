@@ -44,7 +44,10 @@ class _CoverPageState extends State<CoverPage> {
                       height: _size.width * 0.4,
                       child: Image.asset(widget.path!),
                     )
-                  : Container(),
+                  : SizedBox(
+                      width: _size.width * 0.8,
+                      height: _size.width * 0.4,
+                    ),
               SizedBox(
                 width: _size.width * 0.8,
                 child: Text(

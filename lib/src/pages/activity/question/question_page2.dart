@@ -211,8 +211,15 @@ class _QuestionPage2State extends State<QuestionPage2> {
     final data = await SharedPref.getStringPref(key: "user");
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     reflexModel.userId = user["id"];
-    reflexModel.q1 = controllerList[0].text;
-    reflexModel.q2 = controllerList[1].text;
+    reflexModel.q1 = "empty";
+    reflexModel.q2 = "empty";
+    if (controllerList[0].text.isNotEmpty) {
+      reflexModel.q1 = controllerList[0].text;
+    }
+    if (controllerList[1].text.isNotEmpty) {
+      reflexModel.q2 = controllerList[1].text;
+    }
+
     onSave(quest: reflexModel);
   }
 

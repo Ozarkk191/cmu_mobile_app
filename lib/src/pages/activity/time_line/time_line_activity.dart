@@ -186,56 +186,69 @@ class _TimelineActivityState extends State<TimelineActivity> {
   }
 
   List<Widget> questionWidgetList = [
-    CoverQuestionnairePage(
+    CoverPage(
+      title: "ก่อนเริ่มทำกิจกรรมมาทำแบบสอบถามกันก่อนนะคะ",
       controller: controller,
       nextPage: 1,
+      endPage: 10,
+    ),
+    CoverQuestionnairePage(
+      controller: controller,
+      nextPage: 2,
     ),
     PersonalPage(
       controller: controller,
-      nextPage: 2,
+      nextPage: 3,
       role: "student",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
-      nextPage: 3,
+      nextPage: 4,
       type: "pre",
+      number: 2,
     ),
     QuestAuditPage(
       controller: controller,
-      nextPage: 4,
+      nextPage: 5,
       type: "pre",
+      number: 3,
     ),
     Quest4(
       controller: controller,
-      nextPage: 5,
-      type: "pre",
-    ),
-    Quest5(
-      controller: controller,
       nextPage: 6,
-      quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
       type: "pre",
+      number: 4,
     ),
     Quest5(
       controller: controller,
       nextPage: 7,
-      quizType:
-          "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
+      quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
       type: "pre",
+      number: 5,
     ),
     Quest5(
       controller: controller,
       nextPage: 8,
       quizType:
-          "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
+          "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
       type: "pre",
+      number: 6,
     ),
     Quest5(
       controller: controller,
       nextPage: 9,
-      quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
-      endPage: 9,
+      quizType:
+          "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
       type: "pre",
+      number: 7,
+    ),
+    Quest5(
+      controller: controller,
+      nextPage: 10,
+      quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
+      endPage: 10,
+      type: "pre",
+      number: 8,
     ),
   ];
   List<Widget> activity1WidgetList = [
@@ -328,23 +341,34 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
       endPage: 4,
     ),
+    CoverPage(
+      title: "ทำอย่างไรเมื่อต้องตัดสินใจเรื่องสำคัญ????",
+      controller: controller,
+      nextPage: 2,
+    ),
     VideoPlayPage(
       link: activity4[1],
       controller: controller,
-      nextPage: 2,
-      endPage: 4,
+      nextPage: 3,
+      endPage: 5,
     ),
     VideoPlayPage(
       link: activity4[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 4,
+      nextPage: 4,
+      endPage: 6,
+    ),
+    CoverPage(
+      title:
+          "เป็นอย่างไรบ้างคะ ทักษะการตัดสินใจยากไหม เรามาเรียนรู้เพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 5,
     ),
     QuestionPage2(
       learningModel: teenLearning[0],
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 6,
+      endPage: 6,
     ),
   ];
   List<Widget> activity5WidgetList = [
@@ -358,25 +382,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[0],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
+    ),
+    CoverPage(
+      title: "ควบคุมอารมณ์ตนเอง ทำได้ไม่ยากเลย",
+      controller: controller,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: activity5[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 5,
+      nextPage: 4,
     ),
     VideoPlayPage(
       link: activity5[3],
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 5,
+    ),
+    CoverPage(
+      title: "เรามาเรียนรู้เรื่องการควบคุมอารมณ์เพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      path: "assets/icons/icon_5.png",
+      nextPage: 6,
     ),
     QuestionPage2(
       learningModel: teenLearning[1],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 7,
+      endPage: 7,
     ),
   ];
   List<Widget> activity6WidgetList = [
@@ -390,25 +422,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[1],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
+    ),
+    CoverPage(
+      title: "ปฏิเสธอย่างไร ไม่ให้เสียเพื่อน",
+      controller: controller,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: activity6[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 5,
+      nextPage: 4,
     ),
     VideoPlayPage(
       link: activity6[3],
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 5,
+    ),
+    CoverPage(
+      title:
+          "การปฏิเสธง่ายกว่าที่คิดใช่ไหมคะ เรามาเรียนรู้เรื่องทักษะการปฏิเสธเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 6,
     ),
     QuestionPage2(
       learningModel: teenLearning[2],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 7,
+      endPage: 7,
     ),
   ];
   List<Widget> activity7WidgetList = [
@@ -422,25 +462,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[2],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
+    ),
+    CoverPage(
+      title: "เครียด......ทำอย่างไร ",
+      controller: controller,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: activity7[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 5,
+      nextPage: 4,
     ),
     VideoPlayPage(
       link: activity7[3],
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 5,
+    ),
+    CoverPage(
+      title:
+          "การผ่อนคลายความเครียดใครๆก็ทำได้จริงไหมคะ เรามาเรียนรู้เรื่องการผ่อนคลายความเครียดเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 6,
     ),
     QuestionPage2(
       learningModel: teenLearning[3],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 7,
+      endPage: 7,
     ),
   ];
   List<Widget> activity8WidgetList = [
@@ -454,25 +502,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[3],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
+    ),
+    CoverPage(
+      title: "พรหมวิหาร 4 คืออะไร ใครๆรู้บ้าง",
+      controller: controller,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: activity8[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 5,
+      nextPage: 4,
+    ),
+    CoverPage(
+      title:
+          "จบไปแล้วสำหรับหลักธรรมะ ความเมตตา มาดูกันต่อนะคะ ว่า ความกรุณาคืออะไร",
+      controller: controller,
+      nextPage: 5,
     ),
     VideoPlayPage(
       link: activity8[3],
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 6,
     ),
     QuestionPage2(
       learningModel: teenLearning[4],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 7,
+      endPage: 7,
     ),
   ];
   List<Widget> activity9WidgetList = [
@@ -486,25 +542,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[4],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
+    ),
+    CoverPage(
+      title:
+          "เรียนเรื่อง เมตตา กรุณาไปแล้ว วันนี้มาดูเรื่อง มุทิตาและอุเบกขากันนะคะ",
+      controller: controller,
+      nextPage: 3,
     ),
     VideoPlayPage(
       link: activity9[2],
       controller: controller,
-      nextPage: 3,
-      endPage: 5,
+      nextPage: 4,
+    ),
+    CoverPage(
+      title: "มุทิตา คือความยินดีเมื่อผู้อื่นได้ดี แล้วอุเบกขาละ",
+      controller: controller,
+      nextPage: 5,
     ),
     VideoPlayPage(
       link: activity9[3],
       controller: controller,
-      nextPage: 4,
-      endPage: 5,
+      nextPage: 6,
     ),
     QuestionPage2(
       learningModel: teenLearning[5],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 7,
+      endPage: 7,
     ),
   ];
   List<Widget> activity10WidgetList = [
@@ -518,24 +582,30 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: teenFollow[5],
       controller: controller,
       nextPage: 2,
-      endPage: 5,
     ),
     VideoPlayPage(
       link: activity10[2],
       controller: controller,
       nextPage: 3,
-      endPage: 5,
+    ),
+    CoverPage(
+      title:
+          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 10 กิจกรรม เราได้เรียนรู้เรื่องอะไรกันบ้างคะ มาประเมินผลกันหน่อยค่ะ ขอน้อง ๆ ทำแบบสอบถามหน่อยนะคะหลังส่งแบบสอบถาม เพิ่มสไลด์    ขอบคุณน้อง ๆ ทุกคนที่ตั้งใจทำกิจกรรมและตอบแบบสอบถามทั้งหมด พบกันใหม่หลังจากนี้ 1 เดือนนะคะ",
+      controller: controller,
+      path: "assets/icons/icon_10.png",
+      nextPage: 4,
     ),
     Quest5(
       controller: controller,
-      nextPage: 4,
+      nextPage: 5,
       quizType: "แบบวัดความมีคุณค่าในตนเอง",
+      number: 0,
     ),
     QuestionPage2(
       learningModel: teenLearning[6],
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 6,
+      endPage: 6,
     ),
   ];
   List<Widget> activity11WidgetList = [
@@ -547,62 +617,76 @@ class _TimelineActivityState extends State<TimelineActivity> {
     QuestionAlcoholBehaviorPage(
       controller: controller,
       nextPage: 2,
+      number: 1,
     ),
     QuestAuditPage(
       controller: controller,
       nextPage: 3,
+      number: 2,
     ),
     Quest4(
       controller: controller,
       nextPage: 4,
+      number: 3,
     ),
     Quest5(
       controller: controller,
       nextPage: 5,
       quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
+      number: 4,
     ),
     Quest5(
       controller: controller,
       nextPage: 6,
+      number: 5,
       quizType:
           "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
     ),
     Quest5(
       controller: controller,
       nextPage: 7,
+      number: 6,
       quizType:
           "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
     ),
     Quest5(
       controller: controller,
       nextPage: 8,
+      number: 7,
       quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
       endPage: 8,
     ),
   ];
 
   List<Widget> parentQuestWidget = [
+    CoverPage(
+      title: "ก่อนเริ่มทำกิจกรรมมาทำแบบสอบถามกันก่อนนะคะ",
+      controller: controller,
+      path: "assets/icons/icon_10.png",
+      nextPage: 1,
+    ),
     CoverQuestionnairePage(
       controller: controller,
-      nextPage: 1,
+      nextPage: 2,
       before: false,
     ),
     PersonalPage(
       controller: controller,
-      nextPage: 2,
+      nextPage: 3,
       role: "parent",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
-      nextPage: 3,
-      endPage: 4,
+      nextPage: 4,
       type: "pre",
+      number: 2,
     ),
     QuestAuditPage(
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
       type: "pre",
+      number: 3,
     ),
   ];
   List<Widget> parentWidget1 = [
@@ -858,18 +942,29 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title: parent11[0],
       controller: controller,
       nextPage: 1,
-      endPage: 3,
+    ),
+    CoverPage(
+      title:
+          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 10 กิจกรรม ผู้ปกครองได้เรียนรู้เรื่องอะไรกันบ้างคะ ขอความร่วมมือผู้ปกครองช่วยทำแบบสอบถามหน่อยนะคะ",
+      controller: controller,
+      nextPage: 2,
     ),
     QuestionPage2(
       learningModel: parentFollow[6],
       controller: controller,
-      nextPage: 2,
-      endPage: 3,
+      nextPage: 3,
     ),
     QuestAuditPage(
       controller: controller,
-      nextPage: 3,
-      endPage: 3,
+      nextPage: 4,
+      number: 1,
+    ),
+    CoverPage(
+      title:
+          "ขอบคุณผู้ปกครองทุกท่านที่ตั้งใจและให้ความร่วมมือในการทำกิจกรรม หวังเป็นอย่างยิ่งว่าท่านจะนำความรู้ที่ได้ไปใช้ในการดูแลบุตรหลาน ให้ห่างไกลจากเครื่องดื่มแอลกอฮอล์นะคะ",
+      controller: controller,
+      nextPage: 4,
+      endPage: 5,
     ),
   ];
 
@@ -895,13 +990,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_1_1.mp4",
+      link: "monk/activity_1_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_1_2.mp4",
+      link: "monk/activity_1_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -915,7 +1010,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_2.mp4",
+      link: "monk/activity_2.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 2,
@@ -930,7 +1025,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_3.mp4",
+      link: "monk/activity_3.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 2,
@@ -944,13 +1039,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_4_1.mp4",
+      link: "monk/activity_4_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_4_2.mp4",
+      link: "monk/activity_4_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -965,13 +1060,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_5_1.mp4",
+      link: "monk/activity_5_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_5_2.mp4",
+      link: "monk/activity_5_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -985,13 +1080,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_6_1.mp4",
+      link: "monk/activity_6_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_6_2.mp4",
+      link: "monk/activity_6_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -1006,13 +1101,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_7_1.mp4",
+      link: "monk/activity_7_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_7_2.mp4",
+      link: "monk/activity_7_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -1026,7 +1121,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_8.mp4",
+      link: "monk/activity_8.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
@@ -1046,7 +1141,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_9.mp4",
+      link: "monk/activity_9.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 4,
@@ -1073,7 +1168,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_10.mp4",
+      link: "monk/activity_10.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 4,
@@ -1100,7 +1195,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_11.mp4",
+      link: "monk/activity_11.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 4,
@@ -1115,7 +1210,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: monkLearning[3],
       controller: controller,
       nextPage: 4,
-      endPage: 4,
+    ),
+    CoverPage(
+      title:
+          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 11 กิจกรรม ขอขอบพระคุณพระคุณเจ้า ที่ให้ความร่วมมือในการทำกิจกรรมในครั้งนี้ หวังเป็นอย่างยิ่งว่าพระคุณเจ้าจะนำความรู้ที่ได้ไปดูแลคนในชุมชนของเรา โดยเฉพาะกลุ่มวัยรุ่นให้ห่างไกลจากเครื่องดื่มแอลกอฮอล์ เพื่อประโยชน์ของคนในสังคมต่อไป",
+      controller: controller,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget12 = [
@@ -1128,27 +1229,33 @@ class _TimelineActivityState extends State<TimelineActivity> {
   ];
 
   List<Widget> teacher1 = [
-    CoverQuestionnairePage(
+    CoverPage(
+      title: "ก่อนเริ่มทำกิจกรรมมาทำแบบสอบถามกันก่อนนะคะ",
       controller: controller,
       nextPage: 1,
+    ),
+    CoverQuestionnairePage(
+      controller: controller,
+      nextPage: 2,
       before: false,
     ),
     PersonalPage(
       controller: controller,
-      nextPage: 2,
+      nextPage: 3,
       role: "teacher",
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
-      nextPage: 3,
-      endPage: 4,
+      nextPage: 4,
       type: "pre",
+      number: 2,
     ),
     QuestAuditPage(
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
       type: "pre",
+      number: 3,
     ),
   ];
   List<Widget> teacher2 = [
@@ -1160,13 +1267,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_1_1.mp4",
+      link: "monk/activity_1_1.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_1_2.mp4",
+      link: "monk/activity_1_2.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 3,
@@ -1180,7 +1287,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_2.mp4",
+      link: "monk/activity_2.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 2,
@@ -1195,7 +1302,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/monk/activity_3.mp4",
+      link: "monk/activity_3.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 2,
@@ -1210,7 +1317,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
     ),
     VideoPlayPage(
-      link: "assets/video/teacher/activity_4.mp4",
+      link: "teacher/activity_4.mp4",
       controller: controller,
       nextPage: 2,
       endPage: 3,
@@ -1237,7 +1344,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     VideoPlayPage(
-      link: "assets/video/teacher/activity_5.mp4",
+      link: "teacher/activity_5.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -1264,7 +1371,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     VideoPlayPage(
-      link: "assets/video/teacher/activity_6.mp4",
+      link: "teacher/activity_6.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -1291,7 +1398,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 4,
     ),
     VideoPlayPage(
-      link: "assets/video/teacher/activity_7.mp4",
+      link: "teacher/activity_7.mp4",
       controller: controller,
       nextPage: 3,
       endPage: 4,
@@ -1338,10 +1445,23 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 1,
       before: false,
     ),
-    QuestAuditPage(
+    CoverPage(
+      title:
+          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 8 กิจกรรม ขอความร่วมมือคุณครูผู้ช่วยทำแบบสอบถามหน่อยนะคะ",
       controller: controller,
       nextPage: 2,
-      endPage: 2,
+    ),
+    QuestAuditPage(
+      controller: controller,
+      nextPage: 3,
+      number: 1,
+    ),
+    CoverPage(
+      title:
+          "ขอบคุณคุณครูทุกท่าน ที่ตั้งใจและให้ความร่วมมือในการทำกิจกรรมครั้งนี้ หวังเป็นอย่างยิ่งว่าท่านจะนำความรู้ที่ได้ไปใช้ในการดูแลนักเรียน ให้ห่างไกลจากเครื่องดื่มแอลกอฮอล์นะคะ",
+      controller: controller,
+      nextPage: 4,
+      endPage: 4,
     ),
   ];
 }

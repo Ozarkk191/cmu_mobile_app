@@ -19,6 +19,7 @@ class Quest5 extends StatefulWidget {
   final String quizType;
   final String type;
   final int endPage;
+  final int number;
   const Quest5({
     Key? key,
     required this.controller,
@@ -26,6 +27,7 @@ class Quest5 extends StatefulWidget {
     required this.quizType,
     this.endPage = 1000,
     this.type = "post",
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -311,7 +313,7 @@ class _Quest5State extends State<Quest5> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'ส่วนที่ ${widget.nextPage - 1} ${widget.quizType}',
+                          'ส่วนที่ ${widget.number} ${widget.quizType}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
