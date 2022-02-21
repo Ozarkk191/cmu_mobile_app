@@ -27,11 +27,15 @@ class _RegisterPageState extends State<RegisterPage> {
   List<UserAuthModel> studentList = <UserAuthModel>[];
   List<String> studentItemList = [];
   String check = "";
-  bool loading = false;
+  bool loading = true;
 
   String role = "รพสต";
   int studentId = 0;
   bool checkRole = false;
+
+  String dropdownvalue = 'เลือกนักเรียนในการปกครองของท่าน';
+
+  List<UserAuthModel> list = [];
 
   void _check() {
     setState(() {
@@ -78,6 +82,23 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void signUp() async {
+    if (checkRole) {
+      if (studentId == 0) {
+        _showDialog(
+          title: "กรุณาเลือกนักเรียนของท่าน",
+          callback: () {
+            Navigator.pop(context);
+          },
+        );
+      } else {
+        save();
+      }
+    } else {
+      save();
+    }
+  }
+
+  void save() async {
     SignUpModel param = SignUpModel(
       email: "${_username.text}@nurse.com",
       name: _username.text,
@@ -96,10 +117,22 @@ class _RegisterPageState extends State<RegisterPage> {
       value: jsonEncode(user.toJson()),
     );
 
-    _showDialog();
+    _showDialog(
+      title: "เรียบร้อย",
+      callback: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(
+              initPage: 0,
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  void _showDialog() {
+  void _showDialog({required Function() callback, required String title}) {
     setState(() {
       loading = false;
     });
@@ -126,15 +159,16 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.check,
                     size: 50,
                     color: Color(0xffFF6600),
                   ),
                   Text(
-                    'เรียบร้อย',
-                    style: TextStyle(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
                       color: Color(0xffFF6600),
                       fontSize: 24,
                     ),
@@ -146,23 +180,23 @@ class _RegisterPageState extends State<RegisterPage> {
         );
       },
     );
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(
-            initPage: 0,
-          ),
-        ),
-      );
+    Timer(const Duration(seconds: 3), callback);
+  }
+
+  void getStudents() async {
+    list = await AuthApi.getStudents();
+    final init = UserAuthModel(id: 0, name: "เลือกนักเรียนในการปกครองของท่าน");
+    list.insert(0, init);
+    log(list[0].name!);
+    setState(() {
+      loading = false;
     });
   }
 
-  Future<List<UserAuthModel>> getStudents() async {
-    List<UserAuthModel> studentList = <UserAuthModel>[];
-    studentList = await AuthApi.getStudents();
-
-    return studentList;
+  @override
+  void initState() {
+    getStudents();
+    super.initState();
   }
 
   @override
@@ -178,130 +212,147 @@ class _RegisterPageState extends State<RegisterPage> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: MainLayout(
-        child: LoadingBox(
-          loading: loading,
-          child: SingleChildScrollView(
-            child: FutureBuilder(
-              future: getStudents(),
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasData) {
-                  List<UserAuthModel> list = snapshot.data;
-                  return Container(
-                    margin: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: _size.width,
-                          margin: const EdgeInsets.fromLTRB(0, 40, 0, 40),
-                          child: const Center(
-                            child: Text(
-                              'สมัครสมาชิก',
-                              style: TextStyle(fontSize: 24),
-                            ),
+        child: SingleChildScrollView(
+          child: loading
+              ? SizedBox(
+                  width: _size.width,
+                  height: _size.height,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Container(
+                  margin: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: _size.width,
+                        margin: const EdgeInsets.fromLTRB(0, 40, 0, 40),
+                        child: const Center(
+                          child: Text(
+                            'สมัครสมาชิก',
+                            style: TextStyle(fontSize: 24),
                           ),
                         ),
-                        _field(
-                          title: 'ชื่อ',
-                          controller: _username,
-                        ),
-                        _field(
-                          title: 'รหัสผ่าน',
-                          controller: _password,
-                          obscureText: true,
-                        ),
-                        _field(
-                          title: 'ยืนยันรหัสผ่าน',
-                          controller: _repassword,
-                          obscureText: true,
-                        ),
-                        _field(title: 'บทบาท', titleOnly: true),
-                        MainRadioButton(
-                          title: "รพสต",
-                          onChanged: (val) {
+                      ),
+                      _field(
+                        title: 'ชื่อ',
+                        controller: _username,
+                      ),
+                      _field(
+                        title: 'รหัสผ่าน',
+                        controller: _password,
+                        obscureText: true,
+                      ),
+                      _field(
+                        title: 'ยืนยันรหัสผ่าน',
+                        controller: _repassword,
+                        obscureText: true,
+                      ),
+                      _field(title: 'บทบาท', titleOnly: true),
+                      MainRadioButton(
+                        title: "รพสต",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = false;
+                            studentId = 0;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      MainRadioButton(
+                        title: "วัยรุ่น",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = false;
+                            studentId = 0;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      MainRadioButton(
+                        title: "ผู้ปกครอง",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = true;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      MainRadioButton(
+                        title: "ครู",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = false;
+                            studentId = 0;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      MainRadioButton(
+                        title: "พระสงฆ์",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = false;
+                            studentId = 0;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Visibility(
+                        visible: checkRole,
+                        child: DropdownButton(
+                          value: dropdownvalue,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: list.map((var items) {
+                            return DropdownMenuItem(
+                              value: items.name,
+                              child: Text(
+                                items.name!,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
                             setState(() {
-                              role = val!;
-                              checkRole = false;
-                              studentId = 0;
+                              dropdownvalue = newValue!;
+                              final selecte = list
+                                  .where((element) =>
+                                      element.name!.contains(dropdownvalue))
+                                  .toList();
+
+                              studentId = selecte[0].id!;
                             });
                           },
-                          groupValue: role,
                         ),
-                        MainRadioButton(
-                          title: "วัยรุ่น",
-                          onChanged: (val) {
-                            setState(() {
-                              role = val!;
-                              checkRole = false;
-                              studentId = 0;
-                            });
-                          },
-                          groupValue: role,
-                        ),
-                        MainRadioButton(
-                          title: "ผู้ปกครอง",
-                          onChanged: (val) {
-                            setState(() {
-                              role = val!;
-                              checkRole = true;
-                            });
-                          },
-                          groupValue: role,
-                        ),
-                        MainRadioButton(
-                          title: "ครู",
-                          onChanged: (val) {
-                            setState(() {
-                              role = val!;
-                              checkRole = true;
-                            });
-                          },
-                          groupValue: role,
-                        ),
-                        MainRadioButton(
-                          title: "พระสงฆ์",
-                          onChanged: (val) {
-                            setState(() {
-                              role = val!;
-                              checkRole = true;
-                            });
-                          },
-                          groupValue: role,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Visibility(
-                          visible: checkRole,
-                          child: teensWidget(_size, list),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        MainButton(
-                          width: _size.width * 0.5,
-                          ontab: () {
-                            _check();
-                          },
-                          borderRadius: 50,
-                          title: 'สมัคร',
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return SizedBox(
-                    width: _size.width,
-                    height: _size.height,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
+                        // teensWidget(_size, list),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MainButton(
+                        width: _size.width * 0.5,
+                        ontab: () {
+                          _check();
+                        },
+                        borderRadius: 50,
+                        title: 'สมัคร',
+                      ),
+                    ],
+                  ),
+                ),
         ),
       ),
     );
@@ -343,50 +394,50 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  SizedBox teensWidget(Size _size, List<UserAuthModel> list) {
-    return SizedBox(
-      width: _size.width,
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          const Text(
-            'กรุณาเลือกนักเรียนในการปกครอง',
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 20),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Container(
-                width: _size.width,
-                margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          check = index.toString();
-                          studentId = list[index].id!;
-                        });
-                      },
-                      child: Icon(
-                        check == index.toString()
-                            ? Icons.check_box
-                            : Icons.check_box_outline_blank,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(list[index].name.toString()),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  // SizedBox teensWidget(Size _size, List<UserAuthModel> list) {
+  //   return SizedBox(
+  //     width: _size.width,
+  //     child: Column(
+  //       children: [
+  //         const SizedBox(height: 20),
+  //         const Text(
+  //           'กรุณาเลือกนักเรียนในการปกครอง',
+  //           style: TextStyle(fontSize: 16),
+  //         ),
+  //         const SizedBox(height: 20),
+  //         ListView.builder(
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           shrinkWrap: true,
+  //           itemCount: list.length,
+  //           itemBuilder: (context, index) {
+  //             return Container(
+  //               width: _size.width,
+  //               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+  //               child: Row(
+  //                 children: [
+  //                   GestureDetector(
+  //                     onTap: () {
+  //                       setState(() {
+  //                         check = index.toString();
+  //                         studentId = list[index].id!;
+  //                       });
+  //                     },
+  //                     child: Icon(
+  //                       check == index.toString()
+  //                           ? Icons.check_box
+  //                           : Icons.check_box_outline_blank,
+  //                       color: Colors.orange,
+  //                     ),
+  //                   ),
+  //                   const SizedBox(width: 10),
+  //                   Text(list[index].name.toString()),
+  //                 ],
+  //               ),
+  //             );
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

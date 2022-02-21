@@ -77,10 +77,10 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/video/teen/
-    - assets/video/parent/
-    - assets/video/monk/
-    - assets/video/teacher/
+    # - assets/video/teen/
+    # - assets/video/parent/
+    # - assets/video/monk/
+    # - assets/video/teacher/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

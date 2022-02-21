@@ -17,12 +17,14 @@ class Quest1 extends StatefulWidget {
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final int fail;
   const Quest1({
     Key? key,
     required this.prePost,
     required this.controller,
     required this.nextPage,
     this.endPage = 1000,
+    required this.fail,
   }) : super(key: key);
 
   @override
@@ -62,6 +64,8 @@ class _Quest1State extends State<Quest1> {
         } else {
           widget.controller.jumpToPage(widget.nextPage);
         }
+      } else {
+        widget.controller.jumpToPage(widget.nextPage - widget.fail);
       }
     });
   }

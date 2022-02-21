@@ -71,7 +71,7 @@ class _CoverPageState extends State<CoverPage> {
                       ),
                     );
                   } else {
-                    widget.controller.jumpToPage(1);
+                    widget.controller.jumpToPage(widget.nextPage);
                   }
                 },
                 width: _size.width * 0.6,
