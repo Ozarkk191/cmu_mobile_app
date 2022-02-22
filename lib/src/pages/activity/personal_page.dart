@@ -98,9 +98,11 @@ class _PersonalPageState extends State<PersonalPage> {
 
     await AuthApi.setProflieData(param: profile).then((value) {
       if (value['message'] == "success") {
-        setState(() {
-          loading = false;
-        });
+        if (mounted) {
+          setState(() {
+            loading = false;
+          });
+        }
         if (widget.endPage == widget.nextPage) {
           Navigator.pushReplacement(
             context,
@@ -264,10 +266,9 @@ class _PersonalPageState extends State<PersonalPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        quiz1(number: 1),
-        quiz2(_size, number: 2),
-        quiz4(number: 3),
-        quiz15(_size, number: 4),
+        quiz2(_size, number: 1),
+        quizEducationTeacher(number: 2),
+        quiz15(_size, number: 3),
       ],
     );
   }

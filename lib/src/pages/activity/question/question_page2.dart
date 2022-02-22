@@ -63,6 +63,7 @@ class _QuestionPage2State extends State<QuestionPage2> {
   }
 
   Future<String> onParentType() async {
+    log("widget==>${widget.learningModel.title}");
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของผู้ปกครอง") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 4 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการตัดสินใจ":

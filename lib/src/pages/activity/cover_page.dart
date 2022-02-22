@@ -44,10 +44,7 @@ class _CoverPageState extends State<CoverPage> {
                       height: _size.width * 0.4,
                       child: Image.asset(widget.path!),
                     )
-                  : SizedBox(
-                      width: _size.width * 0.8,
-                      height: _size.width * 0.4,
-                    ),
+                  : const SizedBox(),
               SizedBox(
                 width: _size.width * 0.8,
                 child: Text(
@@ -61,9 +58,7 @@ class _CoverPageState extends State<CoverPage> {
               ),
               MainButton(
                 ontab: () {
-                  log("next=> ${widget.nextPage}");
-                  log("endPage=> ${widget.endPage}");
-                  if (1 == widget.endPage) {
+                  if (widget.nextPage == widget.endPage) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -76,7 +71,11 @@ class _CoverPageState extends State<CoverPage> {
                 },
                 width: _size.width * 0.6,
                 borderRadius: 50,
-                title: 'เริ่ม',
+                title: widget.nextPage == 1
+                    ? 'เริ่ม'
+                    : widget.nextPage == widget.endPage
+                        ? "เสร็จสิ้น"
+                        : "ถัดไป",
               ),
             ],
           ),

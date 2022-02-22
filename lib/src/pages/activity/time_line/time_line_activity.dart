@@ -606,7 +606,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 5,
       quizType: "แบบวัดความมีคุณค่าในตนเอง",
-      number: 0,
+      number: 1,
     ),
     QuestionPage2(
       learningModel: teenLearning[6],
@@ -1458,11 +1458,16 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 2,
       endPage: 3,
     ),
+    VideoPlayPage(
+      link: activity10[2],
+      controller: controller,
+      nextPage: 3,
+    ),
     QuestionPage2(
       learningModel: teacherLearning[4],
       controller: controller,
-      nextPage: 3,
-      endPage: 3,
+      nextPage: 4,
+      endPage: 4,
     ),
   ];
   List<Widget> teacher10 = [
