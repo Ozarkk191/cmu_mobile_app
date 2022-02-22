@@ -44,7 +44,7 @@ class _DeputyApprovePageState extends State<DeputyApprovePage> {
         lastname: "",
         namePrefix: "นางสาว",
         regisDate: "24 มีนาคม 2564",
-        group: "รพสต สะรวง"),
+        group: "รพสต สะลวง"),
   ];
 
   @override

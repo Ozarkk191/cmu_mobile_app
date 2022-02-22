@@ -1180,7 +1180,7 @@ List<DashboradModel> itemList = [
   ),
   DashboradModel(
     title: "กิจกรรมที่8",
-    path: "assets/icons/icon_8.png",
+    path: "assets/icons/icon_16.png",
     color: const Color(0xff94A375),
   ),
   DashboradModel(
@@ -1194,7 +1194,7 @@ List<DashboradModel> itemList = [
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
-    title: "แบบสอบถาม",
+    title: "กิจกรรมที่11",
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),
@@ -1202,8 +1202,8 @@ List<DashboradModel> itemList = [
 
 List<DashboradModel> itemListMonk = [
   DashboradModel(
-    title: "แบบทดสอบ",
-    path: "assets/icons/icon_19.png",
+    title: "แบบสอบถาม",
+    path: "assets/icons/icon_13.png",
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
@@ -1243,7 +1243,7 @@ List<DashboradModel> itemListMonk = [
   ),
   DashboradModel(
     title: "กิจกรรมที่8",
-    path: "assets/icons/icon_8.png",
+    path: "assets/icons/icon_16.png",
     color: const Color(0xff94A375),
   ),
   DashboradModel(
@@ -1262,7 +1262,7 @@ List<DashboradModel> itemListMonk = [
     color: const Color(0xffB3BBF9),
   ),
   DashboradModel(
-    title: "แบบสอบถาม",
+    title: "กิจกรรมที่12",
     path: "assets/icons/icon_0.png",
     color: const Color(0xff96D0DD),
   ),
@@ -1306,7 +1306,7 @@ List<DashboradModel> itemList3 = [
   ),
   DashboradModel(
     title: "กิจกรรมที่7",
-    path: "assets/icons/icon_8.png",
+    path: "assets/icons/icon_16.png",
     color: const Color(0xff94A375),
   ),
   DashboradModel(
@@ -1320,7 +1320,7 @@ List<DashboradModel> itemList3 = [
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
-    title: "แบบสอบถาม",
+    title: "กิจกรรมที่10",
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),

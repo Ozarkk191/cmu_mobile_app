@@ -41,9 +41,9 @@ class ListGroupPage extends StatelessWidget {
                 children: [
                   CardGroup(
                     color: const Color(0xff3bbc6f),
-                    groupTitle: 'กลุ่ม รพสต สะรวง',
+                    groupTitle: 'กลุ่ม รพสต สะลวง',
                     onTap: () {
-                      _onNextPage("กลุ่ม รพสต สะรวง");
+                      _onNextPage("กลุ่ม รพสต สะลวง");
                     },
                   ),
                   CardGroup(

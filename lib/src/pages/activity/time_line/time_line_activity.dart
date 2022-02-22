@@ -502,7 +502,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: activity8[0],
       controller: controller,
-      path: "assets/icons/icon_8.png",
+      path: "assets/icons/icon_16.png",
       nextPage: 1,
     ),
     QuestionPage2(
@@ -874,7 +874,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: parent8[0],
       controller: controller,
-      path: "assets/icons/icon_8.png",
+      path: "assets/icons/icon_16.png",
       nextPage: 1,
     ),
     QuestionPage2(
@@ -1139,7 +1139,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: "กิจกรรมครั้งที่ 8 วัดปลอดสุรา (กฏหมาย และ กิจกรรมที่ทําได้ในวัด)",
       controller: controller,
-      path: "assets/icons/icon_8.png",
+      path: "assets/icons/16.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1422,7 +1422,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 7 การเฝ้าระวังและกํากับติดตามนักเรียนที่มีความเสี่ยงหรือดื่ม แอลกอฮอล์",
       controller: controller,
-      path: "assets/icons/icon_8.png",
+      path: "assets/icons/16.png",
       nextPage: 1,
     ),
     QuestionPage2(
