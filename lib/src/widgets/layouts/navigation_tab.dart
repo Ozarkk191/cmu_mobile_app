@@ -16,8 +16,8 @@ class NavigationTab extends StatelessWidget {
     return GestureDetector(
       onTap: ontap,
       child: SizedBox(
-        height: 60,
         width: 60,
+        height: 60,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +25,7 @@ class NavigationTab extends StatelessWidget {
             Icon(icon, color: Colors.white),
             Text(
               '$title',
-              style: const TextStyle(color: Colors.white, fontSize: 10),
+              style: const TextStyle(color: Colors.white, fontSize: 8),
             ),
           ],
         ),
