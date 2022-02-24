@@ -594,6 +594,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       link: activity10[2],
       controller: controller,
       nextPage: 3,
+      esteem: true,
     ),
     CoverPage(
       title:
@@ -602,17 +603,11 @@ class _TimelineActivityState extends State<TimelineActivity> {
       path: "assets/icons/icon_10.png",
       nextPage: 4,
     ),
-    Quest5(
-      controller: controller,
-      nextPage: 5,
-      quizType: "แบบวัดความมีคุณค่าในตนเอง",
-      number: 1,
-    ),
     QuestionPage2(
       learningModel: teenLearning[6],
       controller: controller,
-      nextPage: 6,
-      endPage: 6,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> activity11WidgetList = [

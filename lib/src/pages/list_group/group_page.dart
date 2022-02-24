@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/models/user_model.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
@@ -11,30 +12,37 @@ import 'gorup_content_page.dart';
 
 class GroupPage extends StatefulWidget {
   final String groupName;
-  const GroupPage({Key? key, required this.groupName}) : super(key: key);
+  final List<User> listUser;
+  final String path;
+  const GroupPage({
+    Key? key,
+    required this.groupName,
+    required this.listUser,
+    required this.path,
+  }) : super(key: key);
 
   @override
   State<GroupPage> createState() => _GroupPageState();
 }
 
 class _GroupPageState extends State<GroupPage> {
-  late List<UserModel> userList = [
-    UserModel(
-      firstname: "สติ",
-      lastname: "คิดดี",
-      namePrefix: "นาย",
-    ),
-    UserModel(
-      firstname: "มีบุญ",
-      lastname: "กล้าหาญ",
-      namePrefix: "นาย",
-    ),
-    UserModel(
-      firstname: "พิศมัย",
-      lastname: "  คำดี",
-      namePrefix: "นางสาว",
-    ),
-  ];
+  // late List<UserModel> userList = [
+  //   UserModel(
+  //     firstname: "สติ",
+  //     lastname: "คิดดี",
+  //     namePrefix: "นาย",
+  //   ),
+  //   UserModel(
+  //     firstname: "มีบุญ",
+  //     lastname: "กล้าหาญ",
+  //     namePrefix: "นาย",
+  //   ),
+  //   UserModel(
+  //     firstname: "พิศมัย",
+  //     lastname: "  คำดี",
+  //     namePrefix: "นางสาว",
+  //   ),
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +61,7 @@ class _GroupPageState extends State<GroupPage> {
             const Line(),
             Expanded(
               child: ListView.builder(
-                itemCount: userList.length,
+                itemCount: widget.listUser.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
@@ -61,7 +69,7 @@ class _GroupPageState extends State<GroupPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => GroupContentPage(
-                            user: userList[index],
+                            user: widget.listUser[index],
                           ),
                         ),
                       );
@@ -73,8 +81,8 @@ class _GroupPageState extends State<GroupPage> {
                           margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                           child: Row(
                             children: [
-                              const CustomAvatar(
-                                path: "assets/images/ic_user.png",
+                              CustomAvatar(
+                                path: widget.path,
                               ),
                               const SizedBox(width: 10),
                               Column(
@@ -82,7 +90,7 @@ class _GroupPageState extends State<GroupPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${userList[index].namePrefix}${userList[index].firstname} ${userList[index].lastname}",
+                                    "${widget.listUser[index].name}",
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],

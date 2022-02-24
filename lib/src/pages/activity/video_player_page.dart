@@ -7,6 +7,7 @@ import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:cmu_mobile_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayPage extends StatefulWidget {
@@ -16,11 +17,13 @@ class VideoPlayPage extends StatefulWidget {
     required this.controller,
     required this.nextPage,
     this.endPage = 100,
+    this.esteem = false,
   }) : super(key: key);
   final String link;
   final PageController controller;
   final int nextPage;
   final int endPage;
+  final bool esteem;
 
   @override
   _VideoPlayPageState createState() => _VideoPlayPageState();
@@ -88,6 +91,10 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  void _launchURL() async {
+    if (!await launch(openUrl)) throw 'Could not launch $openUrl';
   }
 
   @override
@@ -172,6 +179,16 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                       const SizedBox(
                         height: 50,
                       ),
+                      Visibility(
+                        visible: true,
+                        child: MainButton(
+                          ontab: _launchURL,
+                          title: "go to link ",
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
                       Slider(
                         value: _controller.value.position.inSeconds.toDouble(),
                         max: _controller.value.duration.inSeconds.toDouble(),
@@ -182,8 +199,11 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                             .toString(),
                         onChanged: (double value) {
                           setState(() {
-                            _controller
-                                .seekTo(Duration(seconds: value.toInt()));
+                            _controller.seekTo(
+                              Duration(
+                                seconds: value.toInt(),
+                              ),
+                            );
                           });
                         },
                       ),

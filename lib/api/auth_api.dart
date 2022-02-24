@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/models/sign_up_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
@@ -38,6 +39,17 @@ class AuthApi {
       response.map((i) => studentList.add(UserAuthModel.fromJson(i))).toList();
     }
     return studentList;
+  }
+
+  static Future<AllUserModel> getAllUser() async {
+    String url = '$baseUrl/users/all';
+
+    final response = await HttpRequest.get(url, withAccessToken: true);
+    AllUserModel allUser = AllUserModel.fromJson(response);
+    // if (response.isNotEmpty) {
+    //   response.map((i) => studentList.add(UserAuthModel.fromJson(i))).toList();
+    // }
+    return allUser;
   }
 
   static Future<Map<String, dynamic>> setProflieData(

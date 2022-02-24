@@ -38,8 +38,7 @@ class _CoverPageState extends State<CoverPage> {
             children: [
               widget.path != null
                   ? SizedBox(
-                      width: _size.width * 0.8,
-                      height: _size.width * 0.4,
+                      width: _size.width * 0.25,
                       child: Image.asset(widget.path!),
                     )
                   : const SizedBox(),
@@ -48,11 +47,11 @@ class _CoverPageState extends State<CoverPage> {
                 child: Text(
                   widget.title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 22),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 50,
               ),
               MainButton(
                 ontab: () {

@@ -1,4 +1,4 @@
-import 'package:cmu_mobile_app/models/user_model.dart';
+import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
@@ -8,7 +8,7 @@ import 'lesson_detail_page.dart';
 import 'lesson_page.dart';
 
 class GroupContentPage extends StatefulWidget {
-  final UserModel user;
+  final User user;
   const GroupContentPage({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _GroupContentPageState extends State<GroupContentPage> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        "${widget.user.namePrefix}${widget.user.firstname} ${widget.user.lastname}",
+                        "${widget.user.name}",
                         style: const TextStyle(fontSize: 20),
                       ),
                       const Text(

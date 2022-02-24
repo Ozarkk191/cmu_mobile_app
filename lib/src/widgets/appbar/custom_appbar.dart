@@ -38,9 +38,9 @@ class CustomAppbar extends StatelessWidget {
             "$title",
             style: const TextStyle(fontSize: 20),
           ),
-          SizedBox(
-            width: 70,
-            height: 70,
+          Expanded(
+            // width: 70,
+            // height: 70,
             child: Container(),
           ),
         ],

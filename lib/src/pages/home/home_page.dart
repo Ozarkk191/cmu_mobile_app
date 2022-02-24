@@ -22,7 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late PageController controller = PageController();
+  // late PageController controller = PageController();
+  static late PageController controller = PageController();
   String role = "student";
   bool loading = true;
   late List<Widget> pageList = [];
@@ -61,18 +62,33 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pageOfRole(String role) {
     List<Widget> teacherList = [
       const DashboradPage(),
-      const ListGroupPage(),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> parentList = [
       const DashboradPage(),
-      const ListGroupPage(),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> monkList = [
       const DashboradPage(),
-      const ListGroupPage(),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> studentList = [
       const DashboradPage(),
+    ];
+    List<Widget> hospitalList = [
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      )
     ];
     switch (role) {
       case "teacher":
@@ -83,6 +99,8 @@ class _HomePageState extends State<HomePage> {
         return parentList;
       case "monk":
         return monkList;
+      case "hospital":
+        return hospitalList;
       default:
         return studentList;
     }
@@ -188,6 +206,27 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     ];
+    List<Widget> hospitalList = [
+      NavigationTab(
+        icon: Icons.ballot_rounded,
+        title: 'รายชื่อกลุ่ม',
+        ontap: () => _onItemTapped(0),
+      ),
+      NavigationTab(
+        icon: Icons.logout,
+        title: 'ออกจากระบบ',
+        ontap: () {
+          HttpRequest.signOut().then((value) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SplashPage(),
+              ),
+            );
+          });
+        },
+      ),
+    ];
     switch (role) {
       case "teacher":
         return teacherList;
@@ -197,6 +236,8 @@ class _HomePageState extends State<HomePage> {
         return parentList;
       case "monk":
         return monkList;
+      case "hospital":
+        return hospitalList;
       default:
         return studentList;
     }

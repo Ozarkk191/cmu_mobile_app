@@ -21,6 +21,8 @@ class CardGroup extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 110,
+        height: 150,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -34,23 +36,29 @@ class CardGroup extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
               child: path == null ? Container() : Image.asset('$path'),
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Text(
               '$groupTitle',
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+              ),
             ),
             const Text(
               'จำนวน ... คน',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 12,
+                fontSize: 10,
               ),
             ),
           ],
