@@ -108,13 +108,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   _textfield(
                     context: context,
-                    title: 'ชื่อผู้ใช้ (Username)',
+                    title: 'ชื่อผู้ใช้ (ระบุเป็นภาษาอังกฤษหรือตัวเลข)',
                     prefix: Icons.person,
                     controller: _username,
                   ),
                   _textfield(
                     context: context,
-                    title: 'รหัสผ่าน (Password)',
+                    title: 'รหัสผ่าน (ระบุเป็นตัวอักษรหรือตัวเลข 4 ตัวขึ้นไป)',
                     prefix: Icons.lock,
                     suffix: Icons.remove_red_eye,
                     controller: _password,

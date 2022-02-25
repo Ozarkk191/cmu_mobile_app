@@ -345,29 +345,25 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       path: "assets/icons/icon_4.png",
       nextPage: 1,
-      endPage: 6,
     ),
     CoverPage(
       title: "ทำอย่างไรเมื่อต้องตัดสินใจเรื่องสำคัญ????",
       controller: controller,
       nextPage: 2,
-      endPage: 6,
     ),
     VideoPlayPage(
       link: activity4[1],
       controller: controller,
       nextPage: 3,
-      endPage: 6,
-    ),
-    VideoPlayPage(
-      link: activity4[2],
-      controller: controller,
-      nextPage: 4,
-      endPage: 6,
     ),
     CoverPage(
       title:
           "เป็นอย่างไรบ้างคะ ทักษะการตัดสินใจยากไหม เรามาเรียนรู้เพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 4,
+    ),
+    VideoPlayPage(
+      link: activity4[2],
       controller: controller,
       nextPage: 5,
     ),
@@ -400,15 +396,15 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: activity5[3],
-      controller: controller,
-      nextPage: 5,
-    ),
     CoverPage(
       title: "เรามาเรียนรู้เรื่องการควบคุมอารมณ์เพิ่มเติมกันเถอะค่ะ",
       controller: controller,
       path: "assets/icons/icon_5.png",
+      nextPage: 5,
+    ),
+    VideoPlayPage(
+      link: activity5[3],
+      controller: controller,
       nextPage: 6,
     ),
     QuestionPage2(
@@ -440,14 +436,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: activity6[3],
-      controller: controller,
-      nextPage: 5,
-    ),
     CoverPage(
       title:
           "การปฏิเสธง่ายกว่าที่คิดใช่ไหมคะ เรามาเรียนรู้เรื่องทักษะการปฏิเสธเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 5,
+    ),
+    VideoPlayPage(
+      link: activity6[3],
       controller: controller,
       nextPage: 6,
     ),
@@ -480,14 +476,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: activity7[3],
-      controller: controller,
-      nextPage: 5,
-    ),
     CoverPage(
       title:
           "การผ่อนคลายความเครียดใครๆก็ทำได้จริงไหมคะ เรามาเรียนรู้เรื่องการผ่อนคลายความเครียดเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 5,
+    ),
+    VideoPlayPage(
+      link: activity7[3],
       controller: controller,
       nextPage: 6,
     ),
@@ -756,14 +752,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
-    VideoPlayPage(
-      link: parent4[2],
-      controller: controller,
-      nextPage: 4,
-    ),
     CoverPage(
       title:
           "เป็นอย่างไรบ้างคะ ทักษะการตัดสินใจยากไหม เรามาเรียนรู้เพิ่มเติมกันเถอะ",
+      controller: controller,
+      nextPage: 4,
+    ),
+    VideoPlayPage(
+      link: parent4[2],
       controller: controller,
       nextPage: 5,
     ),
@@ -796,13 +792,13 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: parent5[2],
+    CoverPage(
+      title: "เรามาเรียนรู้การควบคุมอารมณ์เพิ่มเติมกันเถอะค่ะ",
       controller: controller,
       nextPage: 5,
     ),
-    CoverPage(
-      title: "เรามาเรียนรู้การควบคุมอารมณ์เพิ่มเติมกันเถอะค่ะ",
+    VideoPlayPage(
+      link: parent5[2],
       controller: controller,
       nextPage: 6,
     ),
@@ -835,14 +831,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: parent6[2],
-      controller: controller,
-      nextPage: 5,
-    ),
     CoverPage(
       title:
           "การปฏิเสธง่ายกว่าที่คิดใช่ไหมคะ เรามาเรียนรู้เรื่องทักษะการปฏิเสธเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 5,
+    ),
+    VideoPlayPage(
+      link: parent6[2],
       controller: controller,
       nextPage: 6,
     ),
@@ -875,14 +871,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 4,
     ),
-    VideoPlayPage(
-      link: parent7[2],
-      controller: controller,
-      nextPage: 5,
-    ),
     CoverPage(
       title:
           "การผ่อนคลายความเครียดใครๆก็ทำได้จริงไหมคะ เรามาเรียนรู้เรื่องการผ่อนคลายความเครียดเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 5,
+    ),
+    VideoPlayPage(
+      link: parent7[2],
       controller: controller,
       nextPage: 6,
     ),
@@ -1077,11 +1073,17 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
+    CoverPage(
+      title:
+          "เป็นอย่างไรบ้างคะ ทักษะการตัดสินใจยากไหม เรามาเรียนรู้เพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 4,
+    ),
     VideoPlayPage(
       link: "monk/activity_4_2.mp4",
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget5 = [
@@ -1102,11 +1104,16 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
+    CoverPage(
+      title: "เรามาเรียนรู้การควบคุมอารมณ์เพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 4,
+    ),
     VideoPlayPage(
       link: "monk/activity_5_2.mp4",
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget6 = [
@@ -1126,11 +1133,17 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
+    CoverPage(
+      title:
+          "การปฏิเสธง่ายกว่าที่คิดใช่ไหมคะ เรามาเรียนรู้เรื่องทักษะการปฏิเสธเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 4,
+    ),
     VideoPlayPage(
       link: "monk/activity_6_2.mp4",
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget7 = [
@@ -1151,11 +1164,17 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
+    CoverPage(
+      title:
+          "การผ่อนคลายความเครียดใครๆก็ทำได้จริงไหมคะ เรามาเรียนรู้เรื่องการผ่อนคลายความเครียดเพิ่มเติมกันเถอะค่ะ",
+      controller: controller,
+      nextPage: 4,
+    ),
     VideoPlayPage(
       link: "monk/activity_7_2.mp4",
       controller: controller,
-      nextPage: 4,
-      endPage: 4,
+      nextPage: 5,
+      endPage: 5,
     ),
   ];
   List<Widget> monkWidget8 = [
@@ -1417,7 +1436,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 7 การเฝ้าระวังและกํากับติดตามนักเรียนที่มีความเสี่ยงหรือดื่มแอลกอฮอล์",
       controller: controller,
-      path: "assets/icons/16.png",
+      path: "assets/icons/icon_16.png",
       nextPage: 1,
     ),
     QuestionPage2(

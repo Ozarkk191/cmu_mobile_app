@@ -238,11 +238,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       _field(
-                        title: 'ชื่อ',
+                        title: 'ชื่อ(ระบุเป็นภาษาอังกฤษหรือตัวเลข)',
                         controller: _username,
                       ),
                       _field(
-                        title: 'รหัสผ่าน',
+                        title:
+                            'รหัสผ่าน(ระบุเป็นตัวอักษรหรือตัวเลข 4 ตัวขึ้นไป)',
                         controller: _password,
                         obscureText: true,
                       ),

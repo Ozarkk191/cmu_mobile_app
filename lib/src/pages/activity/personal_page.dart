@@ -257,7 +257,7 @@ class _PersonalPageState extends State<PersonalPage> {
         quiz3(number: 3),
         quizEducationTeacher(number: 4),
         quiz11(number: 5),
-        quiz9(_size, number: 6),
+        // quiz9(_size, number: 6),
       ],
     );
   }

@@ -28,10 +28,10 @@ class _DashboradPageState extends State<DashboradPage> {
     log("${user.role}");
     if (user.role! == "student") {
       role = user.role!;
-      return itemList;
+      return studentList;
     } else if (user.role! == "parent") {
       role = user.role!;
-      return itemList;
+      return parentList;
     } else if (user.role! == "monk") {
       role = user.role!;
       return itemListMonk;

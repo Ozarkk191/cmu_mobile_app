@@ -183,7 +183,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                         visible: widget.esteem,
                         child: MainButton(
                           ontab: _launchURL,
-                          title: "go to link ",
+                          title: "แบบวัดความมีคุณค่าในตนเอง",
                         ),
                       ),
                       const SizedBox(
