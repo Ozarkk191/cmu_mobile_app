@@ -180,7 +180,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                         height: 50,
                       ),
                       Visibility(
-                        visible: true,
+                        visible: widget.esteem,
                         child: MainButton(
                           ontab: _launchURL,
                           title: "go to link ",

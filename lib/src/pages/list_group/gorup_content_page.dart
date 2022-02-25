@@ -22,159 +22,31 @@ class _GroupContentPageState extends State<GroupContentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MainLayout(
-        child: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      const CustomAvatar(
-                        path: "assets/images/ic_user.png",
-                        size: 100,
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        "${widget.user.name}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const Text(
-                        "กลุ่ม วัยรุ่น",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "เข้าใช้งานเมื่อ...........",
-                            ),
-                            const Text(
-                              "ระยะเวลาการใช้งาน ..............",
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              "ข้อมูลเนื้อหา",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 5,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      children: [
-                                        Checkbox(
-                                          value: checkList[index],
-                                          onChanged: (val) {
-                                            setState(() {
-                                              checkList[index] =
-                                                  !checkList[index];
-                                            });
-                                          },
-                                        ),
-                                        Expanded(
-                                            child: InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const LessonPage(),
-                                              ),
-                                            );
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('บทที่ ${index + 1}'),
-                                              const Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                              ),
-                                            ],
-                                          ),
-                                        ))
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              "ข้อมูลคะแนน",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: checkList2.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return SizedBox(
-                                    height: 40,
-                                    child: Row(
-                                      children: [
-                                        Checkbox(
-                                            value: checkList2[index],
-                                            onChanged: (val) {
-                                              setState(() {
-                                                checkList2[index] =
-                                                    !checkList2[index];
-                                              });
-                                            }),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LessonDetailPage(
-                                                    lesson:
-                                                        'บทที่ ${index + 1}',
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text('บทที่ ${index + 1}'),
-                                                const Icon(Icons
-                                                    .arrow_forward_ios_rounded),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  CustomAppbar(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
-              ],
-            ),
-            CustomAppbar(
-              onTap: () {
-                Navigator.pop(context);
-              },
+                  const CustomAvatar(
+                    path: "assets/images/ic_user.png",
+                    size: 100,
+                  ),
+                  Text(
+                    "${widget.user.name}",
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const Text(
+                    "กลุ่ม วัยรุ่น",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

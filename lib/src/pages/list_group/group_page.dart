@@ -26,23 +26,6 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-  // late List<UserModel> userList = [
-  //   UserModel(
-  //     firstname: "สติ",
-  //     lastname: "คิดดี",
-  //     namePrefix: "นาย",
-  //   ),
-  //   UserModel(
-  //     firstname: "มีบุญ",
-  //     lastname: "กล้าหาญ",
-  //     namePrefix: "นาย",
-  //   ),
-  //   UserModel(
-  //     firstname: "พิศมัย",
-  //     lastname: "  คำดี",
-  //     namePrefix: "นางสาว",
-  //   ),
-  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

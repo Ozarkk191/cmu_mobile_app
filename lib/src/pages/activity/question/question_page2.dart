@@ -86,16 +86,18 @@ class _QuestionPage2State extends State<QuestionPage2> {
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
-          return "parent5/evaluate";
+          return "parent4/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
-          return "parent6/evaluate";
+          return "parent5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
-          return "parent7/evaluate";
+          return "parent6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
-          return "parent8/evaluate";
+          return "parent7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
-          return "parent9/evaluate";
+          return "parent8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          return "parent9/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
           return "parent10/evaluate";
         default:
           return "";
