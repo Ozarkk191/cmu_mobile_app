@@ -1181,7 +1181,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: "กิจกรรมครั้งที่ 8 วัดปลอดสุรา (กฏหมาย และ กิจกรรมที่ทําได้ในวัด)",
       controller: controller,
-      path: "assets/icons/16.png",
+      path: "assets/icons/icon_16.png",
       nextPage: 1,
     ),
     VideoPlayPage(
