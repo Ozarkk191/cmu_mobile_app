@@ -196,13 +196,13 @@ class _QuestionPage2State extends State<QuestionPage2> {
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
-          return path = "monk8/evaluate";
-        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
           return path = "monk9/evaluate";
-        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
           return path = "monk10/evaluate";
-        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 11":
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
           return path = "monk11/evaluate";
+        case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 11":
+          return path = "monk12/evaluate";
 
         default:
           return "";
