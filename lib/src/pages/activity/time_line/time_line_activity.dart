@@ -206,6 +206,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 4,
       type: "pre",
       number: 2,
+      endPage: 10,
     ),
     QuestAuditPage(
       controller: controller,
@@ -615,6 +616,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
       number: 1,
+      endPage: 10,
     ),
     QuestAuditPage(
       controller: controller,
@@ -678,6 +680,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       type: "pre",
       number: 2,
+      endPage: 4,
     ),
     QuestAuditPage(
       controller: controller,
@@ -1004,7 +1007,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
   List<Widget> monkWidget1 = [
     CoverPage(
       title:
-          "กิจกรรมครั้งที่ 1 ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์ ผลกระทบจากการดื่ม",
+          "กิจกรรมครั้งที่ 1 ความรู้เกี่ยวกับเครื่องดื่มแอลกอฮอล์ผลกระทบจากการดื่ม",
       controller: controller,
       path: "assets/icons/icon_1.png",
       nextPage: 1,
@@ -1039,7 +1042,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
   List<Widget> monkWidget3 = [
     CoverPage(
       title:
-          "กิจกรรมครั้งที่ 3 การเปลี่ยนแปลงและพัฒนาการของวัยรุ่น สาเหตุการดื่ม แอลกอฮอล์ของวัยรุ่น",
+          "กิจกรรมครั้งที่ 3 การเปลี่ยนแปลงและพัฒนาการของวัยรุ่นสาเหตุการดื่มแอลกอฮอล์ของวัยรุ่น",
       controller: controller,
       path: "assets/icons/icon_3.png",
       nextPage: 1,
@@ -1176,7 +1179,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: "กิจกรรมครั้งที่ 8 วัดปลอดสุรา (กฏหมาย และ กิจกรรมที่ทําได้ในวัด)",
       controller: controller,
-      path: "assets/icons/icon_16.png",
+      path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
     VideoPlayPage(
@@ -1196,7 +1199,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
     CoverPage(
       title: "กิจกรรมครั้งที่ 9 ธรรมเทศนานําใจ ป้องกันภัยจากสุรา",
       controller: controller,
-      path: "assets/icons/icon_9.png",
+      path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
     QuestionPage2(
@@ -1221,7 +1224,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       title:
           "กิจกรรมครั้งที่ 10 สื่อสารอย่างไรให้ญาติยมเข้าใจและห่างไกลจากสุรา (เทคนิคการสื่อสารด้วยเสียงตามสาย)",
       controller: controller,
-      path: "assets/icons/icon_10.png",
+      path: "assets/icons/icon_8.png",
       nextPage: 1,
     ),
     QuestionPage2(
@@ -1263,23 +1266,23 @@ class _TimelineActivityState extends State<TimelineActivity> {
       learningModel: monkLearning[3],
       controller: controller,
       nextPage: 4,
+      endPage: 4,
+    ),
+  ];
+  List<Widget> monkWidget12 = [
+    QuestionPage2(
+      learningModel: monkFollow[3],
+      controller: controller,
+      nextPage: 1,
     ),
     CoverPage(
       title:
           "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 11 กิจกรรม ขอขอบพระคุณพระคุณเจ้า ที่ให้ความร่วมมือในการทำกิจกรรมในครั้งนี้ หวังเป็นอย่างยิ่งว่าพระคุณเจ้าจะนำความรู้ที่ได้ไปดูแลคนในชุมชนของเรา โดยเฉพาะกลุ่มวัยรุ่นให้ห่างไกลจากเครื่องดื่มแอลกอฮอล์ เพื่อประโยชน์ของคนในสังคมต่อไป",
       controller: controller,
-      nextPage: 5,
-      endPage: 5,
+      nextPage: 2,
+      endPage: 2,
     ),
   ];
-  // List<Widget> monkWidget12 = [
-  //   QuestionPage2(
-  //     learningModel: monkFollow[3],
-  //     controller: controller,
-  //     nextPage: 1,
-  //     endPage: 1,
-  //   ),
-  // ];
 
   List<Widget> teacher1 = [
     CoverPage(
@@ -1297,6 +1300,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       type: "pre",
       number: 2,
+      endPage: 4,
     ),
     QuestAuditPage(
       controller: controller,

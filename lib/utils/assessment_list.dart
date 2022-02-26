@@ -1306,17 +1306,17 @@ List<DashboradModel> itemListMonk = [
   ),
   DashboradModel(
     title: "กิจกรรมที่8",
-    path: "assets/icons/icon_16.png",
+    path: "assets/icons/icon_8.png",
     color: const Color(0xff94A375),
   ),
   DashboradModel(
     title: "กิจกรรมที่9",
-    path: "assets/icons/icon_9.png",
+    path: "assets/icons/icon_8.png",
     color: const Color(0xffF188C7),
   ),
   DashboradModel(
     title: "กิจกรรมที่10",
-    path: "assets/icons/icon_10.png",
+    path: "assets/icons/icon_8.png",
     color: const Color(0xffBEE8F1),
   ),
   DashboradModel(
@@ -1324,11 +1324,11 @@ List<DashboradModel> itemListMonk = [
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),
-  // DashboradModel(
-  //   title: "กิจกรรมที่12",
-  //   path: "assets/icons/icon_0.png",
-  //   color: const Color(0xff96D0DD),
-  // ),
+  DashboradModel(
+    title: "กิจกรรมที่12",
+    path: "assets/icons/icon_0.png",
+    color: const Color(0xff96D0DD),
+  ),
 ];
 
 List<DashboradModel> itemList3 = [

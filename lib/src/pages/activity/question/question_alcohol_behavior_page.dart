@@ -43,6 +43,7 @@ class _QuestionAlcoholBehaviorPageState
   String anwser4 = "";
   String anwser5 = "";
   bool loading = false;
+  bool checkFirst = false;
 
   void onSave() async {
     setState(() {
@@ -78,8 +79,10 @@ class _QuestionAlcoholBehaviorPageState
         setState(() {
           loading = false;
         });
-        if (anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)") {
-          if ((widget.nextPage + 1) == widget.endPage) {
+        if (checkFirst) {
+          int nextPage = widget.nextPage + 1;
+
+          if (nextPage == widget.endPage) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -87,10 +90,19 @@ class _QuestionAlcoholBehaviorPageState
               ),
             );
           } else {
-            widget.controller.jumpToPage((widget.nextPage + 1));
+            widget.controller.jumpToPage(nextPage);
           }
         } else {
-          widget.controller.jumpToPage(widget.nextPage);
+          if (widget.nextPage == widget.endPage) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(initPage: 0),
+              ),
+            );
+          } else {
+            widget.controller.jumpToPage(widget.nextPage);
+          }
         }
       }
     });
@@ -383,6 +395,7 @@ class _QuestionAlcoholBehaviorPageState
           groupValue: anwser1,
           onChanged: (String? value) {
             setState(() {
+              checkFirst = true;
               anwser1 = value!;
               anwser2 = "";
               anwser3 = "";
@@ -407,8 +420,10 @@ class _QuestionAlcoholBehaviorPageState
           textField: true,
           controller: controller1,
           suffix: 'ปี',
+          enabled: !checkFirst,
           onChanged: (String? value) {
             setState(() {
+              checkFirst = false;
               anwser1 = value!;
               question2.q1 = 2;
             });
@@ -434,9 +449,7 @@ class _QuestionAlcoholBehaviorPageState
           Radio(
             value: title,
             groupValue: groupValue,
-            onChanged: anwser1 == "ไม่เคยดื่มเลย (ไม่ต้องทำข้อต่อไปข้ามข้อ 3)"
-                ? null
-                : onChanged,
+            onChanged: checkFirst ? null : onChanged,
           ),
           Text(
             title,
@@ -448,6 +461,7 @@ class _QuestionAlcoholBehaviorPageState
               width: 80,
               height: 40,
               child: TextField(
+                enabled: !checkFirst,
                 controller: controller,
                 style: const TextStyle(fontSize: 10),
                 decoration: const InputDecoration(

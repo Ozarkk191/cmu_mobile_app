@@ -7,6 +7,7 @@ class MainRadioButton extends StatelessWidget {
   final String groupValue;
   final TextEditingController? controller;
   final bool textField;
+  final bool enabled;
   const MainRadioButton({
     Key? key,
     this.title = "",
@@ -15,6 +16,7 @@ class MainRadioButton extends StatelessWidget {
     required this.groupValue,
     this.controller,
     this.textField = false,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class MainRadioButton extends StatelessWidget {
               width: 80,
               height: 40,
               child: TextField(
+                enabled: enabled,
                 controller: controller,
                 style: const TextStyle(fontSize: 10),
                 decoration: const InputDecoration(
