@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:cmu_mobile_app/models/dashborad_model.dart';
-import 'package:cmu_mobile_app/models/user_auth_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/question_api.dart';
-import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/models/questions/question2_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';

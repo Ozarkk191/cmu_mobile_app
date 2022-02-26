@@ -4,9 +4,6 @@ import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-import 'lesson_detail_page.dart';
-import 'lesson_page.dart';
-
 class GroupContentPage extends StatefulWidget {
   final User user;
   const GroupContentPage({Key? key, required this.user}) : super(key: key);

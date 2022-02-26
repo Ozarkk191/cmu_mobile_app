@@ -969,20 +969,20 @@ class _TimelineActivityState extends State<TimelineActivity> {
   ];
   List<Widget> parentWidget = [
     CoverPage(
-      title: parent11[0],
-      controller: controller,
-      nextPage: 1,
-    ),
-    CoverPage(
       title:
           "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 10 กิจกรรม ผู้ปกครองได้เรียนรู้เรื่องอะไรกันบ้างคะ ขอความร่วมมือผู้ปกครองช่วยทำแบบสอบถามหน่อยนะคะ",
       controller: controller,
-      nextPage: 2,
+      nextPage: 1,
     ),
     QuestionPage2(
       learningModel: parentFollow[6],
       controller: controller,
+      nextPage: 2,
+    ),
+    QuestAuditPage(
+      controller: controller,
       nextPage: 3,
+      number: 1,
     ),
     CoverPage(
       title:
