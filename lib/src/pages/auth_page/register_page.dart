@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/models/sign_up_model.dart';
@@ -238,17 +239,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       _field(
-                        title: 'ชื่อ(ระบุเป็นภาษาอังกฤษหรือตัวเลข)',
+                        title: 'ชื่อ',
                         controller: _username,
+                        hintText: 'ระบุเป็นภาษาอังกฤษหรือตัวเลข',
                       ),
                       _field(
-                        title:
-                            'รหัสผ่าน(ระบุเป็นตัวอักษรหรือตัวเลข 4 ตัวขึ้นไป)',
+                        title: 'รหัสผ่าน',
+                        hintText: 'ระบุเป็นตัวอักษรหรือตัวเลข 4 ตัวขึ้นไป',
                         controller: _password,
                         obscureText: true,
                       ),
                       _field(
                         title: 'ยืนยันรหัสผ่าน',
+                        hintText: 'ระบุเป็นตัวอักษรหรือตัวเลข 4 ตัวขึ้นไป',
                         controller: _repassword,
                         obscureText: true,
                       ),
@@ -364,6 +367,7 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController? controller,
     bool titleOnly = false,
     bool obscureText = false,
+    String hintText = "",
     TextInputType keyboardType = TextInputType.text,
   }) {
     return SizedBox(
@@ -373,7 +377,7 @@ class _RegisterPageState extends State<RegisterPage> {
         children: [
           Expanded(
             flex: 2,
-            child: Text(title + " : ", style: const TextStyle(fontSize: 12)),
+            child: Text(title + " : ", style: const TextStyle(fontSize: 10)),
           ),
           Expanded(
             flex: 3,
@@ -384,8 +388,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: obscureText,
                 controller: controller,
                 style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  hintStyle: const TextStyle(fontSize: 8, color: Colors.grey),
+                  contentPadding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                 ),
               ),
             ),

@@ -182,6 +182,8 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                       Visibility(
                         visible: widget.esteem,
                         child: MainButton(
+                          width: _size.width * 0.6,
+                          fontSize: 10,
                           ontab: _launchURL,
                           title: "แบบวัดความมีคุณค่าในตนเอง",
                         ),

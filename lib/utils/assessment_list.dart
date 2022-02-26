@@ -1324,11 +1324,11 @@ List<DashboradModel> itemListMonk = [
     path: "assets/icons/icon_11.png",
     color: const Color(0xffB3BBF9),
   ),
-  DashboradModel(
-    title: "กิจกรรมที่12",
-    path: "assets/icons/icon_0.png",
-    color: const Color(0xff96D0DD),
-  ),
+  // DashboradModel(
+  //   title: "กิจกรรมที่12",
+  //   path: "assets/icons/icon_0.png",
+  //   color: const Color(0xff96D0DD),
+  // ),
 ];
 
 List<DashboradModel> itemList3 = [

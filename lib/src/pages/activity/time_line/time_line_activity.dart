@@ -120,11 +120,11 @@ class _TimelineActivityState extends State<TimelineActivity> {
         return monkWidget10;
       case 11:
         return monkWidget11;
-      case 12:
-        return monkWidget12;
+      // case 12:
+      //   return monkWidget12;
 
       default:
-        return monkWidget12;
+        return monkQuest;
     }
   }
 
@@ -592,72 +592,72 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       esteem: true,
     ),
+    QuestionPage2(
+      learningModel: teenLearning[6],
+      controller: controller,
+      nextPage: 4,
+      endPage: 4,
+    ),
+  ];
+  List<Widget> activity11WidgetList = [
     CoverPage(
       title:
           "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 10 กิจกรรม เราได้เรียนรู้เรื่องอะไรกันบ้างคะ มาประเมินผลกันหน่อยค่ะ ขอน้อง ๆ ทำแบบสอบถามหน่อยนะคะ",
       controller: controller,
-      nextPage: 4,
+      nextPage: 1,
     ),
-    QuestionPage2(
-      learningModel: teenLearning[6],
-      controller: controller,
-      nextPage: 5,
-    ),
-    CoverPage(
-      title:
-          "ขอบคุณน้อง ๆ ทุกคนที่ตั้งใจทำกิจกรรมและตอบแบบสอบถามทั้งหมด พบกันใหม่หลังจากนี้ 1 เดือนนะคะ",
-      controller: controller,
-      nextPage: 6,
-      endPage: 6,
-    ),
-  ];
-  List<Widget> activity11WidgetList = [
     CoverQuestionnairePage(
       controller: controller,
-      nextPage: 1,
+      nextPage: 2,
       before: false,
     ),
     QuestionAlcoholBehaviorPage(
       controller: controller,
-      nextPage: 2,
+      nextPage: 3,
       number: 1,
     ),
     QuestAuditPage(
       controller: controller,
-      nextPage: 3,
+      nextPage: 4,
       number: 2,
     ),
     Quest4(
       controller: controller,
-      nextPage: 4,
+      nextPage: 5,
       number: 3,
     ),
     Quest5(
       controller: controller,
-      nextPage: 5,
+      nextPage: 6,
       quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
       number: 4,
     ),
     Quest5(
       controller: controller,
-      nextPage: 6,
+      nextPage: 7,
       number: 5,
       quizType:
           "แบบสอบถามการรับรู้สมรรถนะแห่งตนในการปฏิเสธการดื่มเครื่องดื่มแอลกอฮอล์",
     ),
     Quest5(
       controller: controller,
-      nextPage: 7,
+      nextPage: 8,
       number: 6,
       quizType:
           "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
     ),
     Quest5(
       controller: controller,
-      nextPage: 8,
+      nextPage: 9,
       number: 7,
       quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
-      endPage: 8,
+    ),
+    CoverPage(
+      title:
+          "ขอบคุณน้อง ๆ ทุกคนที่ตั้งใจทำกิจกรรมและตอบแบบสอบถามทั้งหมด พบกันใหม่หลังจากนี้ 1 เดือนนะคะ",
+      controller: controller,
+      nextPage: 10,
+      endPage: 10,
     ),
   ];
 
@@ -984,17 +984,12 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
     ),
-    QuestAuditPage(
-      controller: controller,
-      nextPage: 4,
-      number: 1,
-    ),
     CoverPage(
       title:
           "ขอบคุณผู้ปกครองทุกท่านที่ตั้งใจและให้ความร่วมมือในการทำกิจกรรม หวังเป็นอย่างยิ่งว่าท่านจะนำความรู้ที่ได้ไปใช้ในการดูแลบุตรหลาน ให้ห่างไกลจากเครื่องดื่มแอลกอฮอล์นะคะ",
       controller: controller,
       nextPage: 4,
-      endPage: 5,
+      endPage: 4,
     ),
   ];
 
@@ -1249,7 +1244,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
   List<Widget> monkWidget11 = [
     CoverPage(
       title:
-          "กิจกรรมครั้งที่ 11 การให้คําปรึกษาวัยรุ่นที่มีปัญหา การใช้สารเสพติด/แอลกอฮอล์",
+          "กิจกรรมครั้งที่ 11 การให้คําปรึกษาวัยรุ่นที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์",
       controller: controller,
       path: "assets/icons/icon_11.png",
       nextPage: 1,
@@ -1277,14 +1272,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       endPage: 5,
     ),
   ];
-  List<Widget> monkWidget12 = [
-    QuestionPage2(
-      learningModel: monkFollow[3],
-      controller: controller,
-      nextPage: 1,
-      endPage: 1,
-    ),
-  ];
+  // List<Widget> monkWidget12 = [
+  //   QuestionPage2(
+  //     learningModel: monkFollow[3],
+  //     controller: controller,
+  //     nextPage: 1,
+  //     endPage: 1,
+  //   ),
+  // ];
 
   List<Widget> teacher1 = [
     CoverPage(
@@ -1493,7 +1488,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
   List<Widget> teacher11 = [
     CoverPage(
       title:
-          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 8 กิจกรรม\nขอความร่วมมือคุณครูผู้ช่วยทำแบบสอบถามหน่อยนะคะ",
+          "จบกันไปแล้วนะคะสำหรับกิจกรรมทั้งหมด 9 กิจกรรม\nขอความร่วมมือคุณครูผู้ช่วยทำแบบสอบถามหน่อยนะคะ",
       controller: controller,
       nextPage: 1,
     ),

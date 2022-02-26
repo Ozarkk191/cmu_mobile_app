@@ -4,6 +4,7 @@ class MainButton extends StatelessWidget {
   final String? title;
   final double width;
   final double height;
+  final double fontSize;
   final double borderRadius;
   final Function() ontab;
   final Color color;
@@ -15,6 +16,7 @@ class MainButton extends StatelessWidget {
     this.borderRadius = 10,
     required this.ontab,
     this.color = const Color(0xffFF6600),
+    this.fontSize = 14,
   }) : super(key: key);
 
   @override
@@ -33,9 +35,9 @@ class MainButton extends StatelessWidget {
         child: Center(
           child: Text(
             '$title',
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 14,
+              fontSize: fontSize,
             ),
           ),
         ),
