@@ -120,8 +120,8 @@ class _TimelineActivityState extends State<TimelineActivity> {
         return monkWidget10;
       case 11:
         return monkWidget11;
-      // case 12:
-      //   return monkWidget12;
+      case 12:
+        return monkWidget12;
 
       default:
         return monkQuest;
