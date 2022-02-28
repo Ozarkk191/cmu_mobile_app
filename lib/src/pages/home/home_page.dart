@@ -62,24 +62,24 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pageOfRole(String role) {
     List<Widget> teacherList = [
       const DashboradPage(),
-      // ListGroupPage(
-      //   controller: controller,
-      //   role: role,
-      // ),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> parentList = [
       const DashboradPage(),
-      // ListGroupPage(
-      //   controller: controller,
-      //   role: role,
-      // ),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> monkList = [
       const DashboradPage(),
-      // ListGroupPage(
-      //   controller: controller,
-      //   role: role,
-      // ),
+      ListGroupPage(
+        controller: controller,
+        role: role,
+      ),
     ];
     List<Widget> studentList = [
       const DashboradPage(),
@@ -113,11 +113,11 @@ class _HomePageState extends State<HomePage> {
         title: 'หน้าหลัก',
         ontap: () => _onItemTapped(0),
       ),
-      // NavigationTab(
-      //   icon: Icons.ballot_rounded,
-      //   title: 'รายชื่อกลุ่ม',
-      //   ontap: () => _onItemTapped(1),
-      // ),
+      NavigationTab(
+        icon: Icons.ballot_rounded,
+        title: 'รายชื่อกลุ่ม',
+        ontap: () => _onItemTapped(1),
+      ),
       NavigationTab(
         icon: Icons.logout,
         title: 'ออกจากระบบ',
@@ -139,11 +139,11 @@ class _HomePageState extends State<HomePage> {
         title: 'หน้าหลัก',
         ontap: () => _onItemTapped(0),
       ),
-      // NavigationTab(
-      //   icon: Icons.ballot_rounded,
-      //   title: 'รายชื่อกลุ่ม',
-      //   ontap: () => _onItemTapped(1),
-      // ),
+      NavigationTab(
+        icon: Icons.ballot_rounded,
+        title: 'รายชื่อกลุ่ม',
+        ontap: () => _onItemTapped(1),
+      ),
       NavigationTab(
         icon: Icons.logout,
         title: 'ออกจากระบบ',
@@ -165,11 +165,11 @@ class _HomePageState extends State<HomePage> {
         title: 'หน้าหลัก',
         ontap: () => _onItemTapped(0),
       ),
-      // NavigationTab(
-      //   icon: Icons.ballot_rounded,
-      //   title: 'รายชื่อกลุ่ม',
-      //   ontap: () => _onItemTapped(1),
-      // ),
+      NavigationTab(
+        icon: Icons.ballot_rounded,
+        title: 'รายชื่อกลุ่ม',
+        ontap: () => _onItemTapped(1),
+      ),
       NavigationTab(
         icon: Icons.logout,
         title: 'ออกจากระบบ',
