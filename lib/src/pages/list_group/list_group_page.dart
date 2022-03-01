@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cmu_mobile_app/api/auth_api.dart';
+import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
+import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/cards/card_group.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +13,11 @@ import 'package:flutter/material.dart';
 import 'group_page.dart';
 
 class ListGroupPage extends StatefulWidget {
-  const ListGroupPage({Key? key, required this.controller, required this.role})
-      : super(key: key);
+  const ListGroupPage({
+    Key? key,
+    required this.controller,
+    required this.role,
+  }) : super(key: key);
   final PageController controller;
   final String role;
 
@@ -99,6 +105,19 @@ class _ListGroupPageState extends State<ListGroupPage> {
               ),
               const SizedBox(height: 50),
               page,
+              Visibility(
+                visible: widget.role == "hospital",
+                child: MainButton(
+                  title: "START",
+                  ontab: () async {
+                    await QuestionApi.setEvent().then((value) {
+                      if (value["message"] == "success") {
+                        log(value["message"].toString());
+                      }
+                    });
+                  },
+                ),
+              ),
             ],
           ),
         ),

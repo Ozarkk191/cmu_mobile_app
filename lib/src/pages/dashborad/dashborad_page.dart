@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/models/dashborad_model.dart';
 import 'package:cmu_mobile_app/models/user_auth_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
@@ -20,6 +21,8 @@ class DashboradPage extends StatefulWidget {
 
 class _DashboradPageState extends State<DashboradPage> {
   String role = "วัยรุ่น";
+  final DateTime thisTime = DateTime.now();
+  int hour = 0;
 
   Future<List<DashboradModel>> getRole() async {
     final _role = await SharedPref.getStringPref(key: "user");
@@ -43,7 +46,32 @@ class _DashboradPageState extends State<DashboradPage> {
 
   @override
   void initState() {
+    getEvent();
     super.initState();
+  }
+
+  void getEvent() async {
+    final res = await QuestionApi.getEvent();
+    if (res["message"] == "success") {
+      if (res["result"] != null) {
+        DateTime stratTime = DateTime.parse(res["result"]);
+        hour = thisTime.difference(stratTime).inHours;
+
+        setState(() {});
+      }
+    }
+  }
+
+  void toTimeLine(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TimelineActivity(
+          index: index,
+          role: role,
+        ),
+      ),
+    );
   }
 
   @override
@@ -88,15 +116,94 @@ class _DashboradPageState extends State<DashboradPage> {
                               color: list[index].color,
                               path: list[index].path,
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TimelineActivity(
-                                      index: index,
-                                      role: role,
-                                    ),
-                                  ),
-                                );
+                                switch (index) {
+                                  case 0:
+                                  case 1:
+                                    if (hour != 0) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 2:
+                                    if (hour >= 48) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 3:
+                                    if (hour >= 96) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 4:
+                                    if (hour >= 144) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 5:
+                                    if (hour >= 192) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 6:
+                                    if (hour >= 240) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 7:
+                                    if (hour >= 288) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 8:
+                                    if (hour >= 336) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 9:
+                                    if (hour >= 384) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 10:
+                                    if (hour >= 432) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 11:
+                                    if (hour >= 480) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  case 12:
+                                    if (hour >= 528) {
+                                      toTimeLine(index);
+                                    } else {
+                                      log("active $index");
+                                    }
+                                    break;
+                                  default:
+                                }
                               },
                             );
                           },

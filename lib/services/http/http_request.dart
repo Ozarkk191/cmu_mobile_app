@@ -48,13 +48,19 @@ class HttpRequest {
     );
     log("path ==> " + path);
     try {
-      response = await dio.post(
-        path,
-        queryParameters: data!.toJson(),
-        options: Options(
-          headers: headers,
-        ),
-      );
+      if (data != null) {
+        response = await dio.post(
+          path,
+          queryParameters: data.toJson(),
+          options: Options(headers: headers),
+        );
+      } else {
+        response = await dio.post(
+          path,
+          options: Options(headers: headers),
+        );
+      }
+
       log("status ==> " + response.statusCode.toString());
     } on SocketException catch (_) {
       throw ('No Internet connection.');

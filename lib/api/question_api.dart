@@ -14,4 +14,22 @@ class QuestionApi {
     );
     return response;
   }
+
+  static Future<Map<String, dynamic>> getEvent() async {
+    String url = '$baseUrl/start';
+    final response = await HttpRequest.get(
+      url,
+      withAccessToken: true,
+    );
+    return response;
+  }
+
+  static Future<Map<String, dynamic>> setEvent() async {
+    String url = '$baseUrl/start';
+    final response = await HttpRequest.post(
+      url,
+      withAccessToken: true,
+    );
+    return response;
+  }
 }

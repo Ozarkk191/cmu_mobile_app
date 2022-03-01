@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
@@ -9,6 +12,7 @@ class CoverPage extends StatefulWidget {
   final int nextPage;
   final int endPage;
   final String? path;
+  final bool getEvent;
   const CoverPage({
     Key? key,
     required this.title,
@@ -16,6 +20,7 @@ class CoverPage extends StatefulWidget {
     required this.nextPage,
     this.endPage = 100,
     this.path,
+    this.getEvent = false,
   }) : super(key: key);
 
   @override
@@ -23,6 +28,18 @@ class CoverPage extends StatefulWidget {
 }
 
 class _CoverPageState extends State<CoverPage> {
+  @override
+  void initState() {
+    getEvent();
+    super.initState();
+  }
+
+  void getEvent() async {
+    final res = await QuestionApi.getEvent();
+    DateTime lastTime = DateTime.parse(res["result"]);
+    log(lastTime.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -54,7 +71,7 @@ class _CoverPageState extends State<CoverPage> {
                 ),
               ),
               MainButton(
-                ontab: () {
+                ontab: () async {
                   if (widget.nextPage == widget.endPage) {
                     Navigator.pushReplacement(
                       context,

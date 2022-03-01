@@ -7,6 +7,7 @@ class MainButton extends StatelessWidget {
   final double fontSize;
   final double borderRadius;
   final Function() ontab;
+  final bool enabled;
   final Color color;
   const MainButton({
     Key? key,
@@ -17,17 +18,18 @@ class MainButton extends StatelessWidget {
     required this.ontab,
     this.color = const Color(0xffFF6600),
     this.fontSize = 14,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ontab,
+      onTap: enabled ? ontab : null,
       child: Container(
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: color,
+          color: enabled ? color : Colors.grey,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius),
           ),
