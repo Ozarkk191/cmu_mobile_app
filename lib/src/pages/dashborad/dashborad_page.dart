@@ -57,7 +57,9 @@ class _DashboradPageState extends State<DashboradPage> {
         DateTime stratTime = DateTime.parse(res["result"]);
         hour = thisTime.difference(stratTime).inHours;
 
-        setState(() {});
+        if (mounted) {
+          setState(() {});
+        }
       }
     }
   }

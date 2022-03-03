@@ -4,12 +4,15 @@ import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
+import 'package:cmu_mobile_app/src/pages/scores/score_main_page.dart';
+import 'package:cmu_mobile_app/src/pages/scores/score_profile_page.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/cards/card_group.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
+import '../scores/score_page.dart';
 import 'group_page.dart';
 
 class ListGroupPage extends StatefulWidget {
@@ -38,7 +41,9 @@ class _ListGroupPageState extends State<ListGroupPage> {
         userList = allUser.users!.student!;
         int myKidID = user.studentId!;
         user = userList.where((element) => element.id == myKidID).first;
-        page = parentPage();
+        page = scoreStudent(
+          user: user,
+        );
         break;
       case "monk":
         page = teacherPage();
@@ -157,10 +162,83 @@ class _ListGroupPageState extends State<ListGroupPage> {
         onTap: () {
           _onNextPage(
             path: 'assets/images/ic_monk.png',
-            groupName: "กลุ่มพระสงฆ์",
+            groupName: "monk",
             listUser: allUser.users!.monk!,
           );
         },
+      ),
+    );
+  }
+
+  Container scoreStudent({required User user}) {
+    List<String> list = [
+      "Profile",
+      "แบบสอบถาม2",
+      "แบบสอบถาม3",
+      "แบบสอบถาม4",
+      "แบบสอบถาม5",
+      "แบบสอบถาม6",
+      "แบบสอบถาม7",
+      "แบบสอบถาม8"
+    ];
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: Column(
+        children: [
+          ListView.builder(
+            itemCount: list.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    if (index == 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScoreProfilePage(
+                            id: user.id.toString(),
+                            role: widget.role,
+                          ),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScorePage(
+                            title: "แบบทดสอบ${index + 1}",
+                            id: user.id.toString(),
+                            role: widget.role,
+                            nameQuestion: 'question${index + 1}',
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(list[index]),
+                          const Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                      Container(
+                        height: 1,
+                        color: Colors.grey.shade300,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -174,7 +252,7 @@ class _ListGroupPageState extends State<ListGroupPage> {
         onTap: () {
           _onNextPage(
             path: 'assets/images/ic_teacher.png',
-            groupName: "กลุ่มคุณครู",
+            groupName: "teacher",
             listUser: allUser.users!.teacher!,
           );
         },
@@ -191,7 +269,7 @@ class _ListGroupPageState extends State<ListGroupPage> {
         onTap: () {
           _onNextPage(
             path: 'assets/images/ic_parent.png',
-            groupName: "กลุ่มผู้ปกครอง",
+            groupName: "parent",
             listUser: allUser.users!.parent!,
           );
         },
@@ -208,7 +286,7 @@ class _ListGroupPageState extends State<ListGroupPage> {
         onTap: () {
           _onNextPage(
             path: 'assets/images/ic_teen.png',
-            groupName: "กลุ่มวัยรุ่น",
+            groupName: "student",
             listUser: allUser.users!.student!,
           );
         },
