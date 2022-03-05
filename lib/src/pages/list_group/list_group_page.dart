@@ -41,9 +41,8 @@ class _ListGroupPageState extends State<ListGroupPage> {
         userList = allUser.users!.student!;
         int myKidID = user.studentId!;
         user = userList.where((element) => element.id == myKidID).first;
-        page = scoreStudent(
-          user: user,
-        );
+        log("12456577777");
+        page = scoreStudent(user: user, role: "student");
         break;
       case "monk":
         page = teacherPage();
@@ -170,7 +169,7 @@ class _ListGroupPageState extends State<ListGroupPage> {
     );
   }
 
-  Container scoreStudent({required User user}) {
+  Container scoreStudent({required User user, required String role}) {
     List<String> list = [
       "Profile",
       "แบบสอบถาม2",
@@ -200,8 +199,8 @@ class _ListGroupPageState extends State<ListGroupPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ScoreProfilePage(
-                            id: user.id.toString(),
-                            role: widget.role,
+                            user: user,
+                            role: role,
                           ),
                         ),
                       );
@@ -212,7 +211,7 @@ class _ListGroupPageState extends State<ListGroupPage> {
                           builder: (context) => ScorePage(
                             title: "แบบทดสอบ${index + 1}",
                             id: user.id.toString(),
-                            role: widget.role,
+                            role: role,
                             nameQuestion: 'question${index + 1}',
                           ),
                         ),

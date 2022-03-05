@@ -57,7 +57,7 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ScoreProfilePage(
-                                id: widget.user.id.toString(),
+                                user: widget.user,
                                 role: widget.role,
                               ),
                             ),
