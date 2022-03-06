@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/score_api.dart';
@@ -22,7 +23,6 @@ class ScoreProfilePage extends StatefulWidget {
 }
 
 class _ScoreProfilePageState extends State<ScoreProfilePage> {
-  ProfileModel profile = ProfileModel();
   List<String> sex = ["ไม่ระบุ", "ชาย", "หญิง"];
   List<String> religion = ["ไม่ระบุ", "พุทธ", "คริสต์", "อิสลาม"];
   List<String> education = [
@@ -75,16 +75,13 @@ class _ScoreProfilePageState extends State<ScoreProfilePage> {
 
   @override
   void initState() {
-    getData();
     super.initState();
   }
 
-  void getData() async {
+  Future<Map<String, dynamic>> getData() async {
     String path = "${widget.role}/profile/${widget.user.id}";
-    log("path::$path");
     var res = await ScoreApi.getScore(path: path);
-    profile = ProfileModel.fromJson(res);
-    log(res.toString());
+    return res["profile"];
   }
 
   @override
@@ -99,174 +96,199 @@ class _ScoreProfilePageState extends State<ScoreProfilePage> {
               },
               title: 'Profile',
             ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: Text(
-                        "${widget.user.name}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: textProfile(
-                          text: "เพศ ",
-                          highligthText: sex[profile.sex!],
+            FutureBuilder(
+              future: getData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final parsed = jsonDecode(jsonEncode(snapshot.data));
+                  ProfileModel profile = ProfileModel.fromJson(parsed);
+                  return Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                            child: Text(
+                              "${widget.user.name}",
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: textProfile(
-                          text: "อายุ ",
-                          highligthText: "${profile.age}",
+                        Row(
+                          children: [
+                            Expanded(
+                              child: textProfile(
+                                text: "เพศ ",
+                                highligthText: sex[profile.sex!],
+                              ),
+                            ),
+                            Expanded(
+                              child: textProfile(
+                                text: "อายุ ",
+                                highligthText: "${profile.age}",
+                              ),
+                            ),
+                            Expanded(
+                              child: profile.religion == 4
+                                  ? textProfile(
+                                      text: "ศาสนา ",
+                                      highligthText: profile.religionComment!,
+                                    )
+                                  : textProfile(
+                                      text: "ศาสนา ",
+                                      highligthText:
+                                          religion[profile.religion!],
+                                    ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Expanded(
-                        child: profile.religion == 4
+                        profile.education == 7
                             ? textProfile(
-                                text: "ศาสนา ",
-                                highligthText: profile.religionComment!,
+                                text: "กำลังศึกษาอยู่ในระดับชั้น ",
+                                highligthText: profile.educationComment!,
                               )
                             : textProfile(
-                                text: "ศาสนา ",
-                                highligthText: religion[profile.religion!],
+                                text: "กำลังศึกษาอยู่ในระดับชั้น ",
+                                highligthText: education[profile.education!],
                               ),
-                      ),
-                    ],
-                  ),
-                  profile.education == 7
-                      ? textProfile(
-                          text: "กำลังศึกษาอยู่ในระดับชั้น ",
-                          highligthText: profile.educationComment!,
-                        )
-                      : textProfile(
-                          text: "กำลังศึกษาอยู่ในระดับชั้น ",
-                          highligthText: education[profile.education!],
+                        textProfile(
+                          text: "เกรดเฉลี่ยในเทอมที่่ผ่านมา ",
+                          highligthText: "${profile.grade}",
                         ),
-                  textProfile(
-                    text: "เกรดเฉลี่ยในเทอมที่่ผ่านมา ",
-                    highligthText: "${profile.grade}",
-                  ),
-                  profile.gradeCompare == 5
-                      ? textProfile(
-                          text:
-                              "ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา ",
-                          highligthText: profile.gradeCompareComment!,
-                        )
-                      : textProfile(
-                          text:
-                              "ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา ",
-                          highligthText: gradeCompare[profile.gradeCompare!],
+                        profile.gradeCompare == 5
+                            ? textProfile(
+                                text:
+                                    "ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา ",
+                                highligthText: profile.gradeCompareComment!,
+                              )
+                            : textProfile(
+                                text:
+                                    "ผลการเรียนปัจจุบันของท่านเมื่อเปรียบเทียบกับผลการเรียนในเทอมที่ผ่านมา ",
+                                highligthText:
+                                    gradeCompare[profile.gradeCompare!],
+                              ),
+                        profile.peopleWith == 6
+                            ? textProfile(
+                                text:
+                                    "บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ ",
+                                highligthText: profile.peopleWithComment!,
+                              )
+                            : textProfile(
+                                text:
+                                    "บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ ",
+                                highligthText:
+                                    gradeCompare[profile.peopleWith!],
+                              ),
+                        textProfile(
+                          text: "จำนวนสมาชิกในครอบครัว ",
+                          highligthText: "${profile.familyNumbers!}",
+                          postText: " คน",
                         ),
-                  profile.peopleWith == 6
-                      ? textProfile(
-                          text: "บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ ",
-                          highligthText: profile.peopleWithComment!,
-                        )
-                      : textProfile(
-                          text: "บุคคลที่อาศัยอยู่ด้วยในระหว่างที่เรียน คือ ",
-                          highligthText: gradeCompare[profile.peopleWith!],
-                        ),
-                  textProfile(
-                    text: "จำนวนสมาชิกในครอบครัว ",
-                    highligthText: "${profile.familyNumbers!}",
-                    postText: " คน",
-                  ),
-                  profile.parentOccupation == 7
-                      ? textProfile(
-                          text: "ผู้ปกครองของท่านประกอบอาชีพ ",
-                          highligthText: profile.parentOccupationComment!,
-                        )
-                      : textProfile(
-                          text: "ผู้ปกครองของท่านประกอบอาชีพ ",
-                          highligthText:
-                              parentOccupation[profile.parentOccupation!],
-                        ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textProfile(
-                        text: "รายได้ที่ได้รับ ",
-                        highligthText: "${profile.moneyPerMonth!}",
-                        postText: " บาท/เดือน",
-                      ),
-                      textProfile(
-                        text: "รายได้ที่ได้รับ ",
-                        highligthText: "${profile.moneyPerWeek!}",
-                        postText: " บาท/สัปดาห์",
-                      ),
-                      textProfile(
-                        text: "รายได้ที่ได้รับ ",
-                        highligthText: "${profile.moneyPerDay!}",
-                        postText: " บาท/วัน",
-                      ),
-                    ],
-                  ),
-                  textProfile(
-                    text: "รายได้ของครอบครัวต่อเดือน ",
-                    highligthText: familyIncome[profile.familyIncome!],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textProfile(
-                        text:
-                            "สมาชิกในครอบครัวของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ",
-                        highligthText:
-                            familyAlcoholic[profile.familyAlcoholic!],
-                      ),
-                      profile.familyAlcoholic != 2
-                          ? Container()
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember1!],
-                                ),
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember2!],
-                                ),
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember3!],
-                                ),
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember4!],
-                                ),
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember5!],
-                                ),
-                                textProfile(
-                                  highligthText: familyAlcoholicMember[
-                                      profile.familyAlcoholicMember6!],
-                                ),
-                              ],
+                        profile.parentOccupation == 7
+                            ? textProfile(
+                                text: "ผู้ปกครองของท่านประกอบอาชีพ ",
+                                highligthText: profile.parentOccupationComment!,
+                              )
+                            : textProfile(
+                                text: "ผู้ปกครองของท่านประกอบอาชีพ ",
+                                highligthText:
+                                    parentOccupation[profile.parentOccupation!],
+                              ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textProfile(
+                              text: "รายได้ที่ได้รับ ",
+                              highligthText: "${profile.moneyPerMonth!}",
+                              postText: " บาท/เดือน",
                             ),
-                    ],
-                  ),
-                  profile.peopleWith == 3
-                      ? textProfile(
-                          text:
-                              "เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ดื่ม ",
-                          highligthText: profile.friendAlcoholicComment!,
-                        )
-                      : textProfile(
-                          text: "เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ",
-                          highligthText:
-                              familyAlcoholic[profile.friendAlcoholic!],
+                            textProfile(
+                              text: "รายได้ที่ได้รับ ",
+                              highligthText: "${profile.moneyPerWeek!}",
+                              postText: " บาท/สัปดาห์",
+                            ),
+                            textProfile(
+                              text: "รายได้ที่ได้รับ ",
+                              highligthText: "${profile.moneyPerDay!}",
+                              postText: " บาท/วัน",
+                            ),
+                          ],
                         ),
-                ],
-              ),
+                        textProfile(
+                          text: "รายได้ของครอบครัวต่อเดือน ",
+                          highligthText: familyIncome[profile.familyIncome!],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textProfile(
+                              text:
+                                  "สมาชิกในครอบครัวของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ",
+                              highligthText:
+                                  familyAlcoholic[profile.familyAlcoholic!],
+                            ),
+                            profile.familyAlcoholic != 2
+                                ? Container()
+                                : Wrap(
+                                    children: [
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember1!],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember2!],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember3!],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember4!],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember5!],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      textProfile(
+                                        highligthText: familyAlcoholicMember[
+                                            profile.familyAlcoholicMember6!],
+                                      ),
+                                    ],
+                                  ),
+                          ],
+                        ),
+                        profile.peopleWith == 3
+                            ? textProfile(
+                                text:
+                                    "เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ดื่ม ",
+                                highligthText: profile.friendAlcoholicComment!,
+                              )
+                            : textProfile(
+                                text:
+                                    "เพื่อนของท่านดื่มเครื่องดื่มแอลกอฮอล์หรือไม่ ",
+                                highligthText:
+                                    familyAlcoholic[profile.friendAlcoholic!],
+                              ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

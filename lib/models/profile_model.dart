@@ -71,15 +71,15 @@ class ProfileModel extends RequestBodyParameters {
     religionComment = json['religion_comment'];
     education = json['education'];
     educationComment = json['education_comment'];
-    grade = json['grade'];
+    grade = double.parse(json['grade']);
     gradeCompare = json['grade_compare'];
     gradeCompareComment = json['grade_compare_comment'];
     peopleWith = json['people_with'];
     peopleWithComment = json['people_with_comment'];
     familyNumbers = json['family_numbers'];
-    moneyPerMonth = json['money_per_month'];
-    moneyPerWeek = json['money_per_week'];
-    moneyPerDay = json['money_per_day'];
+    moneyPerMonth = double.parse(json['money_per_month']);
+    moneyPerWeek = double.parse(json['money_per_week']);
+    moneyPerDay = double.parse(json['money_per_day']);
     parentOccupation = json['parent_occupation'];
     parentOccupationComment = json['parent_occupation_comment'];
     familyIncome = json['family_income'];
@@ -92,7 +92,7 @@ class ProfileModel extends RequestBodyParameters {
     familyAlcoholicMember6 = json['family_alcoholic_member_6'];
     friendAlcoholic = json['friend_alcoholic'];
     friendAlcoholicComment = json['friend_alcoholic_comment'];
-    yearNumber = json['year_number'];
+    yearNumber = double.parse(json['year_number']);
   }
 
   @override
