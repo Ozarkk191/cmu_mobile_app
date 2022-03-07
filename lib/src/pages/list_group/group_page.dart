@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/models/all_user_model.dart';
-import 'package:cmu_mobile_app/src/pages/splash_screen/splash_page.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
@@ -11,7 +10,6 @@ import 'package:cmu_mobile_app/src/widgets/textfields/search_textfield.dart';
 import 'package:flutter/material.dart';
 
 import '../scores/score_main_page.dart';
-import 'gorup_content_page.dart';
 
 class GroupPage extends StatefulWidget {
   final String groupName;

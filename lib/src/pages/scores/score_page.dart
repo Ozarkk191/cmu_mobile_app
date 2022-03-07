@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/questions/question2_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../models/body_parameters.dart';
 import '../../../models/questions/question14_model.dart';
 import '../../../models/questions/question20_model.dart';
 import '../../../models/questions/question3_model.dart';
@@ -40,38 +36,91 @@ class _ScorePageState extends State<ScorePage> {
 
   void getTypeQuestion() async {
     Map<String, dynamic> data = await getData();
+
     switch (widget.nameQuestion) {
       case "question2":
-        Question2Model question = Question2Model.fromJson(data["question2"]);
-        page = question2Page(question);
+        if (data["question2"] != null) {
+          Question2Model question = Question2Model.fromJson(data["question2"]);
+          page = question2Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question3":
-        Question3Model question = Question3Model.fromJson(data["question3"]);
-        page = question3Page(question);
+        if (data["question3"] != null) {
+          Question3Model question = Question3Model.fromJson(data["question3"]);
+          page = question3Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question4":
-        Question4Model question = Question4Model.fromJson(data["question4"]);
-        page = question4Page(question);
+        if (data["question4"] != null) {
+          Question4Model question = Question4Model.fromJson(data["question4"]);
+          page = question4Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question5":
-        QuestionModel20 question = QuestionModel20.fromJson(data["question5"]);
-        page = question5Page(question);
+        if (data["question5"] != null) {
+          QuestionModel20 question =
+              QuestionModel20.fromJson(data["question5"]);
+          page = question5Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question6":
-        QuestionModel14 question = QuestionModel14.fromJson(data["question6"]);
-        page = question6Page(question);
+        if (data["question6"] != null) {
+          QuestionModel14 question =
+              QuestionModel14.fromJson(data["question6"]);
+          page = question6Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question7":
-        QuestionModel20 question = QuestionModel20.fromJson(data["question7"]);
-        page = question7Page(question);
+        if (data["question7"] != null) {
+          QuestionModel20 question =
+              QuestionModel20.fromJson(data["question7"]);
+          page = question7Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       case "question8":
-        QuestionModel14 question = QuestionModel14.fromJson(data["question8"]);
-        page = question8Page(question);
+        if (data["question8"] != null) {
+          QuestionModel14 question =
+              QuestionModel14.fromJson(data["question8"]);
+          page = question8Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
       default:
-        Question2Model question = Question2Model.fromJson(data["question2"]);
-        page = question2Page(question);
+        if (data["question2"] != null) {
+          Question2Model question = Question2Model.fromJson(data["question2"]);
+          page = question2Page(question);
+        } else {
+          page = const Center(
+            child: Text("ไม่พบข้อมูล"),
+          );
+        }
         break;
     }
     setState(() {});
@@ -79,9 +128,9 @@ class _ScorePageState extends State<ScorePage> {
 
   Future<Map<String, dynamic>> getData() async {
     String path = "${widget.role}/${widget.nameQuestion}/${widget.id}";
-    log("path :: $path");
+    // log("path :: $path");
     var res = await ScoreApi.getScore(path: path);
-    log(res.toString());
+    // log(res.toString());
     return res;
   }
 

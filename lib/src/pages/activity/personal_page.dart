@@ -296,7 +296,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser4 = val!;
-              profile.education = 4;
+              profile.education = 2;
             });
           },
           groupValue: anwser4,
@@ -306,7 +306,7 @@ class _PersonalPageState extends State<PersonalPage> {
           onChanged: (val) {
             setState(() {
               anwser4 = val!;
-              profile.education = 2;
+              profile.education = 3;
             });
           },
           groupValue: anwser4,

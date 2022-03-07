@@ -17,7 +17,8 @@ class ScoreMainPage extends StatefulWidget {
 }
 
 class _ScoreMainPageState extends State<ScoreMainPage> {
-  List<String> list = [
+  List<String> list = [];
+  List<String> listStudent = [
     "Profile",
     "แบบสอบถาม2",
     "แบบสอบถาม3",
@@ -27,13 +28,46 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
     "แบบสอบถาม7",
     "แบบสอบถาม8"
   ];
+  List<String> listTeacherParent = [
+    "Profile",
+    "แบบสอบถาม2",
+    "แบบสอบถาม3",
+  ];
+  List<String> listMonk = [
+    "Profile",
+  ];
+
+  Future<List<String>> selecteList() async {
+    switch (widget.role) {
+      case "student":
+        return listStudent;
+      case "teacher":
+      case "parent":
+        return listTeacherParent;
+      case "monk":
+        return listMonk;
+      default:
+        return listStudent;
+    }
+  }
+
+  void getList() async {
+    list = await selecteList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: MainLayout(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             children: [
               CustomAppbar(
@@ -43,57 +77,60 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
                 title: 'กลุ่ม ${widget.role}',
               ),
               const SizedBox(height: 50),
-              ListView.builder(
-                itemCount: list.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        if (index == 0) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ScoreProfilePage(
-                                user: widget.user,
-                                role: widget.role,
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ListView.builder(
+                  itemCount: list.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          if (index == 0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ScoreProfilePage(
+                                  user: widget.user,
+                                  role: widget.role,
+                                ),
                               ),
-                            ),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ScorePage(
-                                title: "แบบทดสอบ${index + 1}",
-                                id: widget.user.id.toString(),
-                                role: widget.role,
-                                nameQuestion: 'question${index + 1}',
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ScorePage(
+                                  title: "แบบทดสอบ${index + 1}",
+                                  id: widget.user.id.toString(),
+                                  role: widget.role,
+                                  nameQuestion: 'question${index + 1}',
+                                ),
                               ),
+                            );
+                          }
+                        },
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(list[index]),
+                                const Icon(Icons.arrow_forward_ios),
+                              ],
                             ),
-                          );
-                        }
-                      },
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(list[index]),
-                              const Icon(Icons.arrow_forward_ios),
-                            ],
-                          ),
-                          Container(
-                            height: 1,
-                            color: Colors.grey.shade300,
-                          ),
-                        ],
+                            Container(
+                              height: 1,
+                              color: Colors.grey.shade300,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ],
           ),
