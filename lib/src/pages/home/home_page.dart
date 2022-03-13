@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> adminList = [
       const DownloadPage(),
     ];
-    switch ("admin") {
+    switch (role) {
       case "teacher":
         return teacherList;
       case "student":
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     ];
-    switch ("admin") {
+    switch (role) {
       case "teacher":
         return teacherList;
       case "student":
