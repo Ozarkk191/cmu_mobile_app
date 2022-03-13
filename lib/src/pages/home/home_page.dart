@@ -4,6 +4,7 @@ import 'package:cmu_mobile_app/models/user_model.dart';
 import 'package:cmu_mobile_app/services/http/http_request.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/dashborad/dashborad_page.dart';
+import 'package:cmu_mobile_app/src/pages/dashborad/download_page.dart';
 import 'package:cmu_mobile_app/src/pages/list_group/list_group_page.dart';
 import 'package:cmu_mobile_app/src/pages/splash_screen/splash_page.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/navigation_tab.dart';
@@ -90,7 +91,10 @@ class _HomePageState extends State<HomePage> {
         role: role,
       )
     ];
-    switch (role) {
+    List<Widget> adminList = [
+      const DownloadPage(),
+    ];
+    switch ("admin") {
       case "teacher":
         return teacherList;
       case "student":
@@ -101,6 +105,8 @@ class _HomePageState extends State<HomePage> {
         return monkList;
       case "hospital":
         return hospitalList;
+      case "admin":
+        return adminList;
       default:
         return studentList;
     }
@@ -227,7 +233,28 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     ];
-    switch (role) {
+    List<Widget> adminList = [
+      NavigationTab(
+        icon: Icons.dashboard,
+        title: 'Dashborad',
+        ontap: () => _onItemTapped(0),
+      ),
+      NavigationTab(
+        icon: Icons.logout,
+        title: 'ออกจากระบบ',
+        ontap: () {
+          HttpRequest.signOut().then((value) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SplashPage(),
+              ),
+            );
+          });
+        },
+      ),
+    ];
+    switch ("admin") {
       case "teacher":
         return teacherList;
       case "student":
@@ -238,6 +265,8 @@ class _HomePageState extends State<HomePage> {
         return monkList;
       case "hospital":
         return hospitalList;
+      case "admin":
+        return adminList;
       default:
         return studentList;
     }

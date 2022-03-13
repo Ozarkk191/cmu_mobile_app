@@ -6,6 +6,7 @@ class Question3Model extends RequestBodyParameters {
   int? q21;
   int? q22;
   int? q23;
+  String? q2Answer;
   int? q3;
   int? q4;
   int? q5;
@@ -23,6 +24,7 @@ class Question3Model extends RequestBodyParameters {
     this.q21 = 0,
     this.q22 = 0,
     this.q23 = 0,
+    this.q2Answer = "",
     this.q3 = 0,
     this.q4 = 0,
     this.q5 = 0,
@@ -41,6 +43,7 @@ class Question3Model extends RequestBodyParameters {
     q21 = json['q2_1'];
     q22 = json['q2_2'];
     q23 = json['q2_3'];
+    q2Answer = json['q2_answer'];
     q3 = json['q3'];
     q4 = json['q4'];
     q5 = json['q5'];
@@ -61,6 +64,7 @@ class Question3Model extends RequestBodyParameters {
     data['q2_1'] = q21;
     data['q2_2'] = q22;
     data['q2_3'] = q23;
+    data['q2_answer'] = q2Answer;
     data['q3'] = q3;
     data['q4'] = q4;
     data['q5'] = q5;

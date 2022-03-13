@@ -714,6 +714,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q1";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -726,6 +727,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q1";
               question3.q21 = 1;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -738,6 +740,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q1";
               question3.q21 = 2;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -750,6 +753,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q1";
               question3.q21 = 3;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -762,6 +766,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q1";
               question3.q21 = 4;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -778,6 +783,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q2";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -790,6 +796,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q2";
               question3.q21 = 0;
               question3.q22 = 1;
               question3.q23 = 0;
@@ -802,6 +809,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q2";
               question3.q21 = 0;
               question3.q22 = 2;
               question3.q23 = 0;
@@ -814,6 +822,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q2";
               question3.q21 = 0;
               question3.q22 = 3;
               question3.q23 = 0;
@@ -826,6 +835,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q2";
               question3.q21 = 0;
               question3.q22 = 4;
               question3.q23 = 0;
@@ -842,6 +852,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q3";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 0;
@@ -854,6 +865,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q3";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 1;
@@ -866,6 +878,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q3";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 2;
@@ -878,6 +891,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q3";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 3;
@@ -890,6 +904,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
+              question3.q2Answer = "q3";
               question3.q21 = 0;
               question3.q22 = 0;
               question3.q23 = 4;
