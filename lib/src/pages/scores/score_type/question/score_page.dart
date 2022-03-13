@@ -1,13 +1,13 @@
 import 'package:cmu_mobile_app/api/score_api.dart';
+import 'package:cmu_mobile_app/models/questions/question14_model.dart';
+import 'package:cmu_mobile_app/models/questions/question20_model.dart';
 import 'package:cmu_mobile_app/models/questions/question2_model.dart';
+import 'package:cmu_mobile_app/models/questions/question3_model.dart';
+import 'package:cmu_mobile_app/models/questions/question4_model.dart';
+import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
+import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
+import 'package:cmu_mobile_app/utils/assessment_list.dart';
 import 'package:flutter/material.dart';
-import '../../../models/questions/question14_model.dart';
-import '../../../models/questions/question20_model.dart';
-import '../../../models/questions/question3_model.dart';
-import '../../../models/questions/question4_model.dart';
-import '../../../utils/assessment_list.dart';
-import '../../widgets/appbar/custom_appbar.dart';
-import '../../widgets/layouts/main_layout.dart';
 
 class ScorePage extends StatefulWidget {
   final String id;
@@ -123,7 +123,9 @@ class _ScorePageState extends State<ScorePage> {
         }
         break;
     }
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<Map<String, dynamic>> getData() async {

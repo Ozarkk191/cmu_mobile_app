@@ -4,14 +4,13 @@ import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
-import 'package:cmu_mobile_app/src/pages/scores/score_profile_page.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/cards/card_group.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-
-import '../scores/score_page.dart';
+import '../scores/score_type/question/score_page.dart';
+import '../scores/score_type/question/score_profile_page.dart';
 import 'group_page.dart';
 
 class ListGroupPage extends StatefulWidget {

@@ -1,36 +1,43 @@
-import 'package:cmu_mobile_app/src/pages/scores/score_type/post_test/list_post_test_page.dart';
-import 'package:cmu_mobile_app/src/pages/scores/score_type/question/list_question_page.dart';
-import 'package:cmu_mobile_app/src/pages/scores/score_type/reflex_evaluate/list_reflex_evaluate_page.dart';
+import 'package:cmu_mobile_app/src/pages/scores/score_type/question/score_page.dart';
+import 'package:cmu_mobile_app/src/pages/scores/score_type/question/score_profile_page.dart';
+import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/all_user_model.dart';
-import '../../widgets/appbar/custom_appbar.dart';
-import '../../widgets/layouts/main_layout.dart';
+import '../../../../../models/all_user_model.dart';
+import '../../../../widgets/appbar/custom_appbar.dart';
 
-class ScoreMainPage extends StatefulWidget {
+class ListQuestionPage extends StatefulWidget {
   final User user;
   final String role;
-  const ScoreMainPage({Key? key, required this.user, required this.role})
-      : super(key: key);
+  const ListQuestionPage({
+    Key? key,
+    required this.user,
+    required this.role,
+  }) : super(key: key);
 
   @override
-  State<ScoreMainPage> createState() => _ScoreMainPageState();
+  State<ListQuestionPage> createState() => _ListQuestionPageState();
 }
 
-class _ScoreMainPageState extends State<ScoreMainPage> {
+class _ListQuestionPageState extends State<ListQuestionPage> {
   List<String> list = [];
   List<String> listStudent = [
-    "แบบสอบถาม",
-    "แบบทดสอบการเรียนรู้",
-    "แบบสอบถามสะท้อนและติดตามการเรียนรู้",
+    "Profile",
+    "แบบสอบถาม2",
+    "แบบสอบถาม3",
+    "แบบสอบถาม4",
+    "แบบสอบถาม5",
+    "แบบสอบถาม6",
+    "แบบสอบถาม7",
+    "แบบสอบถาม8"
   ];
   List<String> listTeacherParent = [
-    "แบบสอบถาม",
-    "แบบสอบถามสะท้อนและติดตามการเรียนรู้",
+    "Profile",
+    "แบบสอบถาม2",
+    "แบบสอบถาม3",
   ];
   List<String> listMonk = [
-    "แบบสอบถาม",
-    "แบบสอบถามสะท้อนและติดตามการเรียนรู้",
+    "Profile",
   ];
 
   Future<List<String>> selecteList() async {
@@ -70,7 +77,7 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                title: 'กลุ่ม ${widget.role}',
+                title: 'แบบสอบถาม',
               ),
               const SizedBox(height: 50),
               Padding(
@@ -84,33 +91,25 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          if (list[index] == "แบบสอบถาม") {
+                          if (index == 0) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ListQuestionPage(
+                                builder: (context) => ScoreProfilePage(
                                   user: widget.user,
                                   role: widget.role,
                                 ),
                               ),
                             );
-                          } else if (list[index] == "แบบทดสอบการเรียนรู้") {
+                          } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ListPostTestPage(
-                                  user: widget.user,
-                                ),
-                              ),
-                            );
-                          } else if (list[index] ==
-                              "แบบสอบถามสะท้อนและติดตามการเรียนรู้") {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ListReflexEvaluatePage(
-                                  user: widget.user,
+                                builder: (context) => ScorePage(
+                                  title: "แบบทดสอบ${index + 1}",
+                                  id: widget.user.id.toString(),
                                   role: widget.role,
+                                  nameQuestion: 'question${index + 1}',
                                 ),
                               ),
                             );
@@ -121,7 +120,7 @@ class _ScoreMainPageState extends State<ScoreMainPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(child: Text(list[index])),
+                                Text(list[index]),
                                 const Icon(Icons.arrow_forward_ios),
                               ],
                             ),

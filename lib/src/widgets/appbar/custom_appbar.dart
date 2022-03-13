@@ -34,14 +34,18 @@ class CustomAppbar extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            "$title",
-            style: const TextStyle(fontSize: 20),
-          ),
           Expanded(
-            // width: 70,
-            // height: 70,
-            child: Container(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Text(
+                "$title",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 70,
+            height: 70,
           ),
         ],
       ),

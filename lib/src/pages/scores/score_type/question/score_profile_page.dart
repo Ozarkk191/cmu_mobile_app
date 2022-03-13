@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:cmu_mobile_app/api/score_api.dart';
+import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/models/profile_model.dart';
+import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
+import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
-
-import '../../../models/all_user_model.dart';
-import '../../widgets/appbar/custom_appbar.dart';
-import '../../widgets/layouts/main_layout.dart';
 
 class ScoreProfilePage extends StatefulWidget {
   final User user;
