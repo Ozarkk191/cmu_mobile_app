@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/questions/question2_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
@@ -42,8 +43,32 @@ class _QuestionAlcoholBehaviorPageState
   String anwser3 = "";
   String anwser4 = "";
   String anwser5 = "";
-  bool loading = false;
+  bool loading = true;
   bool checkFirst = false;
+
+  late Map<String, dynamic> user = <String, dynamic>{};
+  Future<void> checkDoThis() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    user = jsonDecode(data) as Map<String, dynamic>;
+    String path = "${user["role"]}/profile/${user["id"]}";
+    var res = await ScoreApi.getScore(path: path);
+    if (res["profile"] != null) {
+      if (widget.endPage == widget.nextPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   void onSave() async {
     setState(() {
@@ -110,6 +135,7 @@ class _QuestionAlcoholBehaviorPageState
 
   @override
   void initState() {
+    checkDoThis();
     super.initState();
   }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/auth_api.dart';
+import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/profile_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/home/home_page.dart';
@@ -58,7 +59,31 @@ class _PersonalPageState extends State<PersonalPage> {
   bool drinkAnwser4 = false;
   bool drinkAnwser5 = false;
   bool drinkAnwser6 = false;
-  bool loading = false;
+  bool loading = true;
+  late Map<String, dynamic> user = <String, dynamic>{};
+
+  Future<void> checkDoThis() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    user = jsonDecode(data) as Map<String, dynamic>;
+    String path = "${widget.role}/profile/${user["id"]}";
+    var res = await ScoreApi.getScore(path: path);
+    if (res["profile"] != null) {
+      if (widget.endPage == widget.nextPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   void onSave() async {
     setState(() {
@@ -119,7 +144,7 @@ class _PersonalPageState extends State<PersonalPage> {
 
   @override
   void initState() {
-    log("personal ==> ${widget.role}");
+    checkDoThis();
     super.initState();
   }
 

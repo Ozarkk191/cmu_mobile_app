@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/body_parameters.dart';
 import 'package:cmu_mobile_app/models/questions/question14_model.dart';
 import 'package:cmu_mobile_app/models/questions/question20_model.dart';
@@ -43,7 +44,31 @@ class _Quest5State extends State<Quest5> {
   late QuestionModel14 quest14 = QuestionModel14();
 
   late List<QuizModel> _list;
-  bool loading = false;
+  bool loading = true;
+
+  late Map<String, dynamic> user = <String, dynamic>{};
+  Future<void> checkDoThis() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    user = jsonDecode(data) as Map<String, dynamic>;
+    String path = "${user["role"]}/profile/${user["id"]}";
+    var res = await ScoreApi.getScore(path: path);
+    if (res["profile"] != null) {
+      if (widget.endPage == widget.nextPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   void _checkQuiz() {
     switch (widget.quizType) {
@@ -287,6 +312,7 @@ class _Quest5State extends State<Quest5> {
 
   @override
   void initState() {
+    checkDoThis();
     _checkQuiz();
     super.initState();
   }

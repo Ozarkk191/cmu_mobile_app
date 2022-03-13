@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/body_parameters.dart';
 import 'package:cmu_mobile_app/models/learning_model.dart';
 import 'package:cmu_mobile_app/models/questions/reflex_model.dart';
@@ -33,12 +34,37 @@ class _QuestionPage2State extends State<QuestionPage2> {
   late ReflexModel reflexModel = ReflexModel();
   List<TextEditingController> controllerList = [];
   String path = "";
-  bool loading = false;
+  bool loading = true;
   @override
   void initState() {
+    checkDoThis();
     onCheckType();
 
     super.initState();
+  }
+
+  late Map<String, dynamic> user = <String, dynamic>{};
+  Future<void> checkDoThis() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    user = jsonDecode(data) as Map<String, dynamic>;
+    String path = "${user["role"]}/profile/${user["id"]}";
+    var res = await ScoreApi.getScore(path: path);
+    if (res["profile"] != null) {
+      if (widget.endPage == widget.nextPage) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(initPage: 0),
+          ),
+        );
+      } else {
+        widget.controller.jumpToPage(widget.nextPage);
+      }
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
   }
 
   void onCheckType() async {

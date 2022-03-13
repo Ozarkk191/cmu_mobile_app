@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/question_api.dart';
+import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/questions/question4_model.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
@@ -40,7 +41,22 @@ class _Quest4State extends State<Quest4> {
   String anwser10 = "";
   String anwser11 = "";
   String anwser12 = "";
-  bool loading = false;
+  bool loading = true;
+
+  late Map<String, dynamic> user = <String, dynamic>{};
+  Future<void> checkDoThis() async {
+    final data = await SharedPref.getStringPref(key: "user");
+    user = jsonDecode(data) as Map<String, dynamic>;
+    String path = "${user["role"]}/profile/${user["id"]}";
+    var res = await ScoreApi.getScore(path: path);
+    if (res["profile"] != null) {
+      widget.controller.jumpToPage(widget.nextPage);
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   void onSave() async {
     setState(() {
@@ -64,6 +80,12 @@ class _Quest4State extends State<Quest4> {
         widget.controller.jumpToPage(widget.nextPage);
       }
     });
+  }
+
+  @override
+  void initState() {
+    checkDoThis();
+    super.initState();
   }
 
   @override

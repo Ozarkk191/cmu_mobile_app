@@ -18,8 +18,13 @@ class LoadingBox extends StatelessWidget {
               child: child,
             ),
             loading
-                ? const Center(
-                    child: CircularProgressIndicator(),
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: const Color(0xfffbd4b9),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   )
                 : const SizedBox(),
           ],
