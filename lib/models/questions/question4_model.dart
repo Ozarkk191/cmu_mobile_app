@@ -14,6 +14,7 @@ class Question4Model extends RequestBodyParameters {
   int? q10;
   int? q11;
   int? q12;
+  int? total;
   String? type;
 
   Question4Model({
@@ -30,6 +31,7 @@ class Question4Model extends RequestBodyParameters {
     this.q10 = 0,
     this.q11 = 0,
     this.q12 = 0,
+    this.total = 0,
     this.type = "",
   });
 
@@ -47,6 +49,7 @@ class Question4Model extends RequestBodyParameters {
     q10 = json['q10'];
     q11 = json['q11'];
     q12 = json['q12'];
+    total = json['total'];
     type = json['type'];
   }
 
@@ -66,6 +69,7 @@ class Question4Model extends RequestBodyParameters {
     data['q10'] = q10;
     data['q11'] = q11;
     data['q12'] = q12;
+    data['total'] = total;
     data['type'] = type;
     return data;
   }

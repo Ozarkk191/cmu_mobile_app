@@ -47,7 +47,7 @@ class _Quest4State extends State<Quest4> {
   Future<void> checkDoThis() async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/profile/${user["id"]}";
+    String path = "${user["role"]}/question4/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
     if (res["profile"] != null) {
       widget.controller.jumpToPage(widget.nextPage);
@@ -66,6 +66,18 @@ class _Quest4State extends State<Quest4> {
     Map<String, dynamic> user = jsonDecode(data) as Map<String, dynamic>;
     question.userId = user["id"];
     question.type = widget.type;
+    question.total = question.q1! +
+        question.q2! +
+        question.q3! +
+        question.q4! +
+        question.q5! +
+        question.q6! +
+        question.q7! +
+        question.q8! +
+        question.q9! +
+        question.q10! +
+        question.q11! +
+        question.q12!;
     log(question.toJson().toString());
 
     await QuestionApi.setQuestion(
@@ -185,7 +197,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser12 = answer!;
-              question.q12 = 2;
+              question.q12 = 0;
             });
           },
         ),
@@ -195,7 +207,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser12 = answer!;
-              question.q12 = 3;
+              question.q12 = 0;
             });
           },
         ),
@@ -205,7 +217,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser12 = answer!;
-              question.q12 = 4;
+              question.q12 = 0;
             });
           },
         ),
@@ -249,7 +261,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser11 = answer!;
-              question.q11 = 2;
+              question.q11 = 0;
             });
           },
         ),
@@ -259,7 +271,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser11 = answer!;
-              question.q11 = 3;
+              question.q11 = 0;
             });
           },
         ),
@@ -269,7 +281,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser11 = answer!;
-              question.q11 = 4;
+              question.q11 = 0;
             });
           },
         ),
@@ -303,7 +315,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
-              question.q10 = 1;
+              question.q10 = 0;
             });
           },
         ),
@@ -313,7 +325,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
-              question.q10 = 2;
+              question.q10 = 0;
             });
           },
         ),
@@ -323,7 +335,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
-              question.q10 = 3;
+              question.q10 = 1;
             });
           },
         ),
@@ -333,7 +345,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser10 = answer!;
-              question.q10 = 4;
+              question.q10 = 0;
             });
           },
         ),
@@ -367,7 +379,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
-              question.q9 = 1;
+              question.q9 = 0;
             });
           },
         ),
@@ -377,7 +389,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
-              question.q9 = 2;
+              question.q9 = 1;
             });
           },
         ),
@@ -387,7 +399,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
-              question.q9 = 3;
+              question.q9 = 0;
             });
           },
         ),
@@ -398,7 +410,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser9 = answer!;
-              question.q9 = 4;
+              question.q9 = 0;
             });
           },
         ),
@@ -432,7 +444,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
-              question.q8 = 1;
+              question.q8 = 0;
             });
           },
         ),
@@ -442,7 +454,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
-              question.q8 = 2;
+              question.q8 = 1;
             });
           },
         ),
@@ -452,7 +464,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
-              question.q8 = 3;
+              question.q8 = 0;
             });
           },
         ),
@@ -462,7 +474,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser8 = answer!;
-              question.q8 = 4;
+              question.q8 = 0;
             });
           },
         ),
@@ -510,7 +522,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
-              question.q7 = 1;
+              question.q7 = 0;
             });
           },
         ),
@@ -520,7 +532,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
-              question.q7 = 2;
+              question.q7 = 0;
             });
           },
         ),
@@ -530,7 +542,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
-              question.q7 = 3;
+              question.q7 = 0;
             });
           },
         ),
@@ -540,7 +552,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser7 = answer!;
-              question.q7 = 4;
+              question.q7 = 1;
             });
           },
         ),
@@ -587,7 +599,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
-              question.q6 = 1;
+              question.q6 = 0;
             });
           },
         ),
@@ -597,7 +609,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
-              question.q6 = 2;
+              question.q6 = 0;
             });
           },
         ),
@@ -607,7 +619,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
-              question.q6 = 3;
+              question.q6 = 1;
             });
           },
         ),
@@ -617,7 +629,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser6 = answer!;
-              question.q6 = 4;
+              question.q6 = 0;
             });
           },
         ),
@@ -664,7 +676,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
-              question.q5 = 1;
+              question.q5 = 0;
             });
           },
         ),
@@ -674,7 +686,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
-              question.q5 = 2;
+              question.q5 = 1;
             });
           },
         ),
@@ -684,7 +696,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
-              question.q5 = 3;
+              question.q5 = 0;
             });
           },
         ),
@@ -694,7 +706,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser5 = answer!;
-              question.q5 = 4;
+              question.q5 = 0;
             });
           },
         ),
@@ -742,7 +754,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
-              question.q4 = 1;
+              question.q4 = 0;
             });
           },
         ),
@@ -752,7 +764,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
-              question.q4 = 2;
+              question.q4 = 0;
             });
           },
         ),
@@ -762,7 +774,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
-              question.q4 = 3;
+              question.q4 = 0;
             });
           },
         ),
@@ -772,7 +784,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser4 = answer!;
-              question.q4 = 4;
+              question.q4 = 1;
             });
           },
         ),
@@ -819,7 +831,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
-              question.q3 = 1;
+              question.q3 = 0;
             });
           },
         ),
@@ -829,7 +841,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
-              question.q3 = 2;
+              question.q3 = 0;
             });
           },
         ),
@@ -839,7 +851,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
-              question.q3 = 3;
+              question.q3 = 0;
             });
           },
         ),
@@ -849,7 +861,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser3 = answer!;
-              question.q3 = 4;
+              question.q3 = 1;
             });
           },
         ),
@@ -891,7 +903,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
-              question.q2 = 1;
+              question.q2 = 0;
             });
           },
         ),
@@ -901,7 +913,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
-              question.q2 = 2;
+              question.q2 = 1;
             });
           },
         ),
@@ -911,7 +923,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
-              question.q2 = 3;
+              question.q2 = 0;
             });
           },
         ),
@@ -921,7 +933,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser2 = answer!;
-              question.q2 = 4;
+              question.q2 = 0;
             });
           },
         ),
@@ -956,7 +968,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
-              question.q1 = 2;
+              question.q1 = 0;
             });
           },
         ),
@@ -967,7 +979,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
-              question.q1 = 3;
+              question.q1 = 0;
             });
           },
         ),
@@ -978,7 +990,7 @@ class _Quest4State extends State<Quest4> {
           onChanged: (answer) {
             setState(() {
               anwser1 = answer!;
-              question.q1 = 4;
+              question.q1 = 0;
             });
           },
         ),

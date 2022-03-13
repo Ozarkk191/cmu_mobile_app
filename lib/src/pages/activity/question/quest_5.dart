@@ -47,10 +47,11 @@ class _Quest5State extends State<Quest5> {
   bool loading = true;
 
   late Map<String, dynamic> user = <String, dynamic>{};
-  Future<void> checkDoThis() async {
+  Future<void> checkDoThis(String _path) async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/profile/${user["id"]}";
+
+    String path = "${user["role"]}/$_path/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
     if (res["profile"] != null) {
       if (widget.endPage == widget.nextPage) {
@@ -102,6 +103,7 @@ class _Quest5State extends State<Quest5> {
 
       default:
     }
+    checkDoThis(path);
   }
 
   void addList(List<QuizModel> list) {
@@ -312,7 +314,6 @@ class _Quest5State extends State<Quest5> {
 
   @override
   void initState() {
-    checkDoThis();
     _checkQuiz();
     super.initState();
   }

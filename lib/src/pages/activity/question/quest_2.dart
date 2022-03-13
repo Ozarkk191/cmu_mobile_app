@@ -42,7 +42,7 @@ class _Quest2State extends State<Quest2> {
   Future<void> checkDoThis() async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/profile/${user["id"]}";
+    String path = "student/posttest2/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
     if (res["profile"] != null) {
       if (widget.endPage == widget.nextPage) {
