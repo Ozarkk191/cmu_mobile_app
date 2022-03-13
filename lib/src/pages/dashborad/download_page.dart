@@ -33,7 +33,7 @@ class _DownloadPageState extends State<DownloadPage> {
               ),
               const SizedBox(height: 20),
               MainButton(
-                width: _size.width * 0.5,
+                width: _size.width * 0.7,
                 title: "Export data วัยรุ่น",
                 ontab: () {
                   launchURL(
@@ -42,7 +42,7 @@ class _DownloadPageState extends State<DownloadPage> {
               ),
               const SizedBox(height: 20),
               MainButton(
-                width: _size.width * 0.5,
+                width: _size.width * 0.7,
                 title: "Export data พ่อแม่",
                 ontab: () {
                   launchURL(
@@ -51,7 +51,7 @@ class _DownloadPageState extends State<DownloadPage> {
               ),
               const SizedBox(height: 20),
               MainButton(
-                width: _size.width * 0.5,
+                width: _size.width * 0.7,
                 title: "Export data คุณครู",
                 ontab: () {
                   launchURL(
@@ -60,7 +60,7 @@ class _DownloadPageState extends State<DownloadPage> {
               ),
               const SizedBox(height: 20),
               MainButton(
-                width: _size.width * 0.5,
+                width: _size.width * 0.7,
                 title: "Export data พระสงฆ์",
                 ontab: () {
                   launchURL(
