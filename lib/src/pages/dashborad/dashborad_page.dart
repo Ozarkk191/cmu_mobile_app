@@ -76,6 +76,10 @@ class _DashboradPageState extends State<DashboradPage> {
     );
   }
 
+  var snackBar = const SnackBar(
+    content: Text('ยังไม่สามารถเข้าร่วมกิจกรรมนี้ได้ในตอนนี้'),
+  );
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -124,84 +128,96 @@ class _DashboradPageState extends State<DashboradPage> {
                                     if (hour != 0) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 2:
                                     if (hour >= 48) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 3:
                                     if (hour >= 96) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 4:
                                     if (hour >= 144) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 5:
                                     if (hour >= 192) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 6:
                                     if (hour >= 240) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 7:
                                     if (hour >= 288) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 8:
                                     if (hour >= 336) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 9:
                                     if (hour >= 384) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 10:
                                     if (hour >= 432) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 11:
                                     if (hour >= 480) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   case 12:
                                     if (hour >= 528) {
                                       toTimeLine(index);
                                     } else {
-                                      log("active $index");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
                                     break;
                                   default:
