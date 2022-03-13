@@ -279,9 +279,11 @@ class _HomePageState extends State<HomePage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
+          : Stack(
               children: [
-                Expanded(
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: PageView(
                     controller: controller,
                     physics: const NeverScrollableScrollPhysics(),

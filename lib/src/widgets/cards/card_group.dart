@@ -22,7 +22,6 @@ class CardGroup extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 110,
-        height: 150,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
@@ -54,13 +53,13 @@ class CardGroup extends StatelessWidget {
                 fontSize: 11,
               ),
             ),
-            const Text(
-              'จำนวน ... คน',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-              ),
-            ),
+            // const Text(
+            //   'จำนวน ... คน',
+            //   style: TextStyle(
+            //     color: Colors.white,
+            //     fontSize: 10,
+            //   ),
+            // ),
           ],
         ),
       ),
