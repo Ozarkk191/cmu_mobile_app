@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cmu_mobile_app/models/user_model.dart';
 import 'package:cmu_mobile_app/services/http/http_request.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
+import 'package:cmu_mobile_app/src/pages/add_admin/manage_user_page.dart';
 import 'package:cmu_mobile_app/src/pages/dashborad/dashborad_page.dart';
 import 'package:cmu_mobile_app/src/pages/dashborad/download_page.dart';
 import 'package:cmu_mobile_app/src/pages/list_group/list_group_page.dart';
@@ -93,6 +94,7 @@ class _HomePageState extends State<HomePage> {
     ];
     List<Widget> adminList = [
       const DownloadPage(),
+      const ManageUserPage(),
     ];
     switch (role) {
       case "teacher":
@@ -238,6 +240,11 @@ class _HomePageState extends State<HomePage> {
         icon: Icons.dashboard,
         title: 'Dashborad',
         ontap: () => _onItemTapped(0),
+      ),
+      NavigationTab(
+        icon: Icons.people,
+        title: 'Manage User',
+        ontap: () => _onItemTapped(1),
       ),
       NavigationTab(
         icon: Icons.logout,

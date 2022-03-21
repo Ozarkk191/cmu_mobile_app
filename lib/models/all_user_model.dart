@@ -1,3 +1,5 @@
+import 'package:cmu_mobile_app/models/body_parameters.dart';
+
 class AllUserModel {
   String? message;
   Users? users;
@@ -72,7 +74,7 @@ class Users {
   }
 }
 
-class User {
+class User extends RequestBodyParameters {
   int? id;
   String? name;
   String? email;
@@ -106,6 +108,7 @@ class User {
     updatedAt = json['updated_at'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

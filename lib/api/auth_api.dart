@@ -62,4 +62,38 @@ class AuthApi {
     );
     return response;
   }
+
+  static Future<Map<String, dynamic>> deleteUser({
+    required String userID,
+  }) async {
+    String url = '$baseUrl/users/$userID';
+    final response = await HttpRequest.delete(
+      url,
+      withAccessToken: true,
+    );
+    return response;
+  }
+
+  static Future<User> getChildren(
+      {required RequestBodyParameters param}) async {
+    String url = '$baseUrl/parents/children';
+    final response = await HttpRequest.get(
+      url,
+      queryParameters: param,
+      withAccessToken: true,
+    );
+    User user = User.fromJson(response);
+    return user;
+  }
+
+  static Future<Map<String, dynamic>> updatePassword(
+      {required RequestBodyParameters param}) async {
+    String url = '$baseUrl/users/change';
+    final response = await HttpRequest.patch(
+      url,
+      data: param,
+      withAccessToken: true,
+    );
+    return response;
+  }
 }

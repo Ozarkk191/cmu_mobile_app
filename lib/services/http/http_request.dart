@@ -46,7 +46,6 @@ class HttpRequest {
       withAccessToken: withAccessToken,
       withContentType: true,
     );
-    log("path ==> " + path);
     try {
       if (data != null) {
         response = await dio.post(
@@ -62,6 +61,72 @@ class HttpRequest {
       }
 
       log("status ==> " + response.statusCode.toString());
+    } on SocketException catch (_) {
+      throw ('No Internet connection.');
+    }
+    return response.data;
+  }
+
+  static Future<Map<String, dynamic>> delete(
+    String path, {
+    RequestBodyParameters? data,
+    bool withAccessToken = false,
+  }) async {
+    Response<dynamic> response;
+
+    final headers = await _buildHeaders(
+      withAccessToken: withAccessToken,
+      withContentType: true,
+    );
+    try {
+      if (data != null) {
+        response = await dio.delete(
+          path,
+          queryParameters: data.toJson(),
+          options: Options(headers: headers),
+        );
+      } else {
+        response = await dio.delete(
+          path,
+          options: Options(headers: headers),
+        );
+      }
+
+      log("status ==> " + response.statusCode.toString());
+      log("response ==> " + response.data.toString());
+    } on SocketException catch (_) {
+      throw ('No Internet connection.');
+    }
+    return response.data;
+  }
+
+  static Future<Map<String, dynamic>> patch(
+    String path, {
+    RequestBodyParameters? data,
+    bool withAccessToken = false,
+  }) async {
+    Response<dynamic> response;
+
+    final headers = await _buildHeaders(
+      withAccessToken: withAccessToken,
+      withContentType: true,
+    );
+    try {
+      if (data != null) {
+        response = await dio.patch(
+          path,
+          queryParameters: data.toJson(),
+          options: Options(headers: headers),
+        );
+      } else {
+        response = await dio.delete(
+          path,
+          options: Options(headers: headers),
+        );
+      }
+
+      log("status ==> " + response.statusCode.toString());
+      log("response ==> " + response.data.toString());
     } on SocketException catch (_) {
       throw ('No Internet connection.');
     }
