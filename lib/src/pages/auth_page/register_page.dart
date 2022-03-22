@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void save() async {
     SignUpModel param = SignUpModel(
-      email: "${_username.text}@nurse.com",
+      email: "${_username.text.trim()}@nurse.com",
       name: _username.text,
       password: _password.text,
       passwordConfirmation: _repassword.text,

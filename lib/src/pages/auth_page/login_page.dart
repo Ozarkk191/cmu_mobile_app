@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     } else {
       String e = "$email@nurse.com";
-      login(email: e, password: password);
+      login(email: e.trim(), password: password.trim());
     }
   }
 
