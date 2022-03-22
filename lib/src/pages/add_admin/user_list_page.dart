@@ -34,12 +34,22 @@ class _UserListPageState extends State<UserListPage> {
     });
   }
 
+  Future<void> deleteChildren({required String id}) async {
+    await AuthApi.deleteUser(userID: id).then((value) {
+      Navigator.of(context).pop();
+      if (value["message"] == "success") {
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        setState(() {});
+      }
+    });
+  }
+
   Future<void> getChildren(
       {required int id, required int index, required String title}) async {
     ChildrenModel children = ChildrenModel(userId: id);
     await AuthApi.getChildren(param: children).then((value) {
       log(value.toJson().toString());
-      _showParent(title);
+      _showParent(title, value.id.toString());
     });
   }
 
@@ -79,7 +89,7 @@ class _UserListPageState extends State<UserListPage> {
     );
   }
 
-  Future<void> _showParent(String title) async {
+  Future<void> _showParent(String title, String id) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -97,7 +107,9 @@ class _UserListPageState extends State<UserListPage> {
           actions: <Widget>[
             TextButton(
               child: const Text('ใช่'),
-              onPressed: () {},
+              onPressed: () {
+                deleteChildren(id: id);
+              },
             ),
             TextButton(
               child: const Text('ไม่'),
@@ -156,6 +168,7 @@ class _UserListPageState extends State<UserListPage> {
                                   height: 35,
                                   width: 40,
                                   ontab: () {
+                                    // log(widget.userList[index].id!.toString());
                                     _showMyDialog(
                                       id: widget.userList[index].id!.toString(),
                                       index: index,

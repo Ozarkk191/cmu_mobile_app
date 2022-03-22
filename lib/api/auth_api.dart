@@ -77,9 +77,9 @@ class AuthApi {
   static Future<User> getChildren(
       {required RequestBodyParameters param}) async {
     String url = '$baseUrl/parents/children';
-    final response = await HttpRequest.get(
+    final response = await HttpRequest.post(
       url,
-      queryParameters: param,
+      data: param,
       withAccessToken: true,
     );
     User user = User.fromJson(response);
