@@ -34,11 +34,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       log(value.toString());
       if (value["message"] == "success") {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        password.clear();
-        confirmPassword.clear();
-        setState(() {
-          loading = false;
-        });
+        Navigator.pop(context);
       }
     });
   }
