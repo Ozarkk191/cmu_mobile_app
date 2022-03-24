@@ -133,8 +133,10 @@ class HttpRequest {
     return response.data;
   }
 
-  static Future<Map<String, String>> _buildHeaders(
-      {bool withAccessToken = false, bool withContentType = false}) async {
+  static Future<Map<String, String>> _buildHeaders({
+    bool withAccessToken = false,
+    bool withContentType = false,
+  }) async {
     final Map<String, String> headers = {'Accept': 'application/json'};
     if (withContentType) {
       headers.putIfAbsent('Content-Type', () => 'application/json');

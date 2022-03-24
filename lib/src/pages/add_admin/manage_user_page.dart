@@ -64,6 +64,7 @@ class _ManageUserPageState extends State<ManageUserPage> {
                               UserListPage(userList: allUser.users!.parent!),
                               UserListPage(userList: allUser.users!.teacher!),
                               UserListPage(userList: allUser.users!.monk!),
+                              UserListPage(userList: allUser.users!.hospital!),
                             ],
                           ),
                         ),
@@ -146,6 +147,19 @@ class _ManageUserPageState extends State<ManageUserPage> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          index = 4;
+                          controller.jumpToPage(index);
+                        });
+                      },
+                      child: const Center(
+                        child: Text("hospital"),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -179,6 +193,12 @@ class _ManageUserPageState extends State<ManageUserPage> {
                   child: Container(
                     height: 5,
                     color: index == 3 ? const Color(0xFFFF6600) : Colors.white,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 5,
+                    color: index == 4 ? const Color(0xFFFF6600) : Colors.white,
                   ),
                 ),
               ],

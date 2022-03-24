@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -42,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     } else {
       String e = "$email@nurse.com";
+      e = e.replaceAll(" ", "");
       login(email: e.trim(), password: password.trim());
     }
   }
@@ -51,14 +53,20 @@ class _LoginPageState extends State<LoginPage> {
       email: email,
       password: password,
     );
-    UserAuthModel user = await AuthApi.signIn(param: body);
-    await SharedPref.setStringPref(
-      key: "user",
-      value: jsonEncode(user.toJson()),
-    );
-    setState(() {
-      loading = false;
-    });
+    Map<String, dynamic> data = await AuthApi.signIn(param: body);
+    if (data.toString() == "{message: Bad credentials}") {
+      _showDialog();
+    } else {
+      UserAuthModel user = UserAuthModel.fromJson(data);
+      await SharedPref.setStringPref(
+        key: "user",
+        value: jsonEncode(user.toJson()),
+      );
+      setState(() {
+        loading = false;
+      });
+    }
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -81,6 +89,84 @@ class _LoginPageState extends State<LoginPage> {
     _username.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  void _showDialog() {
+    setState(() {
+      loading = false;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ), //this right here
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                width: 1,
+                color: const Color(0xffFF6600),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    // padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(
+                        width: 4,
+                        color: const Color(0xffFF6600),
+                      ),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.close,
+                        size: 50,
+                        color: Color(0xffFF6600),
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    " ชื่อผู้ใช้งานหรือพาสเวิร์ดไม่ถูกต้อง",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffFF6600),
+                      fontSize: 14,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      MainButton(
+                        ontab: () {
+                          Navigator.pop(context);
+                        },
+                        title: "ตกลง",
+                        fontSize: 10,
+                        height: 30,
+                        width: 80,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override

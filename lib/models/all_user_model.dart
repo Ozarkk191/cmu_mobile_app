@@ -26,8 +26,15 @@ class Users {
   List<User>? parent;
   List<User>? monk;
   List<User>? teacher;
+  List<User>? hospital;
 
-  Users({this.student, this.parent, this.monk, this.teacher});
+  Users({
+    this.student,
+    this.parent,
+    this.monk,
+    this.teacher,
+    this.hospital,
+  });
 
   Users.fromJson(Map<String, dynamic> json) {
     if (json['student'] != null) {
@@ -54,6 +61,12 @@ class Users {
         teacher!.add(User.fromJson(v));
       });
     }
+    if (json['hospital'] != null) {
+      hospital = <User>[];
+      json['hospital'].forEach((v) {
+        hospital!.add(User.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +82,9 @@ class Users {
     }
     if (teacher != null) {
       data['teacher'] = teacher!.map((v) => v.toJson()).toList();
+    }
+    if (hospital != null) {
+      data['hospital'] = hospital!.map((v) => v.toJson()).toList();
     }
     return data;
   }

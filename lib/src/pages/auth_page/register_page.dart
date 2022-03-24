@@ -27,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String check = "";
   bool loading = true;
 
-  String role = "รพสต";
+  String role = "วัยรุ่น";
   int studentId = 0;
   bool checkRole = false;
 
@@ -97,8 +97,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void save() async {
+    String email = _username.text.replaceAll(" ", "");
     SignUpModel param = SignUpModel(
-      email: "${_username.text.trim()}@nurse.com",
+      email: "${email.trim()}@nurse.com",
       name: _username.text,
       password: _password.text,
       passwordConfirmation: _repassword.text,
@@ -109,7 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
     // log
 
     final user = await AuthApi.signUp(param: param);
-    log(user.toJson().toString());
     await SharedPref.setStringPref(
       key: "user",
       value: jsonEncode(user.toJson()),
@@ -254,17 +254,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       _field(title: 'บทบาท', titleOnly: true),
                       MainRadioButton(
-                        title: "รพสต",
-                        onChanged: (val) {
-                          setState(() {
-                            role = val!;
-                            checkRole = false;
-                            studentId = 0;
-                          });
-                        },
-                        groupValue: role,
-                      ),
-                      MainRadioButton(
                         title: "วัยรุ่น",
                         onChanged: (val) {
                           setState(() {
@@ -298,6 +287,17 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       MainRadioButton(
                         title: "พระสงฆ์",
+                        onChanged: (val) {
+                          setState(() {
+                            role = val!;
+                            checkRole = false;
+                            studentId = 0;
+                          });
+                        },
+                        groupValue: role,
+                      ),
+                      MainRadioButton(
+                        title: "รพสต",
                         onChanged: (val) {
                           setState(() {
                             role = val!;
@@ -397,51 +397,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
-  // SizedBox teensWidget(Size _size, List<UserAuthModel> list) {
-  //   return SizedBox(
-  //     width: _size.width,
-  //     child: Column(
-  //       children: [
-  //         const SizedBox(height: 20),
-  //         const Text(
-  //           'กรุณาเลือกนักเรียนในการปกครอง',
-  //           style: TextStyle(fontSize: 16),
-  //         ),
-  //         const SizedBox(height: 20),
-  //         ListView.builder(
-  //           physics: const NeverScrollableScrollPhysics(),
-  //           shrinkWrap: true,
-  //           itemCount: list.length,
-  //           itemBuilder: (context, index) {
-  //             return Container(
-  //               width: _size.width,
-  //               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-  //               child: Row(
-  //                 children: [
-  //                   GestureDetector(
-  //                     onTap: () {
-  //                       setState(() {
-  //                         check = index.toString();
-  //                         studentId = list[index].id!;
-  //                       });
-  //                     },
-  //                     child: Icon(
-  //                       check == index.toString()
-  //                           ? Icons.check_box
-  //                           : Icons.check_box_outline_blank,
-  //                       color: Colors.orange,
-  //                     ),
-  //                   ),
-  //                   const SizedBox(width: 10),
-  //                   Text(list[index].name.toString()),
-  //                 ],
-  //               ),
-  //             );
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

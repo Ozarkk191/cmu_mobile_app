@@ -9,15 +9,22 @@ import 'package:cmu_mobile_app/services/http/http_request.dart';
 import 'package:cmu_mobile_app/models/body_parameters.dart';
 import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
 class AuthApi {
-  static Future<UserAuthModel> signIn({required LoginParameter param}) async {
+  static Future<Map<String, dynamic>> signIn(
+      {required LoginParameter param}) async {
     String url = '$baseUrl/login';
-    Map<String, dynamic> response = await HttpRequest.post(url, data: param);
-    await SharedPref.setStringPref(
-        key: "token", value: response["token"].toString());
-    UserAuthModel user = UserAuthModel.fromJson(response["user"]);
-    return user;
+    final response = await http.post(Uri.parse(url), body: param.toJson());
+    Map<String, dynamic> res = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      await SharedPref.setStringPref(
+          key: "token", value: res["token"].toString());
+
+      return res["user"];
+    }
+    return res;
   }
 
   static Future<UserAuthModel> signUp({required SignUpModel param}) async {
