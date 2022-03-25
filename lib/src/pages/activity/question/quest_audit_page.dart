@@ -50,7 +50,7 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
     user = jsonDecode(data) as Map<String, dynamic>;
     String path = "${user["role"]}/question3/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    if (res["question3"] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
           context,

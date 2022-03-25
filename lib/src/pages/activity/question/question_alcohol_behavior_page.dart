@@ -51,8 +51,10 @@ class _QuestionAlcoholBehaviorPageState
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
     String path = "${user["role"]}/question2/${user["id"]}";
+    log(path);
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    log(res.toString());
+    if (res["question2"] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
           context,

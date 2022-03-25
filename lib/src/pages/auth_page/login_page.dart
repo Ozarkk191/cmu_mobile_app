@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/models/body_parameters.dart';
@@ -9,7 +7,7 @@ import 'package:cmu_mobile_app/services/shared_preferences/shared_pref.dart';
 import 'package:cmu_mobile_app/src/pages/auth_page/register_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
-import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
+import 'package:cmu_mobile_app/src/widgets/loading/loading_box2.dart';
 import 'package:cmu_mobile_app/src/widgets/textfields/main_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +30,10 @@ class _LoginPageState extends State<LoginPage> {
       loading = true;
     });
     if (_username.text == "" || _password.text == "") {
-      log("username or password is Empty");
       setState(() {
         loading = false;
       });
     } else if (_password.text.length < 6) {
-      log("password length < 6");
       setState(() {
         loading = false;
       });
@@ -65,16 +61,15 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         loading = false;
       });
-    }
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(
-          initPage: 0,
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(
+            initPage: 0,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -174,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
       body: MainLayout(
-        child: LoadingBox(
+        child: LoadingBox2(
           loading: loading,
           child: SingleChildScrollView(
             child: Container(

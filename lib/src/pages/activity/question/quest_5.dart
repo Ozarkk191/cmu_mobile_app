@@ -53,7 +53,7 @@ class _Quest5State extends State<Quest5> {
 
     String path = "${user["role"]}/$_path/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    if (res[_path] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
           context,

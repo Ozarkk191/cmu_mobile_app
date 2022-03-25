@@ -49,7 +49,7 @@ class _Quest4State extends State<Quest4> {
     user = jsonDecode(data) as Map<String, dynamic>;
     String path = "${user["role"]}/question4/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    if (res["question4"] != null) {
       widget.controller.jumpToPage(widget.nextPage);
     } else {
       setState(() {
