@@ -37,7 +37,12 @@ class _ScoreReflexEvaluatePageState extends State<ScoreReflexEvaluatePage> {
     var res = await ScoreApi.getScore(path: path);
     log(res.toString());
     if (res["message"] == "success") {
-      return res[widget.subPath];
+      if (res[widget.subPath] == null) {
+        Map<String, dynamic> data = {widget.subPath: "0"};
+        return data;
+      } else {
+        return res[widget.subPath];
+      }
     }
     return null;
   }
@@ -92,34 +97,40 @@ class _ScoreReflexEvaluatePageState extends State<ScoreReflexEvaluatePage> {
                   child: Text('ยังไม่มีการตอบคำถาม'),
                 );
               } else {
-                var data = snapshot.data;
-                ReflexModel reflex =
-                    ReflexModel.fromJson(jsonDecode(jsonEncode(data)));
+                Map<String, dynamic> data =
+                    jsonDecode(jsonEncode(snapshot.data));
+                if (data[widget.subPath] != "0") {
+                  ReflexModel reflex = ReflexModel.fromJson(data);
 
-                return Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: [
-                        headText(question[widget.index].title!),
-                        questionText(question[widget.index].subTitle!),
-                        const SizedBox(height: 20),
-                        questionText(question[widget.index].quiz![0]),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: answerText("คำตอบของท่านคือ  " + reflex.q1!),
-                        ),
-                        const SizedBox(height: 20),
-                        questionText(question[widget.index].quiz![1]),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: answerText("คำตอบของท่านคือ  " + reflex.q2!),
-                        ),
-                      ],
+                  return Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: [
+                          headText(question[widget.index].title!),
+                          questionText(question[widget.index].subTitle!),
+                          const SizedBox(height: 20),
+                          questionText(question[widget.index].quiz![0]),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: answerText("คำตอบของท่านคือ  " + reflex.q1!),
+                          ),
+                          const SizedBox(height: 20),
+                          questionText(question[widget.index].quiz![1]),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: answerText("คำตอบของท่านคือ  " + reflex.q2!),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  return const Center(
+                    child: Text("ไม่พบข้อมูล"),
+                  );
+                }
               }
             } else {
               return const Center(
