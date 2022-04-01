@@ -34,22 +34,23 @@ class _QuestionPage2State extends State<QuestionPage2> {
   late ReflexModel reflexModel = ReflexModel();
   List<TextEditingController> controllerList = [];
   String path = "";
+  String scorePath = "";
   bool loading = true;
   @override
   void initState() {
-    checkDoThis();
     onCheckType();
 
     super.initState();
   }
 
   late Map<String, dynamic> user = <String, dynamic>{};
-  Future<void> checkDoThis() async {
+  Future<void> checkDoThis(String scorePath) async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/profile/${user["id"]}";
+    String path = "${user["role"]}/$scorePath/${user["id"]}";
+    log(path);
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    if (res[scorePath] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
           context,
@@ -85,7 +86,8 @@ class _QuestionPage2State extends State<QuestionPage2> {
         break;
       default:
     }
-    log("init==>$path");
+    checkDoThis(scorePath);
+    log("init==>$scorePath");
   }
 
   Future<String> onParentType() async {
@@ -93,39 +95,55 @@ class _QuestionPage2State extends State<QuestionPage2> {
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของผู้ปกครอง") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 4 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการตัดสินใจ":
+          scorePath = "reflex4";
           return "parent4/reflextion";
         case "กิจกรรมที่ 5 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการควบคุมอารมณ์":
+          scorePath = "reflex5";
           return "parent5/reflextion";
         case "กิจกรรมที่ 6 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการปฏิเสธ":
+          scorePath = "reflex6";
           return "parent6/reflextion";
         case "กิจกรรมที่ 7 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการผ่อนคลายความเครียด":
+          scorePath = "reflex7";
           return "parent7/reflextion";
         case "เรื่อง บทบาทของครอบครัวในการป้องกันการดื่มแอลกอฮอล์ในวัยรุ่น:แบบอย่างที่ดีมีคุณค่าต่อลูกในวัยรุ่น":
+          scorePath = "reflex8";
           return "parent8/reflextion";
         case "กิจกรรมที่ 9 การสร้างครอบครัวให้เป็นเกราะป้องกันเครื่องดื่มแอลกอฮอล์":
+          scorePath = "reflex9";
           return "parent9/reflextion";
         case "บทบาทของครอบครัวในการป้องกันการดื่มแอลกอฮอล์ในวัยรุ่น: สื่อสารอย่างไร ลูกห่างไกลจากแอลกอฮออล์":
+          scorePath = "reflex10";
           return "parent10/reflextion";
         default:
+          scorePath = "";
           return "";
       }
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
+          scorePath = "eval5";
           return "parent5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
+          scorePath = "eval6";
           return "parent6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
+          scorePath = "eval7";
           return "parent7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
+          scorePath = "eval8";
           return "parent8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          scorePath = "eval9";
           return "parent9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          scorePath = "eval10";
           return "parent10/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
+          scorePath = "eval11";
           return "parent11/evaluate";
         default:
+          scorePath = "";
           return "";
       }
     }
@@ -135,37 +153,52 @@ class _QuestionPage2State extends State<QuestionPage2> {
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของวัยรุ่น") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 4 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการตัดสินใจ":
+          scorePath = "reflex4";
           return "student4";
         case "กิจกรรมที่ 5 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการควบคุมอารมณ์":
+          scorePath = "reflex5";
           return path = "student5/reflextion";
         case "กิจกรรมที่ 6 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการปฏิเสธ":
+          scorePath = "reflex6";
           return path = "student6/reflextion";
         case "กิจกรรมที่ 7 ทักษะชีวิตพิชิตแอลกอฮอล์: ทักษะการผ่อนคลายความเครียด":
+          scorePath = "reflex7";
           return path = "student7/reflextion";
         case "กิจกรรมที่ 8 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 ความเมตตา กรุณา":
+          scorePath = "reflex8";
           return path = "student8/reflextion";
         case "กิจกรรมที่ 9 คุณธรรมสำคัญอย่างไร: หลักพรหมวิหาร 4 มุทิตา อุเบกขา":
+          scorePath = "reflex9";
           return path = "student9/reflextion";
         case "กิจกรรมที่ 10 เรื่อง การเห็นคุณค่าในตัวเอง":
+          scorePath = "reflex10";
           return path = "student10/reflextion";
         default:
+          scorePath = "";
           return "";
       }
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
+          scorePath = "eval5";
           return path = "student5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
+          scorePath = "eval6";
           return path = "student6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
+          scorePath = "eval7";
           return path = "student7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
+          scorePath = "eval8";
           return path = "student8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          scorePath = "eval9";
           return path = "student9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          scorePath = "eval10";
           return path = "student10/evaluate";
         default:
+          scorePath = "";
           return "";
       }
     }
@@ -175,31 +208,43 @@ class _QuestionPage2State extends State<QuestionPage2> {
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของครู") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 4  เรื่อง บทบาทของครูในการป้องกันการดื่มแอลกอฮอล์ในนักเรียน":
+          scorePath = "reflex4";
           return "teacher4/reflextion";
         case "กิจกรรมที่ 5  เรื่อง การคัดกรองผู้ที่ติดสารเสพติด/ ดื่มเครื่องดื่มแอลกอฮอล์":
+          scorePath = "reflex5";
           return path = "teacher5/reflextion";
         case "กิจกรรมที่ 6  เรื่อง การให้คำปรึกษานักเรียนที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์":
+          scorePath = "reflex6";
           return path = "teacher6/reflextion";
         case "กิจกรรมที่ 7 เรื่อง การเฝ้าระวังและกำกับติดตามนักเรียนที่มีความเสี่ยงหรือดื่มแอลกอฮอล์":
+          scorePath = "reflex7";
           return path = "teacher7/reflextion";
         case "กิจกรรมที่ 8 เรื่อง การเห็นคุณค่าในตนเอง และการเสริมแรงเพื่อปรับพฤติกรรม":
+          scorePath = "reflex8";
           return path = "teacher8/reflextion";
         default:
+          scorePath = "";
           return "";
       }
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
+          scorePath = "eval5";
           return path = "teacher5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
+          scorePath = "eval6";
           return path = "teacher6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
+          scorePath = "eval7";
           return path = "teacher7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
+          scorePath = "eval8";
           return path = "teacher8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          scorePath = "eval9";
           return path = "teacher9/evaluate";
         default:
+          scorePath = "";
           return "";
       }
     }
@@ -209,28 +254,37 @@ class _QuestionPage2State extends State<QuestionPage2> {
     if (widget.learningModel.title! == "แบบสะท้อนการเรียนรู้ของพระสงฆ์") {
       switch (widget.learningModel.subTitle!) {
         case "กิจกรรมที่ 8 เรื่อง วัดปลอดสุรา (กฏหมายและกิจกรรมที่ทำได้ในวัด)":
+          scorePath = "reflex8";
           return "monk8/reflextion";
         case "กิจกรรมที่ 9 ธรรมเทศนานําใจ ป้องกันภัยจากสุรา":
+          scorePath = "reflex9";
           return path = "monk9/reflextion";
         case "กิจกรรมที่ 10 สื่อสารอย่างไรให้ญาติยมเข้าใจและห่างไกลจากสุรา  (เทคนิคการสื่อสารด้วยเสียงตามสาย)":
+          scorePath = "reflex10";
           return path = "monk10/reflextion";
         case "กิจกรรมที่ 11 การให้คำปรึกษาวัยรุ่นที่มีปัญหาการใช้สารเสพติด/แอลกอฮอล์":
+          scorePath = "reflex11";
           return path = "monk11/reflextion";
         default:
+          scorePath = "";
           return "";
       }
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
+          scorePath = "eval9";
           return path = "monk9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
+          scorePath = "eval10";
           return path = "monk10/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
+          scorePath = "eval11";
           return path = "monk11/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 11":
+          scorePath = "eval12";
           return path = "monk12/evaluate";
-
         default:
+          scorePath = "";
           return "";
       }
     }
