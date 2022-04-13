@@ -191,40 +191,40 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
                       const SizedBox(
                         height: 50,
                       ),
-                      // Slider(
-                      //   value: _controller.value.position.inSeconds.toDouble(),
-                      //   max: _controller.value.duration.inSeconds.toDouble(),
-                      //   divisions: 100,
-                      //   label: _controller.value.position.inSeconds
-                      //       .toDouble()
-                      //       .round()
-                      //       .toString(),
-                      //   onChanged: (double value) {
-                      //     setState(() {
-                      //       _controller.seekTo(
-                      //         Duration(
-                      //           seconds: value.toInt(),
-                      //         ),
-                      //       );
-                      //     });
-                      //   },
-                      // ),
-                      // MainButton(
-                      //   ontab: () {
-                      //     if (widget.nextPage == widget.endPage) {
-                      //       Navigator.pushReplacement(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) =>
-                      //               const HomePage(initPage: 0),
-                      //         ),
-                      //       );
-                      //     } else {
-                      //       widget.controller.jumpToPage(widget.nextPage);
-                      //     }
-                      //   },
-                      //   title: "next",
-                      // ),
+                      Slider(
+                        value: _controller.value.position.inSeconds.toDouble(),
+                        max: _controller.value.duration.inSeconds.toDouble(),
+                        divisions: 100,
+                        label: _controller.value.position.inSeconds
+                            .toDouble()
+                            .round()
+                            .toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _controller.seekTo(
+                              Duration(
+                                seconds: value.toInt(),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                      MainButton(
+                        ontab: () {
+                          if (widget.nextPage == widget.endPage) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const HomePage(initPage: 0),
+                              ),
+                            );
+                          } else {
+                            widget.controller.jumpToPage(widget.nextPage);
+                          }
+                        },
+                        title: "next",
+                      ),
                     ],
                   )
                 : Container(),

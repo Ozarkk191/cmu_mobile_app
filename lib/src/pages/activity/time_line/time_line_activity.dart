@@ -5,6 +5,7 @@ import 'package:cmu_mobile_app/src/pages/activity/question/quest_4.dart';
 import 'package:cmu_mobile_app/src/pages/activity/question/quest_5.dart';
 import 'package:cmu_mobile_app/src/pages/activity/question/quest_audit_page.dart';
 import 'package:cmu_mobile_app/src/pages/activity/question/question_alcohol_behavior_page.dart';
+import 'package:cmu_mobile_app/src/pages/activity/question/question_page10.dart';
 import 'package:cmu_mobile_app/src/pages/activity/question/question_page2.dart';
 import 'package:cmu_mobile_app/utils/quiz_list.dart';
 import 'package:cmu_mobile_app/utils/time_line.dart';
@@ -593,12 +594,17 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       esteem: true,
     ),
-    QuestionPage2(
-      learningModel: teenLearning[6],
+    QuestionPage10(
       controller: controller,
       nextPage: 4,
       endPage: 4,
     ),
+    // QuestionPage2(
+    //   learningModel: teenLearning[6],
+    //   controller: controller,
+    //   nextPage: 4,
+    //   endPage: 4,
+    // ),
   ];
   List<Widget> activity11WidgetList = [
     CoverPage(
