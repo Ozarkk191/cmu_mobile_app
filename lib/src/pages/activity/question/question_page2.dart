@@ -122,25 +122,25 @@ class _QuestionPage2State extends State<QuestionPage2> {
     } else {
       switch (widget.learningModel.title!) {
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 4":
-          scorePath = "eval5";
+          scorePath = "eval4";
           return "parent5/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 5":
-          scorePath = "eval6";
+          scorePath = "eval5";
           return "parent6/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 6":
-          scorePath = "eval7";
+          scorePath = "eval6";
           return "parent7/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 7":
-          scorePath = "eval8";
+          scorePath = "eval7";
           return "parent8/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 8":
-          scorePath = "eval9";
+          scorePath = "eval8";
           return "parent9/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 9":
-          scorePath = "eval10";
+          scorePath = "eval9";
           return "parent10/evaluate";
         case "การกำกับติดตามและประเมินผลการทำกิจกรรมที่ 10":
-          scorePath = "eval11";
+          scorePath = "eval10";
           return "parent11/evaluate";
         default:
           scorePath = "";
