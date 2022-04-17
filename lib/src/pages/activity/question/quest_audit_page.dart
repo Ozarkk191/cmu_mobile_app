@@ -48,8 +48,15 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
   Future<void> checkDoThis() async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/question3/${user["id"]}";
+    String path = "";
+    if (widget.type == "pre") {
+      path = "${user["role"]}/question3/${user["id"]}";
+    } else {
+      path = "${user["role"]}/question3/${user["id"]}/post";
+    }
+
     var res = await ScoreApi.getScore(path: path);
+    log(res["question3"].toString());
     if (res["question3"] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
@@ -87,7 +94,6 @@ class _QuestAuditPageState extends State<QuestAuditPage> {
         question3.q8! +
         question3.q9! +
         question3.q10!;
-
     question3.total = total;
     question3.type = widget.type;
     String path = user["role"];

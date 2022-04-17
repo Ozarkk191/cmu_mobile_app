@@ -623,22 +623,26 @@ class _TimelineActivityState extends State<TimelineActivity> {
       nextPage: 3,
       number: 1,
       endPage: 10,
+      type: "post",
     ),
     QuestAuditPage(
       controller: controller,
       nextPage: 4,
       number: 2,
+      type: "post",
     ),
     Quest4(
       controller: controller,
       nextPage: 5,
       number: 3,
+      type: "post",
     ),
     Quest5(
       controller: controller,
       nextPage: 6,
       quizType: "แบบวัดทัศนคติต่อการดื่มเครื่องดื่มแอลกอฮอล์",
       number: 4,
+      type: "post",
     ),
     Quest5(
       controller: controller,
@@ -653,12 +657,14 @@ class _TimelineActivityState extends State<TimelineActivity> {
       number: 6,
       quizType:
           "แบบสอบถามการควบคุมและการส่งเสริมการดื่มเครื่องดื่มแอลกอฮอล์ของพ่อแม่",
+      type: "post",
     ),
     Quest5(
       controller: controller,
       nextPage: 9,
       number: 7,
       quizType: "แบบวัดความตั้งใจในการไม่ดื่มเครื่องดื่มแอลกอฮอล์",
+      type: "post",
     ),
     CoverPage(
       title:
@@ -992,6 +998,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 3,
       number: 1,
+      type: "post",
     ),
     CoverPage(
       title:
@@ -1506,6 +1513,7 @@ class _TimelineActivityState extends State<TimelineActivity> {
       controller: controller,
       nextPage: 2,
       number: 1,
+      type: "post",
     ),
     CoverPage(
       title:

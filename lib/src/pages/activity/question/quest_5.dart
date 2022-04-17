@@ -51,7 +51,12 @@ class _Quest5State extends State<Quest5> {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
 
-    String path = "${user["role"]}/$_path/${user["id"]}";
+    String path = "";
+    if (widget.type == "pre") {
+      path = "${user["role"]}/$_path/${user["id"]}";
+    } else {
+      path = "${user["role"]}/$_path/${user["id"]}/post";
+    }
     var res = await ScoreApi.getScore(path: path);
     if (res[_path] != null) {
       if (widget.endPage == widget.nextPage) {

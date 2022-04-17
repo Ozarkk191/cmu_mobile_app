@@ -50,8 +50,12 @@ class _QuestionAlcoholBehaviorPageState
   Future<void> checkDoThis() async {
     final data = await SharedPref.getStringPref(key: "user");
     user = jsonDecode(data) as Map<String, dynamic>;
-    String path = "${user["role"]}/question2/${user["id"]}";
-    log(path);
+    String path = "";
+    if (widget.type == "pre") {
+      path = "${user["role"]}/question2/${user["id"]}";
+    } else {
+      path = "${user["role"]}/question2/${user["id"]}/post";
+    }
     var res = await ScoreApi.getScore(path: path);
     log(res.toString());
     if (res["question2"] != null) {
