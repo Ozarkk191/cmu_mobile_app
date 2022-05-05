@@ -240,7 +240,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         title: 'ชื่อ',
                         controller: _username,
                         hintText: 'ระบุเป็นภาษาอังกฤษหรือตัวเลข',
-                        keyboardType: TextInputType.text,
+                        onlyEng: true,
                       ),
                       _field(
                         title: 'รหัสผ่าน',
@@ -367,6 +367,7 @@ class _RegisterPageState extends State<RegisterPage> {
     bool titleOnly = false,
     bool obscureText = false,
     String hintText = "",
+    bool onlyEng = false,
     TextInputType keyboardType = TextInputType.text,
   }) {
     return SizedBox(
@@ -388,7 +389,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: controller,
                 style: const TextStyle(fontSize: 12),
                 inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                  onlyEng
+                      ? FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))
+                      : FilteringTextInputFormatter.singleLineFormatter,
                 ],
                 decoration: InputDecoration(
                   hintText: hintText,

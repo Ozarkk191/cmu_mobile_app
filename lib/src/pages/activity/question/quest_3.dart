@@ -44,7 +44,7 @@ class _Quest3State extends State<Quest3> {
     user = jsonDecode(data) as Map<String, dynamic>;
     String path = "student/posttest3/${user["id"]}";
     var res = await ScoreApi.getScore(path: path);
-    if (res["profile"] != null) {
+    if (res["posttest3"] != null) {
       if (widget.endPage == widget.nextPage) {
         Navigator.pushReplacement(
           context,
@@ -187,6 +187,56 @@ class _Quest3State extends State<Quest3> {
         }
       });
     } else {
+      successDialog();
+    }
+  }
+
+  void successDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(
+                width: 1,
+                color: const Color(0xffFF6600),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.check,
+                    size: 50,
+                    color: Color(0xffFF6600),
+                  ),
+                  Text(
+                    "ส่งคำตอบเรียบร้อยแล้ว",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffFF6600),
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    Timer(const Duration(seconds: 3), () {
       if (widget.nextPage == widget.endPage) {
         Navigator.pushReplacement(
           context,
@@ -196,8 +246,9 @@ class _Quest3State extends State<Quest3> {
         );
       } else {
         widget.controller.jumpToPage(widget.nextPage);
+        Navigator.pop(context);
       }
-    }
+    });
   }
 
   @override
