@@ -10,6 +10,7 @@ import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_radio_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -239,6 +240,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         title: 'ชื่อ',
                         controller: _username,
                         hintText: 'ระบุเป็นภาษาอังกฤษหรือตัวเลข',
+                        keyboardType: TextInputType.text,
                       ),
                       _field(
                         title: 'รหัสผ่าน',
@@ -385,6 +387,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: obscureText,
                 controller: controller,
                 style: const TextStyle(fontSize: 12),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                ],
                 decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: const TextStyle(fontSize: 8, color: Colors.grey),
