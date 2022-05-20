@@ -1,3 +1,4 @@
+import 'package:cmu_mobile_app/src/pages/list_group/not_done/not_done_page.dart';
 import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,49 +25,122 @@ class _DownloadPageState extends State<DownloadPage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  "EXPORT DATA",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               SizedBox(
                 width: _size.width * 0.35,
                 height: _size.width * 0.35,
                 child: Image.asset('assets/images/app_icon.png'),
               ),
               const SizedBox(height: 20),
-              MainButton(
-                width: _size.width * 0.7,
-                title: "Export data วัยรุ่น",
-                ontab: () {
-                  launchURL(
-                      "https://nurseapi.herokuapp.com/public/api/student/export");
-                },
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Pretest วัยรุ่น",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/student/export/pre");
+                        },
+                      ),
+                      SizedBox(width: _size.width * 0.05),
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Posttest วัยรุ่น",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/student/export/post");
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Pretest พ่อแม่",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/parent/export/pre");
+                        },
+                      ),
+                      SizedBox(width: _size.width * 0.05),
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Posttest พ่อแม่",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/parent/export/post");
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  MainButton(
+                    width: _size.width * 0.85,
+                    title: " คุณครู",
+                    ontab: () {
+                      launchURL(
+                          "https://nurseapi.herokuapp.com/public/api/teacher/export");
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  MainButton(
+                    width: _size.width * 0.85,
+                    title: " พระสงฆ์",
+                    ontab: () {
+                      launchURL(
+                          "https://nurseapi.herokuapp.com/public/api/monk/export");
+                    },
+                  ),
+                  const SizedBox(height: 50),
+                  MainButton(
+                    width: _size.width * 0.85,
+                    title: "รายชื่อวัยรุ่นยังไม่ได้ทำกิจกรรม",
+                    color: Colors.green,
+                    ontab: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const NotDonePage(role: "student"),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  MainButton(
+                    width: _size.width * 0.85,
+                    title: "รายชื่อผู้ปกครองยังไม่ได้ทำกิจกรรม",
+                    color: Colors.green,
+                    ontab: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const NotDonePage(role: "parent"),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              MainButton(
-                width: _size.width * 0.7,
-                title: "Export data พ่อแม่",
-                ontab: () {
-                  launchURL(
-                      "https://nurseapi.herokuapp.com/public/api/parent/export");
-                },
-              ),
-              const SizedBox(height: 20),
-              MainButton(
-                width: _size.width * 0.7,
-                title: "Export data คุณครู",
-                ontab: () {
-                  launchURL(
-                      "https://nurseapi.herokuapp.com/public/api/teacher/export");
-                },
-              ),
-              const SizedBox(height: 20),
-              MainButton(
-                width: _size.width * 0.7,
-                title: "Export data พระสงฆ์",
-                ontab: () {
-                  launchURL(
-                      "https://nurseapi.herokuapp.com/public/api/monk/export");
-                },
-              ),
+              const SizedBox(height: 50),
             ],
           ),
         ),

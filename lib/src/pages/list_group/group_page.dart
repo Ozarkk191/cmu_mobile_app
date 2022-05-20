@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:cmu_mobile_app/models/all_user_model.dart';
+import 'package:cmu_mobile_app/src/pages/list_group/not_done/not_done_page.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/avatar/custom_avatar.dart';
+import 'package:cmu_mobile_app/src/widgets/buttons/main_button.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
 import 'package:cmu_mobile_app/src/widgets/line/line.dart';
 import 'package:cmu_mobile_app/src/widgets/textfields/search_textfield.dart';
@@ -41,7 +43,26 @@ class _GroupPageState extends State<GroupPage> {
             ),
             const SizedBox(height: 40),
             const SearchTextField(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
+            Visibility(
+              visible:
+                  widget.groupName == "student" || widget.groupName == "parent",
+              child: MainButton(
+                ontab: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotDonePage(
+                        role: widget.groupName,
+                      ),
+                    ),
+                  );
+                },
+                width: MediaQuery.of(context).size.width * 0.85,
+                title: "คนที่ยังไม่ได้ทำกิจกรรม",
+              ),
+            ),
+            const SizedBox(height: 20),
             const Line(),
             Expanded(
               child: ListView.builder(
@@ -52,12 +73,14 @@ class _GroupPageState extends State<GroupPage> {
                       log(widget.listUser[index].toJson().toString());
                       log(widget.groupName);
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ScoreMainPage(
-                                    role: widget.groupName,
-                                    user: widget.listUser[index],
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScoreMainPage(
+                            role: widget.groupName,
+                            user: widget.listUser[index],
+                          ),
+                        ),
+                      );
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(

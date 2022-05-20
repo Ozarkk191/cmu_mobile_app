@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> adminList = [
       NavigationTab(
         icon: Icons.dashboard,
-        title: 'Dashborad',
+        title: 'Export Data',
         ontap: () => _onItemTapped(0),
       ),
       NavigationTab(

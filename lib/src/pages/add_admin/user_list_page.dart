@@ -161,12 +161,11 @@ class _UserListPageState extends State<UserListPage> {
                                     );
                                   },
                                   title: "เปลี่ยน Password",
-                                  fontSize: 8,
                                 ),
                                 const SizedBox(width: 5),
                                 MainButton(
                                   height: 35,
-                                  width: 40,
+                                  width: 60,
                                   ontab: () {
                                     // log(widget.userList[index].id!.toString());
                                     _showMyDialog(
@@ -175,7 +174,7 @@ class _UserListPageState extends State<UserListPage> {
                                     );
                                   },
                                   title: "ลบ",
-                                  fontSize: 8,
+                                  fontSize: 7,
                                 ),
                               ],
                             ),

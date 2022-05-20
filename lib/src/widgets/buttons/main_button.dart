@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
@@ -28,6 +29,7 @@ class MainButton extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: BoxDecoration(
           color: enabled ? color : Colors.grey,
           borderRadius: BorderRadius.all(
@@ -35,8 +37,9 @@ class MainButton extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text(
+          child: AutoSizeText(
             '$title',
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
               fontSize: fontSize,

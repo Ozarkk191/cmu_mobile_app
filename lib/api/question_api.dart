@@ -36,4 +36,14 @@ class QuestionApi {
     );
     return response;
   }
+
+  static Future<Map<String, dynamic>> getUpSent() async {
+    String url = '$baseUrl/absent';
+    final response = await HttpRequest.get(
+      url,
+      withAccessToken: true,
+    );
+    // log(response.toString());
+    return response;
+  }
 }

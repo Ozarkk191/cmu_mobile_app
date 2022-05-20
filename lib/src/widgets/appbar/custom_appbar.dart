@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
@@ -9,8 +10,9 @@ class CustomAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      width: MediaQuery.of(context).size.width,
+      height: 70,
+      child: Stack(
         children: [
           GestureDetector(
             onTap: onTap,
@@ -19,9 +21,12 @@ class CustomAppbar extends StatelessWidget {
               height: 70,
               child: Stack(
                 children: [
-                  Image.asset(
-                    "assets/images/ic_back_button.png",
-                    fit: BoxFit.cover,
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Image.asset(
+                      "assets/images/ic_back_button.png",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.fromLTRB(10, 10, 0, 0),
@@ -34,13 +39,11 @@ class CustomAppbar extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: Text(
-                "$title",
-                textAlign: TextAlign.center,
-              ),
+          Center(
+            child: AutoSizeText(
+              "$title",
+              textAlign: TextAlign.center,
+              maxLines: 1,
             ),
           ),
           const SizedBox(
