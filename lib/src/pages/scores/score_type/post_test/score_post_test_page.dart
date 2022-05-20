@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/questions/post_test_model.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';

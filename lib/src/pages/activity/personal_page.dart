@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/api/score_api.dart';
 import 'package:cmu_mobile_app/models/profile_model.dart';

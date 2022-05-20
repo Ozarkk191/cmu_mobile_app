@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/auth_api.dart';
 import 'package:cmu_mobile_app/models/all_user_model.dart';
 import 'package:cmu_mobile_app/src/pages/add_admin/user_list_page.dart';

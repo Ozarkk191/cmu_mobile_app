@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:cmu_mobile_app/api/question_api.dart';
 import 'package:cmu_mobile_app/models/questions/upsent_model.dart';
 import 'package:cmu_mobile_app/src/widgets/appbar/custom_appbar.dart';
 import 'package:cmu_mobile_app/src/widgets/layouts/main_layout.dart';
-import 'package:cmu_mobile_app/src/widgets/loading/loading_box.dart';
 import 'package:cmu_mobile_app/src/widgets/loading/loading_box2.dart';
 import 'package:flutter/material.dart';
 
