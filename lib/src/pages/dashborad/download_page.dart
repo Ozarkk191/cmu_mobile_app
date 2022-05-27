@@ -91,13 +91,27 @@ class _DownloadPageState extends State<DownloadPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  MainButton(
-                    width: _size.width * 0.85,
-                    title: " คุณครู",
-                    ontab: () {
-                      launchURL(
-                          "https://nurseapi.herokuapp.com/public/api/teacher/export");
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Pretest คุณครู",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/teacher/export/pre");
+                        },
+                      ),
+                      SizedBox(width: _size.width * 0.05),
+                      MainButton(
+                        width: _size.width * 0.4,
+                        title: "Posttest คุณครู",
+                        ontab: () {
+                          launchURL(
+                              "https://nurseapi.herokuapp.com/public/api/teacher/export/post");
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   MainButton(
